@@ -17,7 +17,6 @@ size = Vector2(35, 35)
 size = Vector2(32, 32)
 
 [node name="tank_melee" type="CharacterBody2D"]
-position = Vector2(-1, 0)
 collision_layer = 4
 script = ExtResource("1_2el2d")
 speed = 50

@@ -10,8 +10,8 @@ extends CharacterBody2D
 
 
 func _physics_process(delta: float) -> void:
-	move_to_player()
-
+	if big_guy and small_guy:
+		move_to_player()
 	move_and_slide()
 	
 

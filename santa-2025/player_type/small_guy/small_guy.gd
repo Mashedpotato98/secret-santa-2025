@@ -5,8 +5,12 @@ extends CharacterBody2D
 @export var dash_cooldown:float = 0.3
 
 @onready var speed:int = regular_speed
-
+@onready var health_ui:Label = $CanvasLayer/Label
 @onready var sword:Node2D = $sword
+@onready var hurtbox:hurtBox = $hurtbox
+
+func _ready() -> void:
+	health_ui.text = str(hurtbox.max_hp)
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("melee"):
@@ -41,3 +45,7 @@ func sword_direction(_event:InputEvent):
 		sword.rotation = Vector2.UP.angle()
 	if _event.is_action_pressed("alt_down"):
 		sword.rotation = Vector2.DOWN.angle()
+
+
+func _on_hurtbox_got_hit() -> void:
+	health_ui.text = str(hurtbox.max_hp)
