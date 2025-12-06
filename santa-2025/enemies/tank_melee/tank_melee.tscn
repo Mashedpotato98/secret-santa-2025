@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://7apob1ku4abi"]
+
+[ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/tank_melee.gd" id="1_2el2d"]
+[ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="2_sd0kh"]
+[ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="3_te1yc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4lvjg"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_te1yc"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0kh"]
+size = Vector2(35, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajovx"]
+size = Vector2(32, 32)
+
+[node name="tank_melee" type="CharacterBody2D"]
+position = Vector2(-1, 0)
+collision_layer = 4
+script = ExtResource("1_2el2d")
+speed = 50
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_4lvjg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_te1yc")
+
+[node name="hitbox" parent="." instance=ExtResource("2_sd0kh")]
+collision_layer = 0
+damage = 2
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_sd0kh")
+
+[node name="hurtbox" parent="." instance=ExtResource("3_te1yc")]
+collision_layer = 4
+collision_mask = 0
+max_hp = 4
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_ajovx")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+
+[editable path="hitbox"]
+[editable path="hurtbox"]

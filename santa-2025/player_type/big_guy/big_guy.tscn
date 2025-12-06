@@ -11,7 +11,7 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8ldj"]
 size = Vector2(32, 32)
 
-[node name="Big_guy" type="CharacterBody2D"]
+[node name="Big_guy" type="CharacterBody2D" groups=["big_guy"]]
 collision_mask = 8
 script = ExtResource("1_buqfc")
 speed = 100
@@ -32,6 +32,12 @@ max_hp = 5
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_m8ldj")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 

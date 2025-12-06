@@ -23,6 +23,11 @@ project/assembly_name="santa-2025"
 
 enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 
+[global_group]
+
+small_guy=""
+big_guy=""
+
 [input]
 
 shoot={

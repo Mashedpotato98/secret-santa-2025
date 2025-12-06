@@ -11,7 +11,8 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr3ml"]
 size = Vector2(14, 14)
 
-[node name="SmallGuy" type="CharacterBody2D"]
+[node name="SmallGuy" type="CharacterBody2D" groups=["small_guy"]]
+collision_mask = 8
 script = ExtResource("1_o2pp6")
 regular_speed = 150
 dash_speed = 300
@@ -29,8 +30,9 @@ max_hp = 3
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_wr3ml")
 
-[node name="sword" parent="." node_paths=PackedStringArray("manager") instance=ExtResource("4_ikgte")]
+[node name="sword" parent="." instance=ExtResource("4_ikgte")]
 position = Vector2(0, -7)
-manager = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [editable path="hurtbox"]

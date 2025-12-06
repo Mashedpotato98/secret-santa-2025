@@ -1,13 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=5 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="2_hyim0"]
+[ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/tank_melee.tscn" id="3_4f7fj"]
+[ext_resource type="Script" uid="uid://77yh22666j63" path="res://world/spawner.gd" id="4_spvjk"]
 
 [node name="main" type="Node2D"]
 position = Vector2(62, 105)
 
 [node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
-position = Vector2(0, -1)
+position = Vector2(263, -55)
 
 [node name="Big_guy" parent="." instance=ExtResource("2_hyim0")]
 position = Vector2(136, 16)
+
+[node name="tank_melee" parent="." instance=ExtResource("3_4f7fj")]
+position = Vector2(572, 518)
+
+[node name="spawner" type="Node2D" parent="."]
+position = Vector2(-1, 0)
+script = ExtResource("4_spvjk")
+
+[node name="Timer" type="Timer" parent="spawner"]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]
