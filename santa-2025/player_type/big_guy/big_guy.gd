@@ -7,3 +7,7 @@ func _physics_process(delta: float) -> void:
 	
 	velocity = direction * speed 
 	move_and_slide()
+
+
+func _on_hurtbox_got_hit() -> void:
+	print("I got hit" + str(self))

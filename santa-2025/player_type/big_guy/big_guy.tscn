@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="4_m8ldj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jn63w"]
-size = Vector2(32, 27)
+size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8ldj"]
 size = Vector2(32, 32)
 
 [node name="Big_guy" type="CharacterBody2D"]
+collision_mask = 8
 script = ExtResource("1_buqfc")
 speed = 100
 
@@ -19,15 +20,19 @@ speed = 100
 texture = ExtResource("1_jn63w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_jn63w")
 
 [node name="Big_weapon" parent="." node_paths=PackedStringArray("big_guy") instance=ExtResource("3_ilc6v")]
 big_guy = NodePath("..")
 
 [node name="hurtbox" parent="." instance=ExtResource("4_m8ldj")]
+visible = false
+collision_mask = 0
+max_hp = 5
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
 shape = SubResource("RectangleShape2D_m8ldj")
+
+[connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 
 [editable path="hurtbox"]

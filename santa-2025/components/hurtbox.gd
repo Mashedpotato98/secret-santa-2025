@@ -7,7 +7,9 @@ signal got_hit
 
 func damage(hitbox:hitBox):
 	hp -= hitbox.damage
+	print(hp)
 	if (hp <= 0):
+		print("Should die")
 		get_parent().queue_free()
 	got_hit.emit()
 	

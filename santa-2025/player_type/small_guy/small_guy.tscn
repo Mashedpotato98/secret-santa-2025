@@ -13,7 +13,8 @@ size = Vector2(14, 14)
 
 [node name="SmallGuy" type="CharacterBody2D"]
 script = ExtResource("1_o2pp6")
-speed = 150
+regular_speed = 150
+dash_speed = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_0m1q5")
@@ -22,6 +23,7 @@ texture = ExtResource("1_0m1q5")
 shape = SubResource("RectangleShape2D_0m1q5")
 
 [node name="hurtbox" parent="." instance=ExtResource("3_wr3ml")]
+collision_mask = 0
 max_hp = 3
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
