@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dri8ipi41832e"]
+
+[ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
+[ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="2_hyim0"]
+
+[node name="main" type="Node2D"]
+position = Vector2(62, 105)
+
+[node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
+position = Vector2(0, -1)
+
+[node name="Big_guy" parent="." instance=ExtResource("2_hyim0")]
+position = Vector2(136, 16)

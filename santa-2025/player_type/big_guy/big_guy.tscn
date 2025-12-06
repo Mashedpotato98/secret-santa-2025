@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://kxmwduvgdusb"]
+[gd_scene load_steps=7 format=3 uid="uid://kxmwduvgdusb"]
 
 [ext_resource type="Script" uid="uid://ctqxqg3psi2jb" path="res://player_type/big_guy/big_guy.gd" id="1_buqfc"]
 [ext_resource type="Texture2D" uid="uid://qgomanmvy63j" path="res://assets/prototype_assets/big_guy.png" id="1_jn63w"]
 [ext_resource type="PackedScene" uid="uid://bm4pld2vgml0m" path="res://player_type/big_guy/weapon/big_weapon.tscn" id="3_ilc6v"]
+[ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="4_m8ldj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jn63w"]
 size = Vector2(32, 27)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8ldj"]
+size = Vector2(32, 32)
+
 [node name="Big_guy" type="CharacterBody2D"]
 script = ExtResource("1_buqfc")
-speed = 50
+speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_jn63w")
@@ -20,3 +24,10 @@ shape = SubResource("RectangleShape2D_jn63w")
 
 [node name="Big_weapon" parent="." node_paths=PackedStringArray("big_guy") instance=ExtResource("3_ilc6v")]
 big_guy = NodePath("..")
+
+[node name="hurtbox" parent="." instance=ExtResource("4_m8ldj")]
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_m8ldj")
+
+[editable path="hurtbox"]

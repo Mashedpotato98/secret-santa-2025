@@ -1,0 +1,156 @@
+[gd_scene load_steps=9 format=3 uid="uid://bcwvt7odc8aw7"]
+
+[ext_resource type="Texture2D" uid="uid://b6hqxc6qo78h0" path="res://assets/prototype_assets/sword.png" id="1_tagml"]
+[ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
+[ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uschr"]
+particle_flag_disable_z = true
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = 279.52997
+orbit_velocity_min = -0.77599996
+orbit_velocity_max = -0.18799992
+radial_velocity_min = 23.529978
+radial_velocity_max = 23.529978
+gravity = Vector3(0, -98, 0)
+linear_accel_min = 31.759996
+linear_accel_max = 62.349995
+radial_accel_min = -100.0
+radial_accel_max = -100.0
+tangential_accel_min = -100.0
+tangential_accel_max = 9.419997
+scale_max = 2.0
+scale_over_velocity_max = 264.71
+anim_speed_max = 4.52
+anim_offset_max = 0.1471
+
+[sub_resource type="Animation" id="Animation_h07ds"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uschr"]
+resource_name = "atttack"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.5707964, 1.5707964]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:skew")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.19999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.34906584, 0.34906584]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimationPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h07ds"]
+_data = {
+&"RESET": SubResource("Animation_h07ds"),
+&"atttack": SubResource("Animation_uschr")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
+size = Vector2(59.183823, 48.952187)
+
+[node name="sword" type="Node2D"]
+script = ExtResource("1_uschr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.8146973e-06, -24)
+texture = ExtResource("1_tagml")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
+position = Vector2(-1.4669065, -15.374577)
+emitting = false
+amount = 16
+lifetime = 0.3
+speed_scale = 1.5
+explosiveness = 0.1
+process_material = SubResource("ParticleProcessMaterial_uschr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_h07ds")
+}
+
+[node name="hitbox" parent="." instance=ExtResource("3_h07ds")]
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2(1.216919, -40.43875)
+shape = SubResource("RectangleShape2D_h07ds")
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+
+[editable path="hitbox"]

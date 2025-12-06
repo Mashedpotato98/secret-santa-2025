@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccwoxfnq1xscr"]
+
+[ext_resource type="Texture2D" uid="uid://dmt8m0x3s0aeh" path="res://assets/prototype_assets/small_guy.png" id="1_0m1q5"]
+[ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
+[ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="3_wr3ml"]
+[ext_resource type="PackedScene" uid="uid://bcwvt7odc8aw7" path="res://player_type/small_guy/sword/sword.tscn" id="4_ikgte"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1q5"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wr3ml"]
+size = Vector2(14, 14)
+
+[node name="SmallGuy" type="CharacterBody2D"]
+script = ExtResource("1_o2pp6")
+speed = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0m1q5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0m1q5")
+
+[node name="hurtbox" parent="." instance=ExtResource("3_wr3ml")]
+max_hp = 3
+
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_wr3ml")
+
+[node name="sword" parent="." node_paths=PackedStringArray("manager") instance=ExtResource("4_ikgte")]
+position = Vector2(0, -7)
+manager = NodePath("..")
+
+[editable path="hurtbox"]
