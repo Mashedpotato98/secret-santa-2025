@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 func shoot():
 	var bullet_ins:CharacterBody2D = bullet.instantiate()
 	bullet_ins.global_position = global_position
-	bullet_ins.direction = big_guy.velocity.direction_to(get_global_mouse_position())
+	bullet_ins.direction = Vector2.from_angle(rotation)
 	get_tree().root.add_child(bullet_ins)
 	canShoot = false
 	cooldownTimer.start()

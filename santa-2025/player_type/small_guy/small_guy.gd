@@ -8,6 +8,9 @@ extends CharacterBody2D
 @onready var health_ui:Label = $CanvasLayer/Label
 @onready var sword:Node2D = $sword
 @onready var hurtbox:hurtBox = $hurtbox
+@onready var knockback_receiver:Node2D = $knockback_receiver
+
+var knockback:Vector2
 
 func _ready() -> void:
 	health_ui.text = str(hurtbox.max_hp)
@@ -26,7 +29,9 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	var direction:Vector2 = Input.get_vector("alt_left","alt_right","alt_up","alt_down")
 	
-	velocity = direction * speed
+	velocity = direction * speed + knockback
+	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+
 	move_and_slide()
 
 	
@@ -47,5 +52,9 @@ func sword_direction(_event:InputEvent):
 		sword.rotation = Vector2.DOWN.angle()
 
 
-func _on_hurtbox_got_hit() -> void:
+func _on_hurtbox_got_hit(hp:int) -> void:
 	health_ui.text = str(hurtbox.max_hp)
+
+
+func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
+	knockback = knockback_receiver.apply_knockback(direction, knockback_strength)

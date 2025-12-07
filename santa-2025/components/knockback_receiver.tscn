@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwsmr01fo5ush"]
+
+[ext_resource type="Script" uid="uid://m2h6elkiqix0" path="res://components/knockback_receiver.gd" id="1_qoljx"]
+
+[node name="knockback_receiver" type="Node2D" node_paths=PackedStringArray("body")]
+script = ExtResource("1_qoljx")
+body = NodePath("")

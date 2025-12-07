@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccwoxfnq1xscr"]
+[gd_scene load_steps=8 format=3 uid="uid://ccwoxfnq1xscr"]
 
 [ext_resource type="Texture2D" uid="uid://dmt8m0x3s0aeh" path="res://assets/prototype_assets/small_guy.png" id="1_0m1q5"]
 [ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="3_wr3ml"]
 [ext_resource type="PackedScene" uid="uid://bcwvt7odc8aw7" path="res://player_type/small_guy/sword/sword.tscn" id="4_ikgte"]
+[ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_1og6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0m1q5"]
 size = Vector2(16, 16)
@@ -41,6 +42,10 @@ offset_top = 4.0
 offset_right = 1149.0
 offset_bottom = 34.0
 
+[node name="knockback_receiver" parent="." node_paths=PackedStringArray("body") instance=ExtResource("5_1og6c")]
+body = NodePath("..")
+
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
+[connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 
 [editable path="hurtbox"]
