@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://kxmwduvgdusb"]
 
 [ext_resource type="Script" uid="uid://ctqxqg3psi2jb" path="res://player_type/big_guy/big_guy.gd" id="1_buqfc"]
-[ext_resource type="Texture2D" uid="uid://qgomanmvy63j" path="res://assets/prototype_assets/big_guy.png" id="1_jn63w"]
+[ext_resource type="Texture2D" uid="uid://canfkibwbioyh" path="res://assets/big_guy/big_guy.png" id="2_ngess"]
 [ext_resource type="PackedScene" uid="uid://bm4pld2vgml0m" path="res://player_type/big_guy/weapon/big_weapon.tscn" id="3_ilc6v"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="4_m8ldj"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_ngess"]
@@ -18,12 +18,13 @@ script = ExtResource("1_buqfc")
 speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_jn63w")
+texture = ExtResource("2_ngess")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jn63w")
 
 [node name="Big_weapon" parent="." node_paths=PackedStringArray("big_guy") instance=ExtResource("3_ilc6v")]
+position = Vector2(32, -3)
 big_guy = NodePath("..")
 
 [node name="hurtbox" parent="." instance=ExtResource("4_m8ldj")]
@@ -41,6 +42,7 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="knockback_receiver" parent="." node_paths=PackedStringArray("body") instance=ExtResource("5_ngess")]
+visible = false
 body = NodePath("..")
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]

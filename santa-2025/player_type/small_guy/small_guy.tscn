@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccwoxfnq1xscr"]
 
-[ext_resource type="Texture2D" uid="uid://dmt8m0x3s0aeh" path="res://assets/prototype_assets/small_guy.png" id="1_0m1q5"]
 [ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
+[ext_resource type="Texture2D" uid="uid://cx53nud73mbpd" path="res://assets/small_guy/small_guy.png" id="2_1og6c"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="3_wr3ml"]
 [ext_resource type="PackedScene" uid="uid://bcwvt7odc8aw7" path="res://player_type/small_guy/sword/sword.tscn" id="4_ikgte"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_1og6c"]
@@ -19,7 +19,7 @@ regular_speed = 150
 dash_speed = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_0m1q5")
+texture = ExtResource("2_1og6c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0m1q5")
@@ -32,7 +32,7 @@ max_hp = 3
 shape = SubResource("RectangleShape2D_wr3ml")
 
 [node name="sword" parent="." instance=ExtResource("4_ikgte")]
-position = Vector2(0, -7)
+position = Vector2(1, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

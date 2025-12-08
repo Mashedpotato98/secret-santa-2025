@@ -8,6 +8,8 @@
 size = Vector2(28, 28)
 
 [node name="bullet" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_1k472")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -17,6 +19,8 @@ texture = ExtResource("2_3g18n")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="hitbox" parent="." instance=ExtResource("3_w1818")]
+collision_layer = 0
+collision_mask = 4
 damage = 4
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]

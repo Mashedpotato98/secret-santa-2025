@@ -1,14 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm4pld2vgml0m"]
+[gd_scene load_steps=5 format=3 uid="uid://bm4pld2vgml0m"]
 
 [ext_resource type="Script" uid="uid://6fuxhnkje467" path="res://player_type/big_guy/weapon/big_weapon.gd" id="1_u6ppl"]
-[ext_resource type="Texture2D" uid="uid://d2c5kaxk8jyop" path="res://assets/prototype_assets/New Piskel.png" id="2_m7uff"]
+[ext_resource type="Texture2D" uid="uid://dq0e24g6ophim" path="res://assets/keytar_gun/keytar_gun1.png" id="2_u6ppl"]
+
+[sub_resource type="Animation" id="Animation_u6ppl"]
+resource_name = "charge"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7uff"]
+_data = {
+&"charge": SubResource("Animation_u6ppl")
+}
 
 [node name="Big_weapon" type="Node2D"]
 script = ExtResource("1_u6ppl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_m7uff")
+texture = ExtResource("2_u6ppl")
+offset = Vector2(25, 0)
 
 [node name="cooldownTimer" type="Timer" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(23, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m7uff")
+}
 
 [connection signal="timeout" from="cooldownTimer" to="." method="_on_cooldown_timer_timeout"]

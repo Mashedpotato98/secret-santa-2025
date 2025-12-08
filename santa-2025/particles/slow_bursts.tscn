@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://oggpcil8kah2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e2e8j"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_e2e8j"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.21685055, 0.0013609391, 0.05076333, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kycy5"]
+gradient = SubResource("Gradient_e2e8j")
+width = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kycy5"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(-1, 0, 0)
+spread = 90.0
+initial_velocity_min = 34.329998
+initial_velocity_max = 38.62
+angular_velocity_min = -611.84
+angular_velocity_max = -531.5
+gravity = Vector3(0, 98, 0)
+linear_accel_min = 27.039997
+linear_accel_max = 99.99999
+radial_accel_min = 24.029997
+radial_accel_max = 64.369995
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.0
+scale_max = 5.0
+scale_over_velocity_min = 690.99
+scale_over_velocity_max = 1000.0
+
+[node name="slow_bursts" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_e2e8j")
+emitting = false
+amount = 2
+texture = SubResource("GradientTexture1D_kycy5")
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_kycy5")
