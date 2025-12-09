@@ -15,7 +15,7 @@ size = Vector2(32, 32)
 [node name="Big_guy" type="CharacterBody2D" groups=["big_guy"]]
 collision_mask = 8
 script = ExtResource("1_buqfc")
-speed = 100
+shoot_speed = 30
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ngess")

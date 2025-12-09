@@ -4,27 +4,57 @@ var bullet:PackedScene = preload("res://player_type/big_guy/weapon/bullet.tscn")
 
 @onready var cooldownTimer:Timer = $cooldownTimer
 @onready var muzzle:Marker2D = $Marker2D
+@onready var animation_player:AnimationPlayer = $AnimationPlayer
 
 @export var big_guy:CharacterBody2D 
+@export var canShoot:bool = true
+@export var owner_speed:int = 20
 
-var canShoot:bool = true
+func _input(event: InputEvent) -> void:
+	if event.is_action('shoot') and canShoot == true:
+		charge()
+		if event.is_released():
+			release_shoot()
 
 func _process(delta: float) -> void:
 	global_position = big_guy.global_position
 	look_at(get_global_mouse_position())
-	if Input.is_action_just_pressed("shoot") and canShoot == true:
-		shoot()
+	#if Input.is_action_just_pressed("shoot") and canShoot == true:
+		#charge()
 
 func shoot():
-	var bullet_ins:CharacterBody2D = bullet.instantiate()
-	bullet_ins.global_position = muzzle.global_position
-	bullet_ins.direction = Vector2.from_angle(rotation)
-	get_tree().root.add_child(bullet_ins)
 	canShoot = false
 	cooldownTimer.start()
 
 func charge():
-    pass
+		animation_player.play('charge')
+
+func _charge_shoot():
+	animation_player.play('shoot')
+
+func _instance_bullet():
+	var bullet_ins:CharacterBody2D = bullet.instantiate()
+	bullet_ins.global_position = muzzle.global_position
+	bullet_ins.direction = Vector2.from_angle(rotation)
+	get_tree().root.add_child(bullet_ins)
+
+func _set_owner_speed(shooting:bool):
+	if shooting == true:
+		big_guy.speed = big_guy.shoot_speed
+	else:
+		big_guy.speed = big_guy.regular_speed
+
+func release_shoot():
+	canShoot = false
+	cooldownTimer.start()
+	_set_owner_speed(false)
+	animation_player.stop()
+	animation_player.play("RESET")
+
 
 func _on_cooldown_timer_timeout() -> void:
 	canShoot = true
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "charge":
+		_charge_shoot()

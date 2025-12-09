@@ -186,7 +186,7 @@ disabled = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="pivot/Sprite2D"]
 material = SubResource("CanvasItemMaterial_h07ds")
-position = Vector2(16.791018, 1.0829039)
+position = Vector2(3.999999, -1.3333335)
 emitting = false
 amount = 16
 lifetime = 0.3

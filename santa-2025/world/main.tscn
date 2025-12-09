@@ -17,7 +17,7 @@ position = Vector2(208, 113)
 position = Vector2(572, 518)
 
 [node name="spawner" type="Node2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-1, -4)
 script = ExtResource("4_spvjk")
 
 [node name="Timer" type="Timer" parent="spawner"]

@@ -9,5 +9,3 @@ func apply_knockback(direction:Vector2, knockback_strength:int):
 func set_knockback(direction:Vector2, knockback_strength: int):
     body.knockback = apply_knockback(direction, knockback_strength)
 
-func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
-    set_knockback(direction, knockback_strength)

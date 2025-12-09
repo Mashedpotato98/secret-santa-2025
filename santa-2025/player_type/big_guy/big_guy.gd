@@ -4,7 +4,10 @@ extends CharacterBody2D
 @onready var knockback_receiver:Node2D = $knockback_receiver
 @onready var hurtbox:hurtBox = $hurtbox
 
-@export var speed:int = 5
+@export var regular_speed:int = 100
+@export var shoot_speed:int = 1
+
+@onready var speed:int = regular_speed
 
 var knockback:Vector2 #to be set by hitbox
 
