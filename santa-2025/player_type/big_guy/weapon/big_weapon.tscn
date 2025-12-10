@@ -1,12 +1,43 @@
-[gd_scene load_steps=13 format=3 uid="uid://bm4pld2vgml0m"]
+[gd_scene load_steps=15 format=3 uid="uid://bm4pld2vgml0m"]
 
 [ext_resource type="Script" uid="uid://6fuxhnkje467" path="res://player_type/big_guy/weapon/big_weapon.gd" id="1_u6ppl"]
 [ext_resource type="Texture2D" uid="uid://c1qh1ivpeumd7" path="res://assets/keytar_gun/keytar_sheet.png" id="2_m7uff"]
-[ext_resource type="Material" uid="uid://ckrsn1gjt30yi" path="res://particles/slow_bursts.tres" id="3_m7uff"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="4_ytwl6"]
 [ext_resource type="Script" uid="uid://cea0glv6eps37" path="res://player_type/big_guy/weapon/states/gun_idle.gd" id="5_ipw6a"]
 [ext_resource type="Script" uid="uid://b24ijo6lbnqg5" path="res://player_type/big_guy/weapon/states/gun_charge.gd" id="6_itcdc"]
 [ext_resource type="Script" uid="uid://dqtbkjhdr4322" path="res://player_type/big_guy/weapon/states/gunShoot.gd" id="7_itcdc"]
+
+[sub_resource type="Gradient" id="Gradient_ipw6a"]
+offsets = PackedFloat32Array(0, 0.40828404)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_itcdc"]
+gradient = SubResource("Gradient_ipw6a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ktog"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 90.0
+initial_velocity_min = 30.039999
+initial_velocity_max = 30.039999
+angular_velocity_min = -648.92
+angular_velocity_max = -648.92
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 27.039997
+linear_accel_max = 99.99999
+radial_accel_min = 24.029997
+radial_accel_max = 64.369995
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.0
+scale_max = 4.0
+scale_over_velocity_min = 691.0
+scale_over_velocity_max = 1000.0
+color = Color(0.900271, 0.5115525, 0.5956293, 1)
+color_ramp = SubResource("GradientTexture1D_itcdc")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m7uff"]
 particle_flag_disable_z = true
@@ -268,7 +299,7 @@ position = Vector2(48, 1)
 emitting = false
 amount = 2
 lifetime = 0.2
-process_material = ExtResource("3_m7uff")
+process_material = SubResource("ParticleProcessMaterial_8ktog")
 
 [node name="shoot_particle" type="GPUParticles2D" parent="Sprite2D"]
 position = Vector2(48, 1)

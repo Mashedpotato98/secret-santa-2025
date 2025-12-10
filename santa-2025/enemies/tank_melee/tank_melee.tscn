@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://7apob1ku4abi"]
+[gd_scene load_steps=25 format=3 uid="uid://7apob1ku4abi"]
 
 [ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/tank_melee.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
@@ -183,6 +183,39 @@ _data = {
 &"moving": SubResource("Animation_e2e8j")
 }
 
+[sub_resource type="Gradient" id="Gradient_aqxx0"]
+offsets = PackedFloat32Array(0, 0.40828404)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_owanv"]
+gradient = SubResource("Gradient_aqxx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2myxq"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(-1, 0, 0)
+spread = 90.0
+initial_velocity_min = 30.039999
+initial_velocity_max = 30.039999
+angular_velocity_min = -648.92
+angular_velocity_max = -648.92
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 27.039997
+linear_accel_max = 99.99999
+radial_accel_min = 24.029997
+radial_accel_max = 64.369995
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.0
+scale_max = 4.0
+scale_over_velocity_min = 691.0
+scale_over_velocity_max = 1000.0
+color = Color(0.900271, 0.5115525, 0.5956293, 1)
+color_ramp = SubResource("GradientTexture1D_owanv")
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_e2e8j"]
 radius = 33.24154
 
@@ -231,6 +264,7 @@ libraries = {
 [node name="slow_bursts" parent="." instance=ExtResource("6_kycy5")]
 position = Vector2(-16, 1)
 texture = null
+process_material = SubResource("ParticleProcessMaterial_2myxq")
 
 [node name="attack_area" type="Area2D" parent="."]
 collision_layer = 0
