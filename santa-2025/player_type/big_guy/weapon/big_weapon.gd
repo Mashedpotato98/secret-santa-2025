@@ -28,11 +28,6 @@ func _process(delta: float) -> void:
 #func _charge_shoot():
 	#animation_player.play('shoot')
 
-func _instance_bullet():
-	var bullet_ins:CharacterBody2D = bullet.instantiate()
-	bullet_ins.global_position = muzzle.global_position
-	bullet_ins.direction = Vector2.from_angle(rotation)
-	get_tree().root.add_child(bullet_ins)
 
 #func _set_owner_speed(shooting:bool):
 	#if shooting == true:

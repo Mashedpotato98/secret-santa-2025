@@ -15,7 +15,10 @@ var knockback:Vector2
 var can_dash:bool = true
 var direction:Vector2
 
+
 func _ready() -> void:
+
+    var custom_input:DeviceInput = DeviceInput.new(0)
     health_ui.text = str(hurtbox.max_hp)
 
 func _physics_process(delta: float) -> void:
@@ -43,6 +46,3 @@ func _on_hurtbox_got_hit(hp:int) -> void:
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
     knockback = knockback_receiver.apply_knockback(direction, knockback_strength)
 
-
-func _on_dash_cooldown_timeout() -> void:
-    can_dash = true

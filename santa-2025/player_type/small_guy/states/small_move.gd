@@ -2,6 +2,8 @@ class_name smallMove extends State
 
 @export var dash_cooldown:Timer
 
+@export var player_index:int = 1
+
 func Enter():
 	owner_node.speed = owner_node.regular_speed
 
@@ -13,8 +15,13 @@ func update(_delta:float):
 		dash()
 
 func physics_update(_delta:float): 
-	owner_node.direction = Input.get_vector("alt_left","alt_right","alt_up","alt_down")
+	pass
 	
+func _input(event: InputEvent) -> void:
+	if event.device == player_index:
+		owner_node.direction = Input.get_vector("alt_left","alt_right","alt_up","alt_down")
+		
+
 func dash():
 	owner_node.can_dash = false
 	owner.speed = owner_node.dash_speed
