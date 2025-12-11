@@ -51,26 +51,23 @@ body = NodePath("..")
 [node name="dashCooldown" type="Timer" parent="."]
 one_shot = true
 
-[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+[node name="state_machine" type="Node2D" parent="."]
 script = ExtResource("6_pkfip")
-initial_state = NodePath("smallMove")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
-[node name="smallMelee" type="Node" parent="state_machine" node_paths=PackedStringArray("sword", "owner_node")]
+[node name="smallMelee" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node")]
 script = ExtResource("7_48m5k")
-sword = NodePath("../../sword")
 owner_node = NodePath("../..")
 metadata/_custom_type_script = "uid://b1wgqyymb8qor"
 
-[node name="smallMove" type="Node" parent="state_machine" node_paths=PackedStringArray("dash_cooldown", "owner_node")]
+[node name="smallMove" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node")]
 script = ExtResource("8_7jdh5")
-dash_cooldown = NodePath("../../dashCooldown")
 owner_node = NodePath("../..")
 metadata/_custom_type_script = "uid://b5bmdk75bgwq2"
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="melee_finished" from="sword" to="state_machine/smallMelee" method="_on_sword_melee_finished"]
-[connection signal="timeout" from="dashCooldown" to="state_machine/smallMove" method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="dashCooldown" to="." method="_on_dash_cooldown_timeout"]
 
 [editable path="hurtbox"]

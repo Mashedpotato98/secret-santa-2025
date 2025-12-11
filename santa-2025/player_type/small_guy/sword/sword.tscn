@@ -33,7 +33,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("pivot/Sprite2D/GPUParticles2D:emitting")
+tracks/2/path = NodePath("pivot/Sprite2D/melee:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -56,13 +56,13 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_uschr"]
-resource_name = "atttack"
+resource_name = "attack"
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("pivot/Sprite2D/GPUParticles2D:emitting")
+tracks/0/path = NodePath("pivot/Sprite2D/melee:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -122,7 +122,7 @@ tracks/4/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h07ds"]
 _data = {
 &"RESET": SubResource("Animation_h07ds"),
-&"atttack": SubResource("Animation_uschr")
+&"attack": SubResource("Animation_uschr")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
@@ -136,6 +136,8 @@ particles_anim_loop = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uschr"]
 particle_flag_disable_z = true
+initial_velocity_min = 64.38
+initial_velocity_max = 64.38
 angular_velocity_min = -1.6093254e-05
 angular_velocity_max = 279.52997
 orbit_velocity_min = -0.77599996
@@ -184,7 +186,7 @@ position = Vector2(-23.833334, -0.6666665)
 shape = SubResource("RectangleShape2D_h07ds")
 disabled = true
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="pivot/Sprite2D"]
+[node name="melee" type="GPUParticles2D" parent="pivot/Sprite2D"]
 material = SubResource("CanvasItemMaterial_h07ds")
 position = Vector2(3.999999, -1.3333335)
 emitting = false
@@ -194,6 +196,7 @@ speed_scale = 1.5
 explosiveness = 0.1
 process_material = SubResource("ParticleProcessMaterial_uschr")
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="pivot/Sprite2D/hitbox" to="." method="_on_hitbox_area_entered"]
 
 [editable path="pivot/Sprite2D/hitbox"]
