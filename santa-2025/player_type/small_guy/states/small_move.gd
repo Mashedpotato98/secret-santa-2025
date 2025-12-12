@@ -8,6 +8,7 @@ func Enter():
 	owner_node.speed = owner_node.regular_speed
 
 func update(_delta:float): 
+	owner.direction = Input.get_vector('2_left', '2_right', '2_up', '2_down')
 	if Input.is_action_just_pressed("melee"):
 		Transitioned.emit(self, 'smallMelee')
 
@@ -18,8 +19,9 @@ func physics_update(_delta:float):
 	pass
 	
 func _input(event: InputEvent) -> void:
-	if event.device == player_index:
-		owner_node.direction = Input.get_vector("alt_left","alt_right","alt_up","alt_down")
+	#if event.device == player_index:
+		#owner_node.direction = Input.get_vector("alt_left","alt_right","alt_up","alt_down")
+	pass
 		
 
 func dash():

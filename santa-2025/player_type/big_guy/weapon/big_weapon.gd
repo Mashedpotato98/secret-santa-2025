@@ -14,7 +14,8 @@ var bullet:PackedScene = preload("res://player_type/big_guy/weapon/bullet.tscn")
 func _process(delta: float) -> void:
 	if big_guy:
 		global_position = big_guy.global_position
-	look_at(get_global_mouse_position())
+		var aim_direction:Vector2 = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
+		global_rotation = aim_direction.angle()
 	#if Input.is_action_just_pressed("shoot") and canShoot == true:
 		#charge()
 

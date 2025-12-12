@@ -9,27 +9,31 @@ extends CharacterBody2D
 
 @onready var speed:int = regular_speed
 
-var player_index:int = 0
+var player_index:int = 2
 
 var knockback:Vector2 #to be set by hitbox
 var direction:Vector2
 
-@onready var custom_input:DeviceInput = DeviceInput.new(player_index)
+#@onready var custom_input:DeviceInput = DeviceInput.new(player_index)
 
 func _ready() -> void:
 	health_ui.text = str(hurtbox.max_hp)
 
 func _physics_process(delta: float) -> void:
-	
+	#direction = Input.get_vector('1_left' % player_index, '1_right' % player_index, '1_up' % player_index, '1_down' % player_index)
+	direction = Input.get_vector('1_left', '1_right', '1_up', '1_down')
 	velocity = direction * speed + knockback
 	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+	
 
 	move_and_slide()
 	
-	if custom_input.is_action_pressed('left'):
-		print(custom_input.device)
+	#if custom_input.is_action_pressed('left'):
+		#print(custom_input.device)
 
 func _input(event: InputEvent) -> void:
+	print("device:" + str(event.device))
+	print("index:" + str(player_index))
 	if event.device == player_index:
 		direction = Input.get_vector("left", "right", "up", "down")
 
