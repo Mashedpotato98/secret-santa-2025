@@ -5,8 +5,8 @@ func Enter():
 	animation_player.play('RESET')
 
 func physics_update(_delta:float):
-	move_to_player()
-
+	if owner_node._closer_player() != null:
+		move_to_player()
 
 func move_to_player():
 	var closer_player = owner_node._closer_player()

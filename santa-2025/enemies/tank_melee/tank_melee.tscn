@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://7apob1ku4abi"]
+[gd_scene load_steps=26 format=3 uid="uid://7apob1ku4abi"]
 
 [ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/tank_melee.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://oggpcil8kah2" path="res://particles/slow_bursts.tscn" id="6_kycy5"]
 [ext_resource type="PackedScene" uid="uid://duvkkkpyr2sol" path="res://components/state_machine.tscn" id="8_1e2hb"]
 [ext_resource type="Script" uid="uid://x76i2at6bc6l" path="res://enemies/tank_melee/states/melee_chase.gd" id="9_cb3be"]
+[ext_resource type="Script" uid="uid://do8apfbj15r04" path="res://enemies/tank_melee/states/tank_idle.gd" id="9_pi3te"]
 [ext_resource type="Script" uid="uid://bj7deeu4bnj3o" path="res://enemies/tank_melee/states/melee_drill_attack.gd" id="10_2myxq"]
 [ext_resource type="Script" uid="uid://dq3ui2y2y18ur" path="res://enemies/tank_melee/states/melee_stun.gd" id="11_2myxq"]
 
@@ -274,7 +275,13 @@ position = Vector2(38, 2)
 shape = SubResource("CircleShape2D_e2e8j")
 
 [node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("8_1e2hb")]
-initial_state = NodePath("meleeChase")
+initial_state = NodePath("meleeIdle")
+
+[node name="meleeIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_timer", "owner_node")]
+script = ExtResource("9_pi3te")
+idle_timer = NodePath("../../idle_timer")
+owner_node = NodePath("../..")
+metadata/_custom_type_script = "uid://do8apfbj15r04"
 
 [node name="meleeChase" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
 script = ExtResource("9_cb3be")
@@ -292,6 +299,9 @@ animation_player = NodePath("../../AnimationPlayer")
 script = ExtResource("11_2myxq")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
+
+[node name="idle_timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]

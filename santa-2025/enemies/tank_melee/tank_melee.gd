@@ -17,6 +17,12 @@ extends CharacterBody2D
 var direction:Vector2
 var knockback:Vector2
 
+var active:bool = false
+
+func _ready() -> void:
+	get_tree().create_timer(5).timeout
+	active = true
+
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed + knockback
 	knockback = lerp(knockback, Vector2.ZERO, 0.1)
@@ -50,6 +56,8 @@ func _apply_knockback(direction:Vector2, knockback_strength:int):
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is hurtBox:
 		area.damage(hitbox)
+		if players.has(hitbox.get_parent()):
+			players.erase(hitbox.get_parent())
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
 	attack_area.monitoring = false
