@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://6fuxhnkje467" path="res://player_type/big_guy/weapon/big_weapon.gd" id="1_u6ppl"]
 [ext_resource type="Texture2D" uid="uid://c1qh1ivpeumd7" path="res://assets/keytar_gun/keytar_sheet.png" id="2_m7uff"]
+[ext_resource type="PackedScene" uid="uid://back10pj52eey" path="res://player_type/big_guy/weapon/player_bullet.tscn" id="2_ptjjb"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="4_ytwl6"]
 [ext_resource type="Script" uid="uid://cea0glv6eps37" path="res://player_type/big_guy/weapon/states/gun_idle.gd" id="5_ipw6a"]
 [ext_resource type="Script" uid="uid://b24ijo6lbnqg5" path="res://player_type/big_guy/weapon/states/gun_charge.gd" id="6_itcdc"]
-[ext_resource type="PackedScene" uid="uid://cisu123oaaq3q" path="res://player_type/big_guy/weapon/bullet.tscn" id="7_8ktog"]
 [ext_resource type="Script" uid="uid://dqtbkjhdr4322" path="res://player_type/big_guy/weapon/states/gunShoot.gd" id="7_itcdc"]
 [ext_resource type="AudioStream" uid="uid://ch3la67que773" path="res://assets/sounds/charge/charge_edit.mp3" id="8_8ktog"]
 
@@ -369,7 +369,7 @@ metadata/_custom_type_script = "uid://b24ijo6lbnqg5"
 [node name="gunShoot" type="Node" parent="state_machine" node_paths=PackedStringArray("muzzle", "owner_node", "animation_player")]
 script = ExtResource("7_itcdc")
 muzzle = NodePath("../../Marker2D")
-bullet_load = ExtResource("7_8ktog")
+bullet_load = ExtResource("2_ptjjb")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 

@@ -6,9 +6,10 @@ class_name bossMinion extends State
 var active:bool = false
 
 func Enter():
-	active = true
-	minion_spawner._start(spawn_cooldown)
+    active = true
+    minion_spawner._start(spawn_cooldown)
 
 func _on_bullet_spawner_timer_finished() -> void:
-	if active == true:
-		minion_spawner.spawn_minion(minion_spawner.theta)
+    if active == true:
+        animation_player.play('spawn_minion')
+        minion_spawner.spawn_minion(minion_spawner.theta)

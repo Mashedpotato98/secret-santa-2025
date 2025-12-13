@@ -1,16 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://drm4m0advbis2"]
+[gd_scene load_steps=3 format=3 uid="uid://drm4m0advbis2"]
 
 [ext_resource type="PackedScene" uid="uid://dhh663hd246p3" path="res://enemies/boss/boss.tscn" id="1_ag8ou"]
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="2_himuu"]
-[ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="3_il0dw"]
 
 [node name="boss_room" type="Node2D"]
+position = Vector2(0, 2)
 
 [node name="Boss" parent="." instance=ExtResource("1_ag8ou")]
 position = Vector2(566, 294)
 
 [node name="Big_guy" parent="." instance=ExtResource("2_himuu")]
-position = Vector2(243, 552)
-
-[node name="SmallGuy" parent="." instance=ExtResource("3_il0dw")]
-position = Vector2(897, 588)
+position = Vector2(0, 1)

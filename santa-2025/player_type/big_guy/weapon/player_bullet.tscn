@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://back10pj52eey"]
+
+[ext_resource type="PackedScene" uid="uid://cisu123oaaq3q" path="res://player_type/big_guy/weapon/bullet.tscn" id="1_tthum"]
+[ext_resource type="Script" uid="uid://bwq4t57w8kgaw" path="res://player_type/big_guy/weapon/player_bullet.gd" id="2_35q8k"]
+[ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="2_rve4a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tthum"]
+
+[node name="player_bullet" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_tthum")]
+script = ExtResource("2_35q8k")
+hitbox = NodePath("hitbox")
+speed = 900
+
+[node name="hitbox" parent="." index="1" instance=ExtResource("2_rve4a")]
+collision_layer = 0
+collision_mask = 20
+damage = 3
+knockback_strength = 900
+
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+shape = SubResource("RectangleShape2D_tthum")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." index="2"]
+
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+
+[editable path="hitbox"]

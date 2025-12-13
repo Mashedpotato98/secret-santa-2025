@@ -28,15 +28,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	#if custom_input.is_action_pressed('left'):
-		#print(custom_input.device)
-
-func _input(event: InputEvent) -> void:
-	print("device:" + str(event.device))
-	print("index:" + str(player_index))
-	if event.device == player_index:
-		direction = Input.get_vector("left", "right", "up", "down")
-
 
 func _on_hurtbox_got_hit(health:int)-> void:
 	health_ui.text = str(health) 

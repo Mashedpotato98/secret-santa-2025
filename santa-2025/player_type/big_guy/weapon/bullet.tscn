@@ -1,32 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cisu123oaaq3q"]
+[gd_scene load_steps=3 format=3 uid="uid://cisu123oaaq3q"]
 
 [ext_resource type="Script" uid="uid://c65uf16e6i2o4" path="res://bullet.gd" id="1_1k472"]
 [ext_resource type="Texture2D" uid="uid://dfjytk3v5veer" path="res://icon.svg" id="2_3g18n"]
-[ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_w1818"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1818"]
-size = Vector2(28, 28)
-
-[node name="bullet" type="CharacterBody2D"]
+[node name="bullet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_1k472")
+hitbox = NodePath("")
+speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_3g18n")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="hitbox" parent="." instance=ExtResource("3_w1818")]
-collision_layer = 0
-collision_mask = 4
-damage = 4
-
-[node name="CollisionShape2D" parent="hitbox" index="0"]
-shape = SubResource("RectangleShape2D_w1818")
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
-
-[editable path="hitbox"]

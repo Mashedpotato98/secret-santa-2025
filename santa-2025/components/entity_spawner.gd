@@ -6,7 +6,7 @@ signal timer_finished
 @export var minion:PackedScene
 @export var shoot_cooldown:Timer 
 @export_range(0,2*PI) var alpha:float = 0.0
-@export var father:CharacterBody2D 
+@export var father:Node2D 
 
 var theta:float
 
@@ -25,11 +25,13 @@ func spawn_bullet(angle:float):
 func spawn_minion(angle:float):
 	var minion:CharacterBody2D = minion.instantiate()
 
-	minion.position = father.global_position
+	minion.look_at(_get_vector(angle))  
 	var force:int = randi_range(200,1100)
 
 	get_tree().root.call_deferred('add_child', minion)
+
 	minion._push_forward(_get_vector(angle), force)
+	minion.global_position = father.global_position 
 
 func _get_vector(angle):
 	theta = angle + alpha
