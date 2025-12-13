@@ -4,6 +4,5 @@
 
 [node name="boss_defence" type="Area2D"]
 collision_layer = 16
+monitoring = false
 script = ExtResource("1_ddwrn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

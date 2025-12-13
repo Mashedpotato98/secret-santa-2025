@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnecco0xl2u5t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c30li"]
+radius = 5.0
+
+[node name="defence_breaker" type="Area2D"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c30li")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

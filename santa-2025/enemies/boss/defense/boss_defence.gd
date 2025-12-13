@@ -1,6 +1,9 @@
-class_name bossDefense extends Area2D
+class_name bossDefence extends Area2D
 
+@export var collision_:CollisionShape2D  
+	
 
-func destroy_bullet(area:Area2D):
-    pass
-    
+func disable():
+	collision_.set_deferred('disabled', true)
+func enable():
+	collision_.set_deferred('disabled', false)

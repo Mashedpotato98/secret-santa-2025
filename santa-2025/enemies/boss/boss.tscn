@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dhh663hd246p3"]
+[gd_scene load_steps=18 format=3 uid="uid://dhh663hd246p3"]
 
 [ext_resource type="Script" uid="uid://ckqgteahex3nn" path="res://enemies/Boss.gd" id="1_n18ml"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_ubujh"]
@@ -6,29 +6,14 @@
 [ext_resource type="Script" uid="uid://ciyvb0x1ucnxy" path="res://enemies/boss/states/boss_bullet_wave.gd" id="4_8d0e3"]
 [ext_resource type="Script" uid="uid://c62d321qpdq1l" path="res://enemies/boss/states/boss_minions.gd" id="4_vsebo"]
 [ext_resource type="Texture2D" uid="uid://b0k8hbdb5jtra" path="res://assets/boss/boss.png" id="5_2tiri"]
-[ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/tank_melee.tscn" id="6_opohk"]
+[ext_resource type="PackedScene" uid="uid://dnecco0xl2u5t" path="res://enemies/boss/defense/defence_breaker.tscn" id="5_b5n78"]
+[ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="6_opohk"]
 [ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="8_2tiri"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="9_2tiri"]
+[ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="10_1s7ui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tiri"]
 size = Vector2(51, 50)
-
-[sub_resource type="Animation" id="Animation_2tiri"]
-resource_name = "spawn_minion"
-length = 0.5
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_1s7ui"]
 length = 0.001
@@ -75,12 +60,32 @@ tracks/0/keys = {
 "values": [0.0, 0.7853982, 1.5707964, 2.3561945, 3.1415927, 3.9269907, 4.712389, 5.846853, 6.2831855]
 }
 
+[sub_resource type="Animation" id="Animation_2tiri"]
+resource_name = "spawn_minion"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
 _data = {
 &"RESET": SubResource("Animation_1s7ui"),
 &"spawn_bullet": SubResource("Animation_b5n78"),
 &"spawn_minion": SubResource("Animation_2tiri")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1s7ui"]
+radius = 106.36729
 
 [node name="Boss" type="CharacterBody2D"]
 script = ExtResource("1_n18ml")
@@ -90,7 +95,7 @@ script = ExtResource("1_n18ml")
 [node name="state_machine" type="Node2D" parent="CollisionShape2D" node_paths=PackedStringArray("initial_state")]
 visible = false
 script = ExtResource("1_ubujh")
-initial_state = NodePath("bossBulletWave")
+initial_state = NodePath("bossMinion")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
 [node name="bossBulletWave" type="Node" parent="CollisionShape2D/state_machine" node_paths=PackedStringArray("bullet_spawner", "owner_node", "animation_player")]
@@ -101,9 +106,13 @@ owner_node = NodePath("../../..")
 animation_player = NodePath("../../../AnimationPlayer")
 metadata/_custom_type_script = "uid://ciyvb0x1ucnxy"
 
-[node name="bossMinion" type="Node" parent="CollisionShape2D/state_machine" node_paths=PackedStringArray("minion_spawner", "owner_node", "animation_player")]
+[node name="bossMinion" type="Node" parent="CollisionShape2D/state_machine" node_paths=PackedStringArray("minion_spawner", "defence", "breaker_spawn_cooldown", "defence_cooldown", "owner_node", "animation_player")]
 script = ExtResource("4_vsebo")
 minion_spawner = NodePath("../../../entity_spawner")
+defence_breaker_load = ExtResource("5_b5n78")
+defence = NodePath("../../../boss_defence")
+breaker_spawn_cooldown = NodePath("../../../breaker_spawn_cooldown")
+defence_cooldown = NodePath("../../../defence_cooldown")
 owner_node = NodePath("../../..")
 animation_player = NodePath("../../../AnimationPlayer")
 metadata/_custom_type_script = "uid://c62d321qpdq1l"
@@ -113,7 +122,6 @@ texture = ExtResource("5_2tiri")
 
 [node name="hurtbox" parent="Sprite2D" instance=ExtResource("9_2tiri")]
 collision_layer = 4
-collision_mask = 0
 max_hp = 25
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/hurtbox"]
@@ -139,6 +147,23 @@ libraries = {
 &"": SubResource("AnimationLibrary_1s7ui")
 }
 
+[node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("10_1s7ui")]
+collision_ = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_defence"]
+shape = SubResource("CircleShape2D_1s7ui")
+debug_color = Color(0, 0.64829797, 0.19764718, 0.41960785)
+
+[node name="defence_cooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="breaker_spawn_cooldown" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="timer_finished" from="entity_spawner" to="CollisionShape2D/state_machine/bossBulletWave" method="_on_bullet_spawner_timer_finished"]
 [connection signal="timer_finished" from="entity_spawner" to="CollisionShape2D/state_machine/bossMinion" method="_on_bullet_spawner_timer_finished"]
+[connection signal="timeout" from="defence_cooldown" to="CollisionShape2D/state_machine/bossMinion" method="_on_defence_cooldown_timeout"]
+[connection signal="timeout" from="breaker_spawn_cooldown" to="CollisionShape2D/state_machine/bossMinion" method="_on_breaker_spawn_cooldown_timeout"]

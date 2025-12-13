@@ -3,7 +3,7 @@ extends Node2D
 @onready var window_size:Vector2 = get_window().size
 @onready var cooldown_timer:Timer = $Timer
 
-var enemies:Array[PackedScene] = [preload("res://enemies/tank_melee/tank_melee.tscn")] 
+@export var enemies:Array[PackedScene] = [] 
 
 
 func spawn():

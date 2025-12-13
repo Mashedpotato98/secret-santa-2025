@@ -13,7 +13,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-func hit(area:hurtBox):
+func hit(area:Area2D):
 	if area is hurtBox:
 		area.damage(hitbox)	
 		print(area.hp)

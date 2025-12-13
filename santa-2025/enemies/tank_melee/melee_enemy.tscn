@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://7apob1ku4abi"]
 
-[ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/tank_melee.gd" id="1_2el2d"]
+[ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/melee_enemy.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
 [ext_resource type="Shader" uid="uid://cpod5ov3gp61k" path="res://shaders/hit.gdshader" id="2_eu7ly"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="2_sd0kh"]
@@ -221,6 +221,7 @@ color_ramp = SubResource("GradientTexture1D_owanv")
 radius = 33.24154
 
 [node name="tank_melee" type="CharacterBody2D"]
+process_mode = 4
 collision_layer = 4
 script = ExtResource("1_2el2d")
 
