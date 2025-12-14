@@ -5,7 +5,7 @@ extends CharacterBody2D
 @onready var hurtbox:hurtBox = $hurtbox
 
 @export var regular_speed:int = 100
-@export var shoot_speed:int = 1
+@export var shoot_speed:int = 5
 
 @onready var speed:int = regular_speed
 
@@ -14,7 +14,6 @@ var player_index:int = 2
 var knockback:Vector2 #to be set by hitbox
 var direction:Vector2
 
-#@onready var custom_input:DeviceInput = DeviceInput.new(player_index)
 
 func _ready() -> void:
 	health_ui.text = str(hurtbox.max_hp)

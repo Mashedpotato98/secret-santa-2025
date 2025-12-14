@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bcwvt7odc8aw7"]
+[gd_scene load_steps=12 format=3 uid="uid://bcwvt7odc8aw7"]
 
 [ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
 [ext_resource type="Texture2D" uid="uid://yddby0e4s5sn" path="res://assets/guitar/guitar-sheet.png" id="2_h07ds"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
+[ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/bullet_defence.tscn" id="4_lcld2"]
 
 [sub_resource type="Animation" id="Animation_h07ds"]
 length = 0.001
@@ -54,10 +55,22 @@ tracks/3/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pivot/Sprite2D/player_defence/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_uschr"]
 resource_name = "attack"
-length = 0.5
+length = 0.8
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -89,10 +102,10 @@ tracks/2/path = NodePath("pivot/Sprite2D/hitbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.099999994, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, false, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -101,7 +114,7 @@ tracks/3/path = NodePath("pivot/Sprite2D:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.5),
+"times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-1.5707964, 1.5707964, 0.0]
@@ -118,6 +131,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivot/Sprite2D/player_defence/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h07ds"]
 _data = {
@@ -127,6 +152,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
 size = Vector2(22.333332, 17.333332)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lcld2"]
+radius = 30.149628
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h07ds"]
 particles_animation = true
@@ -175,7 +203,6 @@ hframes = 2
 
 [node name="hitbox" parent="pivot/Sprite2D" instance=ExtResource("3_h07ds")]
 position = Vector2(28, -0.66666675)
-collision_layer = 0
 collision_mask = 4
 damage = 1
 knockback_strength = 900
@@ -184,6 +211,18 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" parent="pivot/Sprite2D/hitbox" index="0"]
 position = Vector2(-23.833334, -0.6666665)
 shape = SubResource("RectangleShape2D_h07ds")
+disabled = true
+
+[node name="player_defence" parent="pivot/Sprite2D" node_paths=PackedStringArray("collision_") instance=ExtResource("4_lcld2")]
+position = Vector2(-12.666667, 0)
+scale = Vector2(0.6666667, 0.6666667)
+collision_layer = 32
+collision_mask = 0
+collision_ = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Sprite2D/player_defence"]
+position = Vector2(25, -1)
+shape = SubResource("CircleShape2D_lcld2")
 disabled = true
 
 [node name="melee" type="GPUParticles2D" parent="pivot/Sprite2D"]

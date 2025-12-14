@@ -4,15 +4,15 @@ signal timer_finished
 
 @export var load_bullet:PackedScene 
 @export var minion:PackedScene
-@export var shoot_cooldown:Timer 
+@export var cooldown:Timer 
 @export_range(0,2*PI) var alpha:float = 0.0
 @export var father:Node2D 
 
 var theta:float
 
 func _start(time:float):
-	shoot_cooldown.start()
-	shoot_cooldown.wait_time = time
+	cooldown.wait_time = time
+	cooldown.start()
 
 func spawn_bullet(angle:float):
 	var bullet:CharacterBody2D = load_bullet.instantiate()

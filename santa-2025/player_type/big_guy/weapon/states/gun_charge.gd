@@ -2,6 +2,8 @@ class_name gunCharge extends State
 
 @export var holding:bool = false
 
+func Enter():
+	owner_node.slow_down_player()
 
 func Exit():
 	holding = false

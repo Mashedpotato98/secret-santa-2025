@@ -16,5 +16,6 @@ func _physics_process(delta: float) -> void:
 func hit(area:Area2D):
 	if area is hurtBox:
 		area.damage(hitbox)	
-		print(area.hp)
+	elif area is bulletDefence:
+		queue_free() 
 		 

@@ -5,10 +5,14 @@ class_name gunIdle extends State
 var can_shoot:bool = false
 
 func Enter():
+    owner_node.revert_player_speed()
     can_shoot = false
+
     cooldown_timer.start()
+
     animation_player.stop()
     animation_player.play('RESET')
+
 
         
 

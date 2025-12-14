@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://duvyp3fetud8o"]
 
-[ext_resource type="Script" uid="uid://buqrw8y1d5nyu" path="res://enemies/boss/defense/boss_defence.gd" id="1_ddwrn"]
+[ext_resource type="Script" uid="uid://buqrw8y1d5nyu" path="res://enemies/boss/defense/bullet_defence.gd" id="1_ddwrn"]
 
 [node name="boss_defence" type="Area2D"]
 collision_layer = 16

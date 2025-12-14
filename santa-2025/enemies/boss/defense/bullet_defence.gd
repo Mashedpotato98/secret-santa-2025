@@ -1,4 +1,4 @@
-class_name bossDefence extends Area2D
+class_name bulletDefence extends Area2D
 
 @export var collision_:CollisionShape2D  
 	
