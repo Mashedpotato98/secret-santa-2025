@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxqfibndu4g6o"]
+
+[ext_resource type="Script" uid="uid://dp3tdxnuaajsg" path="res://menus/main_menu.gd" id="1_8gy84"]
+
+[node name="Main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8gy84")
+
+[node name="boss" type="Button" parent="."]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 42.0
+offset_right = 202.0
+offset_bottom = 91.0
+text = "Boss"
+
+[node name="wave" type="Button" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 117.0
+offset_right = 201.0
+offset_bottom = 177.0
+text = "Wave"
+
+[node name="exit" type="Button" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 199.0
+offset_right = 202.0
+offset_bottom = 257.0
+text = "Exit"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(98, 150)
+zoom = Vector2(1.5, 1.5)
+
+[node name="supah_secret" type="Label" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 3.0
+offset_right = 143.0
+offset_bottom = 26.0
+text = "Supah Secret Game"
+
+[node name="input_mode" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 201.0
+offset_right = 342.0
+offset_bottom = 31.0
+text = "controller/mix?"
+
+[connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="wave" to="." method="_on_wave_pressed"]
+[connection signal="toggled" from="wave" to="." method="_on_wave_toggled"]
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="toggled" from="input_mode" to="." method="_on_input_mode_toggled"]

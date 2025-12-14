@@ -13,7 +13,6 @@ position = Vector2(291, 111)
 position = Vector2(208, 113)
 
 [node name="spawner" type="Node2D" parent="."]
-process_mode = 4
 position = Vector2(-1, -4)
 script = ExtResource("4_spvjk")
 
