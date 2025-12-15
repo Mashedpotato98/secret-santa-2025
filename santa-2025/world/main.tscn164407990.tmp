@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=6 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
+[ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="2_hyim0"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
 [ext_resource type="Script" uid="uid://77yh22666j63" path="res://world/spawner.gd" id="4_spvjk"]
 [ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="5_cmo1i"]
@@ -9,6 +10,9 @@
 
 [node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
 position = Vector2(291, 111)
+
+[node name="Big_guy" parent="." instance=ExtResource("2_hyim0")]
+position = Vector2(208, 113)
 
 [node name="spawner" type="Node2D" parent="."]
 process_mode = 4
@@ -24,10 +28,10 @@ autostart = true
 position = Vector2(569, 321)
 
 [node name="tank_melee" parent="." instance=ExtResource("4_cmo1i")]
-position = Vector2(593, 410)
+position = Vector2(549, 250)
 
 [node name="tank_melee2" parent="." instance=ExtResource("4_cmo1i")]
-position = Vector2(791, 254)
+position = Vector2(556, 254)
 
 [node name="tank_melee3" parent="." instance=ExtResource("4_cmo1i")]
 position = Vector2(450, 233)

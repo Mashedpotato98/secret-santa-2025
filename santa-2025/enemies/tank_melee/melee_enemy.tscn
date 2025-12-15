@@ -213,7 +213,7 @@ color = Color(0.900271, 0.5115525, 0.5956293, 1)
 color_ramp = SubResource("GradientTexture1D_owanv")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e2e8j"]
-radius = 33.24154
+radius = 58.034473
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajovx"]
 size = Vector2(32, 32)
@@ -222,7 +222,7 @@ size = Vector2(32, 32)
 size = Vector2(12, 26)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqfe0"]
-radius = 94.04786
+radius = 62.0
 
 [node name="tank_melee" type="CharacterBody2D"]
 collision_layer = 4
@@ -267,7 +267,7 @@ metadata/_custom_type_script = "uid://x76i2at6bc6l"
 
 [node name="meleeDrill" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
 script = ExtResource("10_2myxq")
-push_force = 10
+push_force = 100
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 
@@ -309,6 +309,7 @@ shape = SubResource("RectangleShape2D_sd0kh")
 body = NodePath("../..")
 
 [node name="soft_collision" parent="areas" instance=ExtResource("13_iqfe0")]
+monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/soft_collision"]
 shape = SubResource("CircleShape2D_iqfe0")
@@ -318,7 +319,7 @@ shape = SubResource("CircleShape2D_iqfe0")
 [connection signal="got_hit" from="areas/hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="knockback_values" from="areas/hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="area_entered" from="areas/hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="body_entered" from="areas/soft_collision" to="." method="_on_soft_collision_body_entered"]
+[connection signal="area_entered" from="areas/soft_collision" to="." method="_on_soft_collision_area_entered"]
 
 [editable path="areas/hurtbox"]
 [editable path="areas/hitbox"]

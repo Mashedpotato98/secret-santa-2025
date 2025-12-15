@@ -11,9 +11,10 @@ extends CharacterBody2D
 @onready var attack_area:Area2D = $areas/attack_area
 @onready var soft_collision:Area2D = $areas/soft_collision
 
-
+@export var soft_collision_strength:int = 1
 @export var moving_speed:int = 70
 @export var drill_speed:int = 5
+
 @onready var speed:int = moving_speed
 
 var direction:Vector2
@@ -22,7 +23,9 @@ var knockback:Vector2
 var active:bool = false
 
 func _ready() -> void:
-	soft_collision.body_entered.connect(_on_soft_collision_body_entered)
+	soft_collision_strength = randi_range(soft_collision_strength, soft_collision_strength+5)
+	print(soft_collision_strength)
+
 
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed + knockback
@@ -72,8 +75,7 @@ func _on_hurtbox_got_hit(health: int) -> void:
 	#print(animation_player.current_animation)
 	pass
 
-
-
-func _on_soft_collision_body_entered(body: Node2D) -> void:
-	var dir:Vector2 = global_position.direction_to(body.global_position)
-	_apply_knockback(dir, 20) 
+func _on_soft_collision_area_entered(area: Area2D) -> void:
+	var dir:Vector2 = (global_position.direction_to(area.global_position)) * velocity.length()
+	print(dir)
+	_apply_knockback(dir, soft_collision_strength) 
