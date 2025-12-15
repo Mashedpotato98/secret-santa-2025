@@ -5,17 +5,31 @@ class_name meleeDrill extends State
 @export var push_force:int = 1
 
 func Enter():
-    closer_player = owner_node._closer_player()
-    owner_node.speed = owner_node.drill_speed 
-    owner_node._push_forward(closer_player.global_position, push_force )
+	closer_player = owner_node._closer_player()
+	owner_node.speed = owner_node.drill_speed 
+
+	animation_player.play('charge')
+	
+	await animation_player.animation_finished
+
+	owner_node._push_forward(closer_player.global_position, push_force )
+	animation_player.play('attack')
+
+	await animation_player.animation_finished
+	Transitioned.emit(self , "meleeChase")
+	
+
 
 func physics_update(_delta:float):
-    drill_attack()
+	drill_attack()
+	owner_node.look_at(closer_player.global_position)
 
 func drill_attack():
-    closer_player = owner_node._closer_player()
-    owner_node.look_at(closer_player.global_position)
+	#closer_player = owner_node._closer_player()
+	#animation_player.play('attack')
+	pass
 
 
 func _on_attack_area_body_exited(body: Node2D) -> void:
-    Transitioned.emit(self , "meleeChase")
+	pass
+	#Transitioned.emit(self , "meleeChase")

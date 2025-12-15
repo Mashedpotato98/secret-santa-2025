@@ -60,6 +60,7 @@ func _apply_knockback(direction:Vector2, knockback_strength:int):
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is hurtBox:
 		area.damage(hitbox)
+		print(area.damage)
 		if players.has(hitbox.get_parent()):
 			players.erase(hitbox.get_parent())
 
@@ -76,6 +77,5 @@ func _on_hurtbox_got_hit(health: int) -> void:
 	pass
 
 func _on_soft_collision_area_entered(area: Area2D) -> void:
-	var dir:Vector2 = (global_position.direction_to(area.global_position)) * velocity.length()
-	print(dir)
+	var dir:Vector2 = (global_position.direction_to(area.global_position)) 
 	_apply_knockback(dir, soft_collision_strength) 

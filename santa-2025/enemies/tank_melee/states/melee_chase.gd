@@ -2,7 +2,7 @@ class_name meleeChase extends State
 
 func Enter():
 	owner_node.speed = owner_node.moving_speed
-	animation_player.stop()
+	animation_player.call_deferred('stop')
 	animation_player.play('RESET')
 
 func physics_update(_delta:float):
