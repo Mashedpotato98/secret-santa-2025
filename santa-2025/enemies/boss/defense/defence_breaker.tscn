@@ -1,13 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnecco0xl2u5t"]
+[gd_scene load_steps=3 format=3 uid="uid://dnecco0xl2u5t"]
+
+[ext_resource type="Texture2D" uid="uid://cer543qqpl03m" path="res://assets/defence_breaker/defence_breaker.png" id="1_5ngis"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c30li"]
-radius = 5.0
+radius = 17.262676
 
 [node name="defence_breaker" type="Area2D"]
 collision_layer = 0
 monitorable = false
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5ngis")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_c30li")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]

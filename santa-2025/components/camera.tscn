@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctdmoic685itw"]
+
+[ext_resource type="Script" uid="uid://oj14y265sqkd" path="res://components/camera.gd" id="1_3qmvq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3qmvq"]
+
+[node name="camera" type="Camera2D"]
+script = ExtResource("1_3qmvq")
+noise = SubResource("FastNoiseLite_3qmvq")

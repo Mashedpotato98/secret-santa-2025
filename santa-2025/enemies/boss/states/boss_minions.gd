@@ -36,14 +36,17 @@ func _defence_on():
     defence.enable()
     breaker_spawn_cooldown.start()
     minion_spawner._start(minion_spawn_cooldown)
+    animation_player.play('defence_on')
 func _defence_off():
     print('defence off')
     defence.disable()
     defence_cooldown.start()
     minion_spawner.cooldown.stop()
+    animation_player.play('defence_off')
 
 func _on_defence_broken(body:CharacterBody2D):
     print('defence_broken')
+    animation_player.play('defence_broken')
     defence_breaker.queue_free()
     _defence_off()
 
@@ -63,3 +66,7 @@ func _on_breaker_spawn_cooldown_timeout() -> void:
 func _on_defence_cooldown_timeout() -> void:
     print('defence cooldown finished.')
     _defence_on()
+
+
+func _on_boss_defence_hit() -> void:
+    animation_player.play('defence_hit')

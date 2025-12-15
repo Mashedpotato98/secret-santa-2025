@@ -2,7 +2,7 @@ extends Node2D
 
 signal melee_finished
 
-@onready var hitbox:hitBox = $pivot/Sprite2D/hitbox   
+@onready var hitbox:hitBox = $hitbox   
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 
 		

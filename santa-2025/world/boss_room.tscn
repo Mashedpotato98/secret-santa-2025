@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="3_himuu"]
 
 [node name="boss_room" type="Node2D"]
-position = Vector2(0, 2)
 
 [node name="Boss" parent="." instance=ExtResource("1_ag8ou")]
 position = Vector2(566, 294)

@@ -3,15 +3,17 @@ extends CharacterBody2D
 
 @onready var big_guy:CharacterBody2D = get_tree().get_first_node_in_group("big_guy")
 @onready var small_guy:CharacterBody2D = get_tree().get_first_node_in_group("small_guy")
-@onready var hitbox:hitBox = $hitbox
-@onready var knockback_receiver:Node2D = $knockback_receiver
+@onready var hitbox:hitBox = $areas/hitbox
+@onready var knockback_receiver:Node2D = $areas/knockback_receiver
 @onready var players:Array[CharacterBody2D] = [big_guy, small_guy] 
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 @onready var state:state_machine = $state_machine
-@onready var attack_area:Area2D = $attack_area
+@onready var attack_area:Area2D = $areas/attack_area
+@onready var soft_collision:Area2D = $areas/soft_collision
 
 
 @export var moving_speed:int = 70
+@export var drill_speed:int = 5
 @onready var speed:int = moving_speed
 
 var direction:Vector2
@@ -20,8 +22,7 @@ var knockback:Vector2
 var active:bool = false
 
 func _ready() -> void:
-	get_tree().create_timer(5).timeout
-	active = true
+	soft_collision.body_entered.connect(_on_soft_collision_body_entered)
 
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed + knockback
@@ -60,6 +61,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			players.erase(hitbox.get_parent())
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
+	animation_player.play('hit')
 	attack_area.monitoring = false
 	_apply_knockback(direction, knockback_strength)
 	state.current_state.Transitioned.emit(state.current_state, 'meleeStun')
@@ -69,3 +71,9 @@ func _on_hurtbox_got_hit(health: int) -> void:
 	#animation_player.stop()
 	#print(animation_player.current_animation)
 	pass
+
+
+
+func _on_soft_collision_body_entered(body: Node2D) -> void:
+	var dir:Vector2 = global_position.direction_to(body.global_position)
+	_apply_knockback(dir, 20) 

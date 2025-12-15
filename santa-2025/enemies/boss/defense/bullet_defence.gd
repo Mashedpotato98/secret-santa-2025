@@ -1,5 +1,7 @@
 class_name bulletDefence extends Area2D
 
+signal hit;
+
 @export var collision_:CollisionShape2D  
 	
 

@@ -5,4 +5,4 @@ enum input_mode {
     KEYBOARD
 }
 
-var current_input:input_mode = input_mode.KEYBOARD
+var current_input:input_mode = input_mode.CONTROLLER_MIX

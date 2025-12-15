@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dhh663hd246p3"]
+[gd_scene load_steps=26 format=3 uid="uid://dhh663hd246p3"]
 
 [ext_resource type="Script" uid="uid://ckqgteahex3nn" path="res://enemies/Boss.gd" id="1_n18ml"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_ubujh"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="8_2tiri"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="9_2tiri"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/bullet_defence.tscn" id="10_1s7ui"]
+[ext_resource type="Texture2D" uid="uid://cjc87h01ouefr" path="res://assets/defence/defence.png" id="12_o8os0"]
+[ext_resource type="PackedScene" uid="uid://dnomsvvnuwjes" path="res://components/flash.tscn" id="13_02fuc"]
+[ext_resource type="Shader" uid="uid://bys66bmvlt136" path="res://shaders/flash.gdshader" id="14_m37od"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1s7ui"]
+radius = 100.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tiri"]
 size = Vector2(51, 50)
@@ -40,6 +46,78 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.3647059)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("boss_defence/Sprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("flash:material:shader_parameter/flash_amount")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("flash:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_b5n78"]
@@ -77,25 +155,198 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_o8os0"]
+resource_name = "defence_hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2.5, 2.5), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.3647059), Color(1, 1, 1, 0.28235295), Color(1, 1, 1, 0.3647059)]
+}
+
+[sub_resource type="Animation" id="Animation_b0wi3"]
+resource_name = "defence_off"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1.5, 1.5), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_02fuc"]
+resource_name = "defence_on"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1.5, 1.5), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_m37od"]
+resource_name = "defence_broken"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boss_defence/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.049999997, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("flash:material:shader_parameter/flash_amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("flash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
 _data = {
 &"RESET": SubResource("Animation_1s7ui"),
+&"defence_broken": SubResource("Animation_m37od"),
+&"defence_hit": SubResource("Animation_o8os0"),
+&"defence_off": SubResource("Animation_b0wi3"),
+&"defence_on": SubResource("Animation_02fuc"),
 &"spawn_bullet": SubResource("Animation_b5n78"),
 &"spawn_minion": SubResource("Animation_2tiri")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1s7ui"]
-radius = 106.36729
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p1sap"]
+shader = ExtResource("14_m37od")
+shader_parameter/flash_color = Color(0.36862746, 0.003921569, 0.10980392, 1)
+shader_parameter/flash_amount = 0.0
 
 [node name="Boss" type="CharacterBody2D"]
 script = ExtResource("1_n18ml")
+
+[node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("10_1s7ui")]
+collision_mask = 0
+collision_ = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_defence"]
+shape = SubResource("CircleShape2D_1s7ui")
+disabled = true
+debug_color = Color(0, 0.64829797, 0.19764718, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="boss_defence"]
+modulate = Color(1, 1, 1, 0.3647059)
+scale = Vector2(2, 2)
+texture = ExtResource("12_o8os0")
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="state_machine" type="Node2D" parent="CollisionShape2D" node_paths=PackedStringArray("initial_state")]
 visible = false
 script = ExtResource("1_ubujh")
-initial_state = NodePath("bossBulletWave")
+initial_state = NodePath("bossMinion")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
 [node name="bossBulletWave" type="Node" parent="CollisionShape2D/state_machine" node_paths=PackedStringArray("bullet_spawner", "hurtbox", "owner_node", "animation_player")]
@@ -149,15 +400,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_1s7ui")
 }
 
-[node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("10_1s7ui")]
-collision_mask = 0
-collision_ = NodePath("CollisionShape2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_defence"]
-shape = SubResource("CircleShape2D_1s7ui")
-disabled = true
-debug_color = Color(0, 0.64829797, 0.19764718, 0.41960785)
-
 [node name="defence_cooldown" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
@@ -166,6 +408,12 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="flash" parent="." instance=ExtResource("13_02fuc")]
+visible = false
+material = SubResource("ShaderMaterial_p1sap")
+color = Color(1, 1, 1, 0.4745098)
+
+[connection signal="hit" from="boss_defence" to="CollisionShape2D/state_machine/bossMinion" method="_on_boss_defence_hit"]
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="CollisionShape2D/state_machine/bossBulletWave" method="_on_hurtbox_got_hit"]
 [connection signal="timer_finished" from="entity_spawner" to="CollisionShape2D/state_machine/bossBulletWave" method="_on_bullet_spawner_timer_finished"]

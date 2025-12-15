@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnomsvvnuwjes"]
+
+[ext_resource type="Shader" uid="uid://bys66bmvlt136" path="res://shaders/flash.gdshader" id="1_vkgvu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j3rdb"]
+shader = ExtResource("1_vkgvu")
+shader_parameter/flash_color = Color(0, 0, 0, 0.20392157)
+shader_parameter/flash_amount = 0.0
+
+[node name="flash" type="ColorRect"]
+material = SubResource("ShaderMaterial_j3rdb")
+offset_right = 1801.0
+offset_bottom = 1190.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
