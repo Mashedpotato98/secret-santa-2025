@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://6fuxhnkje467" path="res://player_type/big_guy/weapon/big_weapon.gd" id="1_u6ppl"]
 [ext_resource type="Texture2D" uid="uid://c1qh1ivpeumd7" path="res://assets/keytar_gun/keytar_sheet.png" id="2_m7uff"]
 [ext_resource type="PackedScene" uid="uid://back10pj52eey" path="res://player_type/big_guy/weapon/player_bullet.tscn" id="2_ptjjb"]
+[ext_resource type="Material" uid="uid://dbokhmfq31ic4" path="res://particles/fast_burst.tres" id="3_ptjjb"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="4_ytwl6"]
 [ext_resource type="Script" uid="uid://cea0glv6eps37" path="res://player_type/big_guy/weapon/states/gun_idle.gd" id="5_ipw6a"]
 [ext_resource type="Script" uid="uid://b24ijo6lbnqg5" path="res://player_type/big_guy/weapon/states/gun_charge.gd" id="6_itcdc"]
@@ -40,19 +41,6 @@ scale_over_velocity_min = 691.0
 scale_over_velocity_max = 1000.0
 color = Color(0.900271, 0.5115525, 0.5956293, 1)
 color_ramp = SubResource("GradientTexture1D_itcdc")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m7uff"]
-particle_flag_disable_z = true
-spread = 75.0
-initial_velocity_min = 240.26
-initial_velocity_max = 260.25998
-angular_velocity_min = 61.799984
-angular_velocity_max = 61.799984
-orbit_velocity_min = -0.49799994
-orbit_velocity_max = -0.49799994
-scale_min = 0.55
-scale_max = 3.0
-color = Color(0.9019608, 0.50980395, 0.59607846, 1)
 
 [sub_resource type="Animation" id="Animation_m7uff"]
 length = 0.001
@@ -333,7 +321,7 @@ emitting = false
 amount = 5
 lifetime = 0.1
 explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_m7uff")
+process_material = ExtResource("3_ptjjb")
 
 [node name="cooldownTimer" type="Timer" parent="."]
 wait_time = 2.0

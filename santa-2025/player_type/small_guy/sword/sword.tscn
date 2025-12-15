@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bcwvt7odc8aw7"]
 
 [ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
-[ext_resource type="Texture2D" uid="uid://yddby0e4s5sn" path="res://assets/guitar/guitar-sheet.png" id="2_h07ds"]
+[ext_resource type="Texture2D" uid="uid://ccw3uwldacflm" path="res://assets/katana/katana-sheet.png" id="2_lcld2"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/bullet_defence.tscn" id="4_lcld2"]
 
@@ -22,7 +22,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("pivot/Sprite2D/hitbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -46,22 +46,10 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("pivot/Sprite2D:frame")
+tracks/3/path = NodePath("player_defence/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("pivot/Sprite2D/player_defence/CollisionShape2D:disabled")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -84,60 +72,37 @@ tracks/0/keys = {
 "update": 1,
 "values": [true, false]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimationPlayer")
+tracks/1/path = NodePath("hitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"values": []
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("pivot/Sprite2D/hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.099999994, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [true, false, true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("pivot/Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pivot/Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [-1.5707964, 1.5707964, 0.0]
+"values": [-1.5707963267948966, 2.0943951023931953, 0.0]
 }
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("pivot/Sprite2D:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("pivot/Sprite2D/player_defence/CollisionShape2D:disabled")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("player_defence/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.35),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
@@ -150,39 +115,32 @@ _data = {
 &"attack": SubResource("Animation_uschr")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
-size = Vector2(22.333332, 17.333332)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lcld2"]
-radius = 30.149628
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h07ds"]
 particles_animation = true
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uschr"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lcld2"]
 particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
 initial_velocity_min = 64.38
 initial_velocity_max = 64.38
 angular_velocity_min = -1.6093254e-05
 angular_velocity_max = 279.52997
-orbit_velocity_min = -0.77599996
-orbit_velocity_max = -0.18799992
-radial_velocity_min = 23.529978
-radial_velocity_max = 23.529978
+orbit_velocity_min = 0.012000095
+orbit_velocity_max = 0.012000095
 gravity = Vector3(0, -98, 0)
-linear_accel_min = 31.759996
-linear_accel_max = 62.349995
-radial_accel_min = -100.0
-radial_accel_max = -100.0
-tangential_accel_min = -100.0
-tangential_accel_max = 9.419997
 scale_max = 2.0
 scale_over_velocity_max = 264.71
 anim_speed_max = 4.52
 anim_offset_max = 0.1471
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
+size = Vector2(22.333332, 32.666668)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lcld2"]
+radius = 30.149628
 
 [node name="sword" type="Node2D"]
 script = ExtResource("1_uschr")
@@ -195,47 +153,49 @@ libraries = {
 [node name="pivot" type="Marker2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="pivot"]
-position = Vector2(19, 0)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("2_h07ds")
+texture = ExtResource("2_lcld2")
 offset = Vector2(20, 0)
-hframes = 2
+hframes = 4
+frame = 3
 
-[node name="hitbox" parent="pivot/Sprite2D" instance=ExtResource("3_h07ds")]
-position = Vector2(28, -0.66666675)
+[node name="melee" type="GPUParticles2D" parent="pivot/Sprite2D"]
+material = SubResource("CanvasItemMaterial_h07ds")
+position = Vector2(8.666667, 0)
+emitting = false
+amount = 16
+lifetime = 0.2
+speed_scale = 1.5
+explosiveness = 0.1
+process_material = SubResource("ParticleProcessMaterial_lcld2")
+
+[node name="hitbox" parent="." instance=ExtResource("3_h07ds")]
+visible = false
+position = Vector2(57, -27)
+scale = Vector2(1.5, 1.5)
 collision_mask = 4
 damage = 1
 knockback_strength = 900
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" parent="pivot/Sprite2D/hitbox" index="0"]
-position = Vector2(-23.833334, -0.6666665)
+[node name="CollisionShape2D" parent="hitbox" index="0"]
+position = Vector2(-23.833332, 7.000001)
 shape = SubResource("RectangleShape2D_h07ds")
 disabled = true
 
-[node name="player_defence" parent="pivot/Sprite2D" node_paths=PackedStringArray("collision_") instance=ExtResource("4_lcld2")]
-position = Vector2(-12.666667, 0)
-scale = Vector2(0.6666667, 0.6666667)
+[node name="player_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("4_lcld2")]
+visible = false
+position = Vector2(-19, -1)
 collision_layer = 32
 collision_mask = 0
 collision_ = NodePath("CollisionShape2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="pivot/Sprite2D/player_defence"]
-position = Vector2(25, -1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_defence"]
+position = Vector2(40, -16)
 shape = SubResource("CircleShape2D_lcld2")
 disabled = true
 
-[node name="melee" type="GPUParticles2D" parent="pivot/Sprite2D"]
-material = SubResource("CanvasItemMaterial_h07ds")
-position = Vector2(3.999999, -1.3333335)
-emitting = false
-amount = 16
-lifetime = 0.3
-speed_scale = 1.5
-explosiveness = 0.1
-process_material = SubResource("ParticleProcessMaterial_uschr")
-
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="area_entered" from="pivot/Sprite2D/hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 
-[editable path="pivot/Sprite2D/hitbox"]
+[editable path="hitbox"]

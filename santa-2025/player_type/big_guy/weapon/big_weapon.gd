@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 		if Global.current_input == Global.input_mode.CONTROLLER_MIX:
 			aim_direction = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
 		else :
-			aim_direction = get_global_mouse_position()
+			aim_direction = global_position.direction_to(get_global_mouse_position())
 
 		global_rotation = aim_direction.angle()
 		

@@ -9,10 +9,8 @@ extends CharacterBody2D
 @onready var sword:Node2D = $sword
 @onready var hurtbox:hurtBox = $hurtbox
 @onready var knockback_receiver:Node2D = $knockback_receiver
-@onready var dash_cooldown:Timer = $dashCooldown
 
 var knockback:Vector2
-var can_dash:bool = true
 var direction:Vector2
 
 
@@ -29,14 +27,6 @@ func _physics_process(delta: float) -> void:
     move_and_slide()
 
     
-func dash():
-    can_dash = false
-    speed = dash_speed
-    await get_tree().create_timer(0.1).timeout
-    speed = regular_speed
-    dash_cooldown.start()
-    
-
 func _on_hurtbox_got_hit(hp:int) -> void:
     health_ui.text = str(hurtbox.hp)
 

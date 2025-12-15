@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccwoxfnq1xscr"]
+[gd_scene load_steps=15 format=3 uid="uid://ccwoxfnq1xscr"]
 
 [ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
 [ext_resource type="Texture2D" uid="uid://cx53nud73mbpd" path="res://assets/small_guy/small_guy.png" id="2_1og6c"]
@@ -15,6 +15,81 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wr3ml"]
 size = Vector2(14, 14)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_48m5k"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 75.0
+initial_velocity_min = 81.33
+initial_velocity_max = 101.329994
+angular_velocity_min = 61.799984
+angular_velocity_max = 61.799984
+scale_min = 6.5699997
+scale_max = 9.0199995
+scale_over_velocity_min = 198.8
+scale_over_velocity_max = 198.8
+color = Color(1, 1, 0.33333334, 0.26666668)
+
+[sub_resource type="Animation" id="Animation_7jdh5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dash:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_48m5k"]
+resource_name = "dash"
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dash:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.8), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dfyk6"]
+_data = {
+&"RESET": SubResource("Animation_7jdh5"),
+&"dash": SubResource("Animation_48m5k")
+}
+
 [node name="SmallGuy" type="CharacterBody2D" groups=["small_guy"]]
 collision_mask = 8
 script = ExtResource("1_o2pp6")
@@ -22,6 +97,7 @@ regular_speed = 150
 dash_speed = 300
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
 texture = ExtResource("2_1og6c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -56,17 +132,30 @@ script = ExtResource("6_pkfip")
 initial_state = NodePath("smallMove")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
-[node name="smallMelee" type="Node" parent="state_machine" node_paths=PackedStringArray("sword", "owner_node")]
+[node name="smallMelee" type="Node" parent="state_machine" node_paths=PackedStringArray("sword", "owner_node", "animation_player")]
 script = ExtResource("7_48m5k")
 sword = NodePath("../../sword")
 owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://b1wgqyymb8qor"
 
-[node name="smallMove" type="Node" parent="state_machine" node_paths=PackedStringArray("dash_cooldown", "owner_node")]
+[node name="smallMove" type="Node" parent="state_machine" node_paths=PackedStringArray("dash_cooldown", "owner_node", "animation_player")]
 script = ExtResource("8_7jdh5")
 dash_cooldown = NodePath("../../dashCooldown")
 owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://b5bmdk75bgwq2"
+
+[node name="dash" type="GPUParticles2D" parent="."]
+position = Vector2(0, 8)
+emitting = false
+lifetime = 0.1
+process_material = SubResource("ParticleProcessMaterial_48m5k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dfyk6")
+}
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
