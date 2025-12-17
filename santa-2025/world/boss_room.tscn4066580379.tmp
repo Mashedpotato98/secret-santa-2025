@@ -10,6 +10,7 @@ size = Vector2(63.0063, 1708.9128)
 [node name="boss_room" type="Node2D"]
 
 [node name="Boss" parent="." instance=ExtResource("1_ag8ou")]
+process_mode = 4
 position = Vector2(-5, -11)
 
 [node name="Big_guy" parent="." instance=ExtResource("2_himuu")]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
 [ext_resource type="Texture2D" uid="uid://ccw3uwldacflm" path="res://assets/katana/katana-sheet.png" id="2_lcld2"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
-[ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/bullet_defence.tscn" id="4_lcld2"]
+[ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="4_lcld2"]
 
 [sub_resource type="Animation" id="Animation_h07ds"]
 length = 0.001

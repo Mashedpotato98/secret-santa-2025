@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxqgt6syiwfi5"]
+[gd_scene load_steps=13 format=3 uid="uid://bxqgt6syiwfi5"]
 
 [ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
 [ext_resource type="Texture2D" uid="uid://b4bvde36uc07u" path="res://assets/shield_enemy/shield_enemy_shield.png" id="2_0g610"]
-[ext_resource type="Script" uid="uid://csppdw68yq82f" path="res://enemies/shield_enemy/shield_idle.gd" id="3_pk8hy"]
 [ext_resource type="Script" uid="uid://dlgrylnpfnjee" path="res://enemies/shield_enemy/states/shield_move.gd" id="4_b6msj"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="6_thty8"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="7_keev8"]
@@ -90,12 +89,6 @@ script = ExtResource("1_icwi8")
 initial_state = NodePath("shieldMove")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
-[node name="shieldIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_timer", "owner_node", "animation_player")]
-script = ExtResource("3_pk8hy")
-idle_timer = NodePath("../../idle_timer")
-owner_node = NodePath("../..")
-animation_player = NodePath("../../AnimationPlayer")
-
 [node name="shieldMove" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
 script = ExtResource("4_b6msj")
 owner_node = NodePath("../..")
@@ -122,6 +115,5 @@ disabled = true
 
 [node name="move_timer" type="Timer" parent="."]
 
-[connection signal="timeout" from="idle_timer" to="state_machine/shieldIdle" method="_on_idle_timer_timeout"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="timeout" from="move_timer" to="state_machine/shieldMove" method="_on_move_timer_timeout"]

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=7 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
 [ext_resource type="Script" uid="uid://77yh22666j63" path="res://world/spawner.gd" id="4_spvjk"]
 [ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="5_cmo1i"]
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="5_i1eo7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmo1i"]
+size = Vector2(63.0063, 1708.9128)
 
 [node name="main" type="Node2D"]
 
@@ -26,12 +29,38 @@ autostart = true
 position = Vector2(858, 321)
 
 [node name="tank_melee" parent="." instance=ExtResource("4_cmo1i")]
+process_mode = 4
 position = Vector2(-83, 257)
 
 [node name="tank_melee2" parent="." instance=ExtResource("4_cmo1i")]
+process_mode = 4
 position = Vector2(-38, 259)
 
 [node name="tank_melee3" parent="." instance=ExtResource("4_cmo1i")]
+process_mode = 4
 position = Vector2(-130, 259)
+
+[node name="boundary" type="StaticBody2D" parent="."]
+position = Vector2(-872, 131)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boundary"]
+position = Vector2(5, -97)
+shape = SubResource("RectangleShape2D_cmo1i")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="boundary"]
+position = Vector2(885.5436, 378.25775)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_cmo1i")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="boundary"]
+position = Vector2(868, -640)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_cmo1i")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="boundary"]
+position = Vector2(1762.5, -475.06784)
+rotation = -3.1415925
+shape = SubResource("RectangleShape2D_cmo1i")
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

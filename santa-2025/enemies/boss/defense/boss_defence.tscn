@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://duvyp3fetud8o"]
+
+[ext_resource type="Script" uid="uid://cekf43otc5mhu" path="res://enemies/boss/defense/boss_defence.gd" id="1_qgyvp"]
+
+[node name="boss_defence" type="Area2D"]
+collision_layer = 16
+monitoring = false
+script = ExtResource("1_qgyvp")
