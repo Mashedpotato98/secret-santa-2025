@@ -12,7 +12,7 @@ extends CharacterBody2D
 
 var knockback:Vector2
 var direction:Vector2
-
+var rotational_direction:Vector2
 
 func _ready() -> void:
     health_ui.text = str(hurtbox.max_hp)
@@ -21,8 +21,12 @@ func _physics_process(delta: float) -> void:
     
     velocity = direction * speed + knockback
     knockback = lerp(knockback, Vector2.ZERO, 0.1)
+
+    if direction != Vector2.ZERO: 
+        rotational_direction = direction
     
-    sword.global_rotation = direction.angle()
+    
+    sword.global_rotation = rotational_direction.angle()
 
     move_and_slide()
 
@@ -32,6 +36,5 @@ func _on_hurtbox_got_hit(hp:int) -> void:
 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
-    print('direction: ' + str(direction) + ","  + 'strength:' + str(knockback_strength))
     knockback = knockback_receiver.apply_knockback(direction, knockback_strength)
 

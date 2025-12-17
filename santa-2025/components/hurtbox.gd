@@ -9,9 +9,7 @@ signal knockback_values(direction:Vector2, knockback_strength:int)
 
 func damage(hitbox:hitBox):
 	hp -= hitbox.damage
-	print(str(owner_node) + ":" + str(hp))
 	if (hp <= 0):
-		print('should die')
 		owner_node.queue_free()
 	var direction:Vector2 = global_position.direction_to(hitbox.get_parent().global_position)
 	got_hit.emit(hp)

@@ -164,10 +164,10 @@ anim_speed_max = 4.52
 anim_offset_max = 0.1471
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
-size = Vector2(12.000001, 52.000008)
+size = Vector2(8.666665, 30.000015)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lcld2"]
-radius = 30.149628
+radius = 25.079872
 
 [node name="sword" type="Node2D"]
 script = ExtResource("1_uschr")
@@ -205,7 +205,7 @@ knockback_strength = 900
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
-position = Vector2(-18.666676, 10.000002)
+position = Vector2(-29.666683, 10.333335)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_h07ds")
 disabled = true
@@ -217,7 +217,7 @@ collision_mask = 0
 collision_ = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_defence"]
-position = Vector2(48, -2)
+position = Vector2(43, 1)
 rotation = 1.5707964
 shape = SubResource("CircleShape2D_lcld2")
 disabled = true

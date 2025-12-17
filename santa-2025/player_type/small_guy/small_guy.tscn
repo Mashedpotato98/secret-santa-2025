@@ -127,6 +127,7 @@ offset_bottom = 34.0
 body = NodePath("..")
 
 [node name="dashCooldown" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
