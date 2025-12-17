@@ -15,7 +15,7 @@ speed = 900
 [node name="hitbox" parent="." index="1" instance=ExtResource("2_rve4a")]
 collision_mask = 20
 damage = 3
-knockback_strength = 900
+knockback_strength = 1500
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
 shape = SubResource("RectangleShape2D_tthum")

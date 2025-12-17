@@ -13,12 +13,7 @@ var aim_direction:Vector2
 func _process(delta: float) -> void:
 	if big_guy:
 		global_position = big_guy.global_position
-		if Global.current_input == Global.input_mode.CONTROLLER_MIX:
-			aim_direction = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
-		else :
-			aim_direction = global_position.direction_to(get_global_mouse_position())
 
-		global_rotation = aim_direction.angle()
 		
 func slow_down_player():
 	big_guy.speed = big_guy.shoot_speed
