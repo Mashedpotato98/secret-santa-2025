@@ -120,39 +120,69 @@ tracks/7/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_b5n78"]
-resource_name = "spawn_bullet"
-length = 1.7
-loop_mode = 2
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.7853982, 1.5707964, 2.3561945, 3.1415927, 3.9269907, 4.712389, 5.846853, 6.2831855]
-}
-
-[sub_resource type="Animation" id="Animation_2tiri"]
-resource_name = "spawn_minion"
+[sub_resource type="Animation" id="Animation_m37od"]
+resource_name = "defence_broken"
 length = 0.5
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/path = NodePath("boss_defence/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
+"times": PackedFloat32Array(0, 0.049999997, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.45, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("flash:material:shader_parameter/flash_amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
+"values": [0.0, 1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("flash:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_o8os0"]
@@ -242,69 +272,39 @@ tracks/1/keys = {
 "values": [Vector2(0.5, 0.5), Vector2(1.5, 1.5), Vector2(2, 2)]
 }
 
-[sub_resource type="Animation" id="Animation_m37od"]
-resource_name = "defence_broken"
-length = 0.5
-step = 0.05
+[sub_resource type="Animation" id="Animation_b5n78"]
+resource_name = "spawn_bullet"
+length = 1.7
+loop_mode = 2
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("boss_defence/Sprite2D:frame")
+tracks/0/path = NodePath("Sprite2D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.049999997, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("boss_defence/Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.45, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(2, 2), Vector2(0.5, 0.5)]
+"values": [0.0, 0.7853982, 1.5707964, 2.3561945, 3.1415927, 3.9269907, 4.712389, 5.846853, 6.2831855]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("boss_defence/Sprite2D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("flash:material:shader_parameter/flash_amount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
+
+[sub_resource type="Animation" id="Animation_2tiri"]
+resource_name = "spawn_minion"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [0.0, 1.0, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("flash:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
+"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
@@ -373,9 +373,10 @@ metadata/_custom_type_script = "uid://c62d321qpdq1l"
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("5_2tiri")
 
-[node name="hurtbox" parent="Sprite2D" instance=ExtResource("9_2tiri")]
+[node name="hurtbox" parent="Sprite2D" node_paths=PackedStringArray("owner_node") instance=ExtResource("9_2tiri")]
 collision_layer = 4
 max_hp = 25
+owner_node = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/hurtbox"]
 position = Vector2(-0.5, 0)
@@ -412,6 +413,10 @@ one_shot = true
 visible = false
 material = SubResource("ShaderMaterial_p1sap")
 color = Color(1, 1, 1, 0.4745098)
+
+[node name="audio" type="Node2D" parent="."]
+
+[node name="hit" type="AudioStreamPlayer2D" parent="audio"]
 
 [connection signal="hit" from="boss_defence" to="CollisionShape2D/state_machine/bossMinion" method="_on_boss_defence_hit"]
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="." method="_on_hurtbox_got_hit"]

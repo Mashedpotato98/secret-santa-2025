@@ -23,6 +23,7 @@ func spawn_bullet(angle:float):
 	get_tree().root.call_deferred('add_child', bullet)
 
 func spawn_minion(angle:float):
+
 	var minion:CharacterBody2D = minion.instantiate()
 
 	minion.look_at(_get_vector(angle))  

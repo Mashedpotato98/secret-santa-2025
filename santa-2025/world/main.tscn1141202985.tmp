@@ -1,16 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=6 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
 [ext_resource type="Script" uid="uid://77yh22666j63" path="res://world/spawner.gd" id="4_spvjk"]
 [ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="5_cmo1i"]
+[ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="5_i1eo7"]
 
 [node name="main" type="Node2D"]
 
 [node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
 
+[node name="Big_guy" parent="." instance=ExtResource("5_i1eo7")]
+position = Vector2(22, 15)
+
 [node name="spawner" type="Node2D" parent="."]
-process_mode = 4
 position = Vector2(-1, -4)
 script = ExtResource("4_spvjk")
 enemies = Array[PackedScene]([ExtResource("4_cmo1i")])
@@ -23,14 +26,12 @@ autostart = true
 position = Vector2(858, 321)
 
 [node name="tank_melee" parent="." instance=ExtResource("4_cmo1i")]
-position = Vector2(-83, 257)
+position = Vector2(-107, 398)
 
 [node name="tank_melee2" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
 position = Vector2(55, 428)
 
 [node name="tank_melee3" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
 position = Vector2(-246, 409)
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

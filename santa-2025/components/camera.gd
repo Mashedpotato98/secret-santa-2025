@@ -14,10 +14,10 @@ var trauma_pwr := 3 #Trauma exponent. Use [2,3]
 
 func _ready():
 	randomize()
-	noise.seed = randi()
 
 func add_trauma(amount : float):
 	trauma = min(trauma + amount, 1.0)
+	noise.seed = randf()
 
 func _process(delta):
 	if trauma:

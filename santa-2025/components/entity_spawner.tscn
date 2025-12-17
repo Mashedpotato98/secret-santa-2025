@@ -5,6 +5,7 @@
 [node name="entity_spawner" type="Node2D" node_paths=PackedStringArray("cooldown")]
 script = ExtResource("1_8lf16")
 cooldown = NodePath("Timer")
+alpha = null
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.3

@@ -1,5 +1,7 @@
 class_name state_machine extends Node2D
 
+signal changed(state,new_state)
+
 @export var initial_state:State
 
 var current_state: State
@@ -24,6 +26,7 @@ func _physics_process(delta):
 
 func on_child_transition(state,new_state_name):
 	if state != current_state:
+		changed.emit(state,new_state_name)
 		return
 
 	var new_state = states.get(new_state_name.to_lower())

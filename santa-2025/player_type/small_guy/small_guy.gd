@@ -32,5 +32,6 @@ func _on_hurtbox_got_hit(hp:int) -> void:
 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
+    print('direction: ' + str(direction) + ","  + 'strength:' + str(knockback_strength))
     knockback = knockback_receiver.apply_knockback(direction, knockback_strength)
 

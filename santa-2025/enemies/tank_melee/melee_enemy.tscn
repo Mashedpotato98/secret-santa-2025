@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://7apob1ku4abi"]
+[gd_scene load_steps=31 format=3 uid="uid://7apob1ku4abi"]
 
 [ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/melee_enemy.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
@@ -8,11 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="4_ajovx"]
 [ext_resource type="PackedScene" uid="uid://oggpcil8kah2" path="res://particles/slow_bursts.tscn" id="6_kycy5"]
 [ext_resource type="PackedScene" uid="uid://duvkkkpyr2sol" path="res://components/state_machine.tscn" id="8_1e2hb"]
+[ext_resource type="Script" uid="uid://dwsktcqmw4em1" path="res://enemies/tank_melee/states/melee_ram.gd" id="9_aoyox"]
 [ext_resource type="Script" uid="uid://x76i2at6bc6l" path="res://enemies/tank_melee/states/melee_chase.gd" id="9_cb3be"]
-[ext_resource type="Script" uid="uid://do8apfbj15r04" path="res://enemies/tank_melee/states/tank_idle.gd" id="9_pi3te"]
-[ext_resource type="Script" uid="uid://bj7deeu4bnj3o" path="res://enemies/tank_melee/states/melee_drill_attack.gd" id="10_2myxq"]
+[ext_resource type="Script" uid="uid://hcmvr6td4adi" path="res://enemies/tank_melee/states/melee_charge.gd" id="10_aoyox"]
+[ext_resource type="Script" uid="uid://bcf22lbuw8p1k" path="res://enemies/tank_melee/states/melee_idle.gd" id="10_gx3dk"]
 [ext_resource type="Script" uid="uid://dq3ui2y2y18ur" path="res://enemies/tank_melee/states/melee_stun.gd" id="11_2myxq"]
 [ext_resource type="PackedScene" uid="uid://co2toqo8681jp" path="res://components/soft_collision.tscn" id="13_iqfe0"]
+[ext_resource type="AudioStream" uid="uid://brar3finjpvpr" path="res://assets/sounds/slap_hit/clean_wall_slap.wav" id="14_laaba"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7ly"]
 resource_local_to_scene = true
@@ -70,7 +72,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.875, 1)]
+"values": [Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -99,14 +101,50 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("areas/hitbox:monitoring")
+tracks/6/path = NodePath("Sprite2D:skew")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("audio/hit_audio:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("areas/attack_area:monitoring")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("areas/hurtbox/CollisionShape2D:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_eu7ly"]
@@ -156,55 +194,22 @@ tracks/3/path = NodePath("areas/attack_area/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_1e2hb"]
-resource_name = "hit"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.06666666, 0.19999999),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.06666666, 0.19999999),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.5, 0.571), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_e2e8j"]
-resource_name = "moving"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("slow_bursts:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("areas/hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_iqfe0"]
@@ -246,6 +251,173 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("areas/hurtbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1e2hb"]
+resource_name = "hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.19999999),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.6, 0.6), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:skew")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.34906584, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/hit_audio:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("areas/attack_area:monitoring")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("areas/attack_area/CollisionShape2D:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("areas/hurtbox/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_e2e8j"]
+resource_name = "moving"
+length = 0.1
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("slow_bursts:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("areas/hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("areas/attack_area/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("areas/hurtbox/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kycy5"]
@@ -291,27 +463,26 @@ color = Color(0.900271, 0.5115525, 0.5956293, 1)
 color_ramp = SubResource("GradientTexture1D_owanv")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e2e8j"]
-radius = 40.04997
+radius = 45.01111
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ajovx"]
-size = Vector2(32, 32)
+size = Vector2(36, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0kh"]
 size = Vector2(21, 26)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqfe0"]
-radius = 62.0
+radius = 13.038404
 
 [node name="tank_melee" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_2el2d")
-soft_collision_strength = 10
-drill_speed = 1
+soft_collision_strength = 60
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_eu7ly")
 position = Vector2(-1.9999995, 0)
-scale = Vector2(0.875, 1)
 texture = ExtResource("2_e2e8j")
 vframes = 5
 
@@ -330,56 +501,79 @@ position = Vector2(-16, 1)
 texture = null
 process_material = SubResource("ParticleProcessMaterial_2myxq")
 
+[node name="idle_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="charge_time" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ram_time" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [node name="state_machine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("8_1e2hb")]
 initial_state = NodePath("meleeIdle")
 
-[node name="meleeIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_timer", "owner_node")]
-script = ExtResource("9_pi3te")
+[node name="meleeIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_timer", "owner_node", "animation_player")]
+script = ExtResource("10_gx3dk")
 idle_timer = NodePath("../../idle_timer")
 owner_node = NodePath("../..")
-metadata/_custom_type_script = "uid://do8apfbj15r04"
+animation_player = NodePath("../../AnimationPlayer")
 
-[node name="meleeChase" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
+[node name="meleeChase" type="Node" parent="state_machine" node_paths=PackedStringArray("label", "attack_area", "owner_node", "animation_player")]
 script = ExtResource("9_cb3be")
+label = NodePath("../../state")
+attack_area = NodePath("../../areas/attack_area")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://x76i2at6bc6l"
 
-[node name="meleeDrill" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
-script = ExtResource("10_2myxq")
-push_force = 200
+[node name="meleeCharge" type="Node" parent="state_machine" node_paths=PackedStringArray("charge_timer", "owner_node", "animation_player")]
+script = ExtResource("10_aoyox")
+charge_timer = NodePath("../../charge_time")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://hcmvr6td4adi"
+
+[node name="meleeRam" type="Node" parent="state_machine" node_paths=PackedStringArray("ram_timer", "owner_node", "animation_player")]
+script = ExtResource("9_aoyox")
+ram_timer = NodePath("../../ram_time")
+push_force = 700
+owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://dwsktcqmw4em1"
 
 [node name="meleeStun" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
 script = ExtResource("11_2myxq")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="idle_timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="areas" type="Node2D" parent="."]
 
 [node name="attack_area" type="Area2D" parent="areas"]
+visible = false
 collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/attack_area"]
 position = Vector2(29, 0)
 shape = SubResource("CircleShape2D_e2e8j")
 
-[node name="hurtbox" parent="areas" instance=ExtResource("3_te1yc")]
-visible = false
+[node name="hurtbox" parent="areas" node_paths=PackedStringArray("owner_node") instance=ExtResource("3_te1yc")]
 collision_layer = 4
 max_hp = 4
+owner_node = NodePath("../..")
 
 [node name="CollisionShape2D" parent="areas/hurtbox" index="0"]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_ajovx")
 
 [node name="hitbox" parent="areas" instance=ExtResource("2_sd0kh")]
+visible = false
 collision_mask = 1
 damage = 2
-knockback_strength = 200
+knockback_strength = 400
 
 [node name="CollisionShape2D" parent="areas/hitbox" index="0"]
 position = Vector2(9.5, 0)
@@ -394,10 +588,26 @@ visible = false
 monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/soft_collision"]
+position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_iqfe0")
 
+[node name="audio" type="Node2D" parent="."]
+
+[node name="hit_audio" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_laaba")
+bus = &"player_sounds"
+
+[node name="state" type="Label" parent="."]
+offset_left = -22.0
+offset_top = -38.0
+offset_right = 18.0
+offset_bottom = -15.0
+
+[connection signal="timeout" from="idle_timer" to="state_machine/meleeIdle" method="_on_idle_timer_timeout"]
+[connection signal="timeout" from="charge_time" to="state_machine/meleeCharge" method="_on_charge_time_timeout"]
+[connection signal="timeout" from="ram_time" to="state_machine/meleeRam" method="_on_ram_time_timeout"]
+[connection signal="changed" from="state_machine" to="." method="_on_state_machine_changed"]
 [connection signal="body_entered" from="areas/attack_area" to="state_machine/meleeChase" method="_on_attack_area_body_entered"]
-[connection signal="body_exited" from="areas/attack_area" to="state_machine/meleeDrill" method="_on_attack_area_body_exited"]
 [connection signal="got_hit" from="areas/hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="knockback_values" from="areas/hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="area_entered" from="areas/hitbox" to="." method="_on_hitbox_area_entered"]

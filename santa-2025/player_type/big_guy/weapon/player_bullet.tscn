@@ -8,6 +8,7 @@
 
 [node name="player_bullet" node_paths=PackedStringArray("hitbox") instance=ExtResource("1_tthum")]
 script = ExtResource("2_35q8k")
+max_hit = 3
 hitbox = NodePath("hitbox")
 speed = 900
 

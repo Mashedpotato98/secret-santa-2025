@@ -13,7 +13,7 @@ extends CharacterBody2D
 
 @export var soft_collision_strength:int = 1
 @export var moving_speed:int = 70
-@export var drill_speed:int = 5
+@export var ram_speed:int = 0
 
 @onready var speed:int = moving_speed
 
@@ -21,10 +21,7 @@ var direction:Vector2
 var knockback:Vector2
 
 var active:bool = false
-
-func _ready() -> void:
-	soft_collision_strength = randi_range(soft_collision_strength, soft_collision_strength+5)
-	print(soft_collision_strength)
+var closer_player_position:Vector2
 
 
 func _physics_process(delta: float) -> void:
@@ -46,8 +43,11 @@ func _closer_player() -> CharacterBody2D:
 			if  current_distance < smallest_distance:
 				smallest_distance = current_distance
 				closest_player = player
-
 	return closest_player
+
+func _closer_position():
+	closer_player_position = _closer_player().global_position
+	return closer_player_position 
 	
 	
 func _push_forward(push_to:Vector2, push_force:int):
@@ -60,9 +60,8 @@ func _apply_knockback(direction:Vector2, knockback_strength:int):
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is hurtBox:
 		area.damage(hitbox)
-		print(area.damage)
-		if players.has(hitbox.get_parent()):
-			players.erase(hitbox.get_parent())
+		#if players.has(area.owner_node):
+			#players.erase(area.owner_node)
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
 	animation_player.play('hit')
@@ -77,5 +76,10 @@ func _on_hurtbox_got_hit(health: int) -> void:
 	pass
 
 func _on_soft_collision_area_entered(area: Area2D) -> void:
-	var dir:Vector2 = (global_position.direction_to(area.global_position)) 
+	var dir:Vector2 = (global_position.direction_to(area.global_position)).normalized()
 	_apply_knockback(dir, soft_collision_strength) 
+
+
+func _on_state_machine_changed(state, new_state) -> void:
+	#$state.text = str(new_state)
+	pass
