@@ -6,3 +6,12 @@ enum input_mode {
 }
 
 var current_input:input_mode = input_mode.CONTROLLER_MIX
+
+func _ready() -> void:
+    print(current_input)
+
+func _current_input():
+    if current_input == input_mode.CONTROLLER_MIX:
+        return true
+    else :
+        return false

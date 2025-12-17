@@ -27,6 +27,10 @@ var closer_player_position:Vector2
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed + knockback
 	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+
+	for soft_collider in soft_collision.get_overlapping_bodies():
+		print(soft_collider)
+
  
 	move_and_slide()
 	
@@ -76,8 +80,11 @@ func _on_hurtbox_got_hit(health: int) -> void:
 	pass
 
 func _on_soft_collision_area_entered(area: Area2D) -> void:
-	var dir:Vector2 = (global_position.direction_to(area.global_position)).normalized()
+	var dir:Vector2 = (global_position.direction_to(area.global_position))
 	_apply_knockback(dir, soft_collision_strength) 
+	
+	#for soft_collider in soft_collision.get_overlapping_bodies():
+		#print(soft_collider)
 
 
 func _on_state_machine_changed(state, new_state) -> void:

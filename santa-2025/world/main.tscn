@@ -29,11 +29,9 @@ position = Vector2(858, 321)
 position = Vector2(-83, 257)
 
 [node name="tank_melee2" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
-position = Vector2(55, 428)
+position = Vector2(-38, 259)
 
 [node name="tank_melee3" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
-position = Vector2(-246, 409)
+position = Vector2(-130, 259)
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://bxqgt6syiwfi5"]
+
+[ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
+[ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
+[ext_resource type="Script" uid="uid://csppdw68yq82f" path="res://enemies/shield_enemy/shield_idle.gd" id="3_pk8hy"]
+[ext_resource type="Script" uid="uid://dlgrylnpfnjee" path="res://enemies/shield_enemy/states/shield_move.gd" id="4_b6msj"]
+
+[node name="shield_enemy" type="CharacterBody2D"]
+script = ExtResource("1_gjbi7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="idle_timer" type="Timer" parent="."]
+
+[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_icwi8")
+initial_state = NodePath("shieldMove")
+metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
+
+[node name="shieldIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("idle_timer", "owner_node", "animation_player")]
+script = ExtResource("3_pk8hy")
+idle_timer = NodePath("../../idle_timer")
+owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+
+[node name="shieldMove" type="Node" parent="state_machine" node_paths=PackedStringArray("owner_node", "animation_player")]
+script = ExtResource("4_b6msj")
+owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://dlgrylnpfnjee"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="timeout" from="idle_timer" to="state_machine/shieldIdle" method="_on_idle_timer_timeout"]

@@ -8,14 +8,11 @@ extends Node2D
 @export var big_guy:CharacterBody2D 
 @export var canShoot:bool = true
 
-var aim_direction:Vector2 
 
 func _process(delta: float) -> void:
-	if big_guy:
-		global_position = big_guy.global_position
+    pass    
 
-		
 func slow_down_player():
-	big_guy.speed = big_guy.shoot_speed
+    big_guy.speed = big_guy.shoot_speed
 func revert_player_speed():
-	big_guy.speed = big_guy.regular_speed
+    big_guy.speed = big_guy.regular_speed

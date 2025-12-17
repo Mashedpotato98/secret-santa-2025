@@ -8,14 +8,15 @@ func Enter():
 	owner_node.speed = owner_node.moving_speed
 
 func Exit():
-	label.text = ""
+	#label.text = ""
+	pass
 
 func physics_update(_delta:float):
 	if owner_node._closer_player() != null:
 		move_to_player()
 
 func move_to_player():
-	label.text = str(owner_node._closer_player())
+	#label.text = str(owner_node._closer_player())
 
 	var closer_player = owner_node._closer_player()
 	owner_node.direction = owner_node.global_position.direction_to(closer_player.global_position)
