@@ -28,16 +28,17 @@ func _physics_process(delta: float) -> void:
 	if direction != Vector2.ZERO:
 		weapon.global_position = global_position
 
-	if Global.current_input == Global.input_mode.CONTROLLER_MIX:
-		var aim_direction:Vector2  = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
-		if aim_direction != Vector2.ZERO:
-			rotational_direction = aim_direction
-	else :
-		rotational_direction = global_position.direction_to(get_global_mouse_position())
-	
+	var aim_direction:Vector2  = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
+	if aim_direction != Vector2.ZERO:
+		rotational_direction = aim_direction
+
 	weapon.rotation = rotational_direction.angle()
 
 	move_and_slide()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		rotational_direction = global_position.direction_to(get_global_mouse_position())
 	
 
 func _on_hurtbox_got_hit(health:int)-> void:

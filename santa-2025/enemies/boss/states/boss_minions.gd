@@ -48,6 +48,7 @@ func _defence_off():
 	minion_spawner.cooldown.stop()
 	animation_player.play('defence_off')
 
+#defence broken by capturing defennce breaker node
 func _on_defence_broken(body:CharacterBody2D):
 	print('defence_broken')
 	animation_player.play('defence_broken')
@@ -67,7 +68,7 @@ func _spawn_minion():
 		minion_spawner.spawn_minion(shield_enemy, minion_spawner.theta)
 
 func _on_bullet_spawner_timer_finished() -> void:
-	print('1')
+	#print('1')
 	if active == true:
 		_spawn_minion()
 

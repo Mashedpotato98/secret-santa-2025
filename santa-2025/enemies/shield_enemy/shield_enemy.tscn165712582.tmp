@@ -1,0 +1,351 @@
+[gd_scene load_steps=21 format=3 uid="uid://bxqgt6syiwfi5"]
+
+[ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
+[ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
+[ext_resource type="Texture2D" uid="uid://b4bvde36uc07u" path="res://assets/shield_enemy/shield_enemy_shield.png" id="2_0g610"]
+[ext_resource type="Shader" uid="uid://cpod5ov3gp61k" path="res://shaders/hit.gdshader" id="2_y4ggc"]
+[ext_resource type="Script" uid="uid://dlgrylnpfnjee" path="res://enemies/shield_enemy/states/shield_move.gd" id="4_b6msj"]
+[ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="6_thty8"]
+[ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="7_keev8"]
+[ext_resource type="Script" uid="uid://chnjvj7e4hmja" path="res://enemies/shield_enemy/states/shield_defence.gd" id="7_x4khs"]
+[ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="8_xclfr"]
+[ext_resource type="Script" uid="uid://phqcqjunsxgm" path="res://enemies/shield_enemy/states/shieldIdle.gd" id="8_y4ggc"]
+[ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="10_kt4ho"]
+[ext_resource type="PackedScene" uid="uid://brvcncdhx4gpu" path="res://components/entity_spawner.tscn" id="10_ojfjr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t60sb"]
+shader = ExtResource("2_y4ggc")
+shader_parameter/active = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0g610"]
+size = Vector2(67, 68)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kt4ho"]
+radius = 24.020824
+
+[sub_resource type="Animation" id="Animation_xclfr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:skew")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("state_machine:process_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("hurtbox:process_mode")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CollisionShape2D:process_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("boss_defence:process_mode")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_keev8"]
+resource_name = "defence"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_kt4ho"]
+resource_name = "killed"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.17453292]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.34906584]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:process_mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("hurtbox:process_mode")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("boss_defence:process_mode")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("state_machine:process_mode")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xclfr"]
+_data = {
+&"RESET": SubResource("Animation_xclfr"),
+&"defence": SubResource("Animation_keev8"),
+&"killed": SubResource("Animation_kt4ho")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xclfr"]
+radius = 37.054016
+
+[node name="shield_enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_gjbi7")
+regular_speed = 50
+defence_speed = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_t60sb")
+texture = ExtResource("2_0g610")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, 1)
+shape = SubResource("RectangleShape2D_0g610")
+
+[node name="hurtbox" parent="." node_paths=PackedStringArray("owner_node") instance=ExtResource("7_keev8")]
+collision_layer = 256
+max_hp = 4
+owner_node = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(6, 0)
+shape = SubResource("CircleShape2D_kt4ho")
+
+[node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_icwi8")
+initial_state = NodePath("")
+metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
+
+[node name="shieldIdle" type="Node" parent="state_machine"]
+script = ExtResource("8_y4ggc")
+
+[node name="shieldMove" type="Node" parent="state_machine" node_paths=PackedStringArray("move_timer", "owner_node", "animation_player")]
+script = ExtResource("4_b6msj")
+move_timer = NodePath("../../move_timer")
+owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://dlgrylnpfnjee"
+
+[node name="shieldDefence" type="Node" parent="state_machine" node_paths=PackedStringArray("defence_timer", "bullet_spawner", "owner_node", "animation_player")]
+script = ExtResource("7_x4khs")
+defence_timer = NodePath("../../defence_timer")
+bullet_spawner = NodePath("../../entity_spawner")
+bullet_spawn_cooldown = 3
+owner_node = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://chnjvj7e4hmja"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xclfr")
+}
+
+[node name="knockback_receiver" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_thty8")]
+body = NodePath("..")
+
+[node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("10_ojfjr")]
+load_bullet = ExtResource("10_kt4ho")
+father = NodePath("../Sprite2D")
+
+[node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("8_xclfr")]
+collision_layer = 128
+collision_mask = 0
+collision_ = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_defence"]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_xclfr")
+disabled = true
+
+[node name="move_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="idle_timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="defence_timer" type="Timer" parent="."]
+
+[connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
+[connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
+[connection signal="timer_finished" from="entity_spawner" to="state_machine/shieldDefence" method="_on_entity_spawner_timer_finished"]
+[connection signal="timeout" from="move_timer" to="state_machine/shieldMove" method="_on_move_timer_timeout"]
+[connection signal="timeout" from="defence_timer" to="state_machine/shieldDefence" method="_on_defence_timer_timeout"]

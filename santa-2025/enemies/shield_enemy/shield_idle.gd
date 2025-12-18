@@ -1,4 +1,4 @@
-class_name shieldIdle extends State
+class_name shieldInactive extends State
 
 @export var idle_timer:Timer 
 
