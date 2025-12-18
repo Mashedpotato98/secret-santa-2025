@@ -24,6 +24,7 @@ var active:bool = false
 var closer_player_position:Vector2
 
 
+
 func _physics_process(delta: float) -> void:
 	velocity = direction * speed + knockback
 	knockback = lerp(knockback, Vector2.ZERO, 0.1)
@@ -89,3 +90,6 @@ func _on_soft_collision_area_entered(area: Area2D) -> void:
 func _on_state_machine_changed(state, new_state) -> void:
 	#$state.text = str(new_state)
 	pass
+
+func _on_hurtbox_killed() -> void:
+	animation_player.play("killed")
