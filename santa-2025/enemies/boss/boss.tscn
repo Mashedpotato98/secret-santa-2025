@@ -1,10 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://dhh663hd246p3"]
+[gd_scene load_steps=31 format=3 uid="uid://dhh663hd246p3"]
 
 [ext_resource type="Script" uid="uid://ckqgteahex3nn" path="res://enemies/Boss.gd" id="1_n18ml"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_ubujh"]
 [ext_resource type="PackedScene" uid="uid://brvcncdhx4gpu" path="res://components/entity_spawner.tscn" id="3_r4ron"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="4_02fuc"]
 [ext_resource type="Script" uid="uid://ciyvb0x1ucnxy" path="res://enemies/boss/states/boss_bullet_wave.gd" id="4_8d0e3"]
+[ext_resource type="Shader" uid="uid://cpod5ov3gp61k" path="res://shaders/hit.gdshader" id="4_m37od"]
 [ext_resource type="Script" uid="uid://c62d321qpdq1l" path="res://enemies/boss/states/boss_minions.gd" id="4_vsebo"]
 [ext_resource type="Texture2D" uid="uid://b0k8hbdb5jtra" path="res://assets/boss/boss.png" id="5_2tiri"]
 [ext_resource type="PackedScene" uid="uid://dnecco0xl2u5t" path="res://enemies/boss/defense/defence_breaker.tscn" id="5_b5n78"]
@@ -20,26 +21,9 @@ radius = 100.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_m37od"]
 radius = 75.32596
 
-[sub_resource type="Shader" id="Shader_m37od"]
-code = "shader_type canvas_item;
-
-uniform bool active = false;
-
-void fragment() {
-	vec4 previous_color = texture(TEXTURE, UV);
-	vec4 white_color = vec4(0.0, 0.0, 0.0, previous_color.a);
-	vec4 new_color = previous_color;
-	if (active == true)
-	{
-		new_color = white_color;
-	}
-	COLOR = new_color;
-}
-"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_thi7d"]
 resource_local_to_scene = true
-shader = SubResource("Shader_m37od")
+shader = ExtResource("4_m37od")
 shader_parameter/active = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tiri"]
@@ -303,6 +287,48 @@ tracks/2/keys = {
 "values": [Vector2(1, 1), Vector2(0.6, 0.6), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_thi7d"]
+resource_name = "killed"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.3, 0.3), Vector2(1, 1), Vector2(0.3, 0.3), Vector2(1, 1), Vector2(0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
 _data = {
 &"RESET": SubResource("Animation_1s7ui"),
@@ -310,6 +336,7 @@ _data = {
 &"defence_hit": SubResource("Animation_o8os0"),
 &"defence_off": SubResource("Animation_b0wi3"),
 &"defence_on": SubResource("Animation_02fuc"),
+&"killed": SubResource("Animation_thi7d"),
 &"spawn_bullet": SubResource("Animation_b5n78"),
 &"spawn_melee": SubResource("Animation_2tiri"),
 &"spawn_shield": SubResource("Animation_p1sap")
@@ -417,7 +444,7 @@ defence_breaker_load = ExtResource("5_b5n78")
 defence = NodePath("../../boss_defence")
 breaker_spawn_cooldown = NodePath("../../breaker_spawn_cooldown")
 defence_cooldown = NodePath("../../defence_cooldown")
-minion_spawn_cooldown = 4
+minion_spawn_cooldown = 7
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://c62d321qpdq1l"
@@ -425,6 +452,7 @@ metadata/_custom_type_script = "uid://c62d321qpdq1l"
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="got_hit" from="Sprite2D/hurtbox" to="state_machine/bossBulletWave" method="_on_hurtbox_got_hit"]
+[connection signal="killed" from="Sprite2D/hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="timeout" from="defence_cooldown" to="state_machine/bossMinion" method="_on_defence_cooldown_timeout"]
 [connection signal="timeout" from="breaker_spawn_cooldown" to="state_machine/bossMinion" method="_on_breaker_spawn_cooldown_timeout"]
 [connection signal="timer_finished" from="entity_spawner" to="state_machine/bossBulletWave" method="_on_bullet_spawner_timer_finished"]

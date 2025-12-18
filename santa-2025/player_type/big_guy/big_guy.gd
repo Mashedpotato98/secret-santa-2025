@@ -45,3 +45,7 @@ func _on_hurtbox_got_hit(health:int)-> void:
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
 	knockback = knockback_receiver.apply_knockback(direction, knockback_strength)    
+
+
+func _on_hurtbox_killed() -> void:
+	queue_free()

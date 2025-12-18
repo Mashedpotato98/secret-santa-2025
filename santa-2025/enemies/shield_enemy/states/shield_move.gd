@@ -1,16 +1,14 @@
 class_name shieldMove extends State
 
+@export var move_timer:Timer 
+
+func Enter():
+	move_timer.start()
+	owner_node.speed = owner_node.regular_speed
+
 func physics_update(_delta:float):
-    if owner_node._closer_player():
-        move_to_player()
-
-func move_to_player():
-    #label.text = str(owner_node._closer_player())
-
-    var closer_player = owner_node._closer_player()
-    owner_node.direction = owner_node.global_position.direction_to(closer_player.global_position)
-    owner_node.look_at(closer_player.global_position)
-    #animation_player.play('moving')
+	if owner_node._closer_player():
+		owner_node.move_to_player()
 
 func _on_move_timer_timeout() -> void:
-    print('1')    
+	Transitioned.emit(self, 'shieldDefence')

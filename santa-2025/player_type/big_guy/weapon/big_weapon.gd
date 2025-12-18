@@ -10,9 +10,9 @@ extends Node2D
 
 
 func _process(delta: float) -> void:
-    pass    
+	pass    
 
 func slow_down_player():
-    big_guy.speed = big_guy.shoot_speed
+	big_guy.speed = big_guy.shoot_speed
 func revert_player_speed():
-    big_guy.speed = big_guy.regular_speed
+	big_guy.speed = big_guy.regular_speed

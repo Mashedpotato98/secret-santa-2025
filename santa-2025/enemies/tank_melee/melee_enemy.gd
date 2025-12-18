@@ -68,10 +68,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			#players.erase(area.owner_node)
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
-	animation_player.play('hit')
-	attack_area.monitoring = false
-	_apply_knockback(direction, knockback_strength)
 	state.current_state.Transitioned.emit(state.current_state, 'meleeStun')
+	animation_player.play('hit')
+	_apply_knockback(direction, knockback_strength)
 
 
 func _on_hurtbox_got_hit(health: int) -> void:

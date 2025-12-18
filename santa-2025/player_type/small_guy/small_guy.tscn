@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccwoxfnq1xscr"]
+[gd_scene load_steps=16 format=3 uid="uid://ccwoxfnq1xscr"]
 
 [ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
 [ext_resource type="Texture2D" uid="uid://cx53nud73mbpd" path="res://assets/small_guy/small_guy.png" id="2_1og6c"]
@@ -85,10 +85,14 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.1, 0.5), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_dfyk6"]
+resource_name = "killed"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dfyk6"]
 _data = {
 &"RESET": SubResource("Animation_7jdh5"),
-&"dash": SubResource("Animation_48m5k")
+&"dash": SubResource("Animation_48m5k"),
+&"killed": SubResource("Animation_dfyk6")
 }
 
 [node name="SmallGuy" type="CharacterBody2D" groups=["small_guy"]]
@@ -106,7 +110,7 @@ shape = SubResource("RectangleShape2D_0m1q5")
 
 [node name="hurtbox" parent="." node_paths=PackedStringArray("owner_node") instance=ExtResource("3_wr3ml")]
 collision_layer = 1
-max_hp = 10000
+max_hp = 5
 owner_node = NodePath("..")
 
 [node name="CollisionShape2D" parent="hurtbox" index="0"]
@@ -161,6 +165,7 @@ libraries = {
 }
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
+[connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="melee_finished" from="sword" to="state_machine/smallMelee" method="_on_sword_melee_finished"]
 [connection signal="timeout" from="dashCooldown" to="state_machine/smallMove" method="_on_dash_cooldown_timeout"]

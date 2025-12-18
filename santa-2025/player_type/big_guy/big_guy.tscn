@@ -24,7 +24,7 @@ texture = ExtResource("2_ngess")
 shape = SubResource("RectangleShape2D_jn63w")
 
 [node name="Big_weapon" parent="." node_paths=PackedStringArray("big_guy") instance=ExtResource("3_ilc6v")]
-position = Vector2(32, -3)
+position = Vector2(21, -1)
 big_guy = NodePath("..")
 
 [node name="hurtbox" parent="." node_paths=PackedStringArray("owner_node") instance=ExtResource("4_m8ldj")]
@@ -47,6 +47,7 @@ visible = false
 body = NodePath("..")
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
+[connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 
 [editable path="hurtbox"]

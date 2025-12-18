@@ -15,7 +15,6 @@ var theta:float
 func _start(time:float):
 	cooldown.wait_time = time
 	cooldown.start()
-	print(cooldown.wait_time)
 
 func spawn_bullet(angle:float):
 	var bullet:CharacterBody2D = load_bullet.instantiate()
@@ -41,5 +40,4 @@ func _get_vector(angle):
 
 
 func _on_timer_timeout() -> void:
-	print('timeou')
 	timer_finished.emit()

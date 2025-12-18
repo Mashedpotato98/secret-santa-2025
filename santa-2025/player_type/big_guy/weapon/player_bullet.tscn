@@ -13,8 +13,8 @@ hitbox = NodePath("hitbox")
 speed = 900
 
 [node name="hitbox" parent="." index="1" instance=ExtResource("2_rve4a")]
-collision_mask = 20
-damage = 3
+collision_mask = 276
+damage = 5
 knockback_strength = 1500
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
