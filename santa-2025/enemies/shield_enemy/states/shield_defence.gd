@@ -25,3 +25,7 @@ func _on_entity_spawner_timer_finished() -> void:
 	if closer_player:
 		var direction_to:Vector2 = owner_node._get_direction_to(closer_player)
 		bullet_spawner.spawn_bullet(direction_to.angle())
+
+
+func _on_boss_defence_hit() -> void:
+	pass # Replace with function body.

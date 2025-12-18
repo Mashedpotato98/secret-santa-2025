@@ -12,8 +12,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is hurtBox:  
 		area.damage(hitbox)
 	elif area is bossDefence:
+		animation_player.play('hit_defence')
+		area.hit.emit()
 		print("betha bro")
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == 'attack':
-		melee_finished.emit()
+	melee_finished.emit()

@@ -61,7 +61,6 @@ rotation = -3.1415925
 shape = SubResource("RectangleShape2D_cmo1i")
 
 [node name="shield_enemy" parent="." instance=ExtResource("6_i1eo7")]
-process_mode = 4
 position = Vector2(443, 301)
 
 [node name="camera" parent="." instance=ExtResource("5_cmo1i")]

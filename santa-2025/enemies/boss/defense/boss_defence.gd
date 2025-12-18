@@ -1,6 +1,6 @@
 class_name bossDefence extends Area2D
 
-signal hit;
+signal hit
 
 @export var collision_:CollisionShape2D  
 	

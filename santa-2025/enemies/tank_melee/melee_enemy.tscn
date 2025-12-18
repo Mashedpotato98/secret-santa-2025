@@ -855,7 +855,7 @@ shape = SubResource("CircleShape2D_iqfe0")
 
 [node name="hit_audio" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_laaba")
-bus = &"player_sounds"
+bus = &"enemy_sounds"
 
 [node name="state" type="Label" parent="."]
 offset_left = -22.0

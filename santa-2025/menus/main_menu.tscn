@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxqfibndu4g6o"]
+[gd_scene load_steps=4 format=3 uid="uid://dxqfibndu4g6o"]
 
 [ext_resource type="Script" uid="uid://dp3tdxnuaajsg" path="res://menus/main_menu.gd" id="1_8gy84"]
+[ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="2_ij7vn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gy84"]
+font_size = 100
 
 [node name="Main_menu" type="Control"]
 layout_mode = 3
@@ -11,51 +15,157 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8gy84")
 
-[node name="boss" type="Button" parent="."]
-layout_mode = 0
-offset_left = -2.0
-offset_top = 42.0
-offset_right = 202.0
-offset_bottom = 91.0
+[node name="BoxContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -240.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ij7vn")
+
+[node name="MainButton" type="VBoxContainer" parent="BoxContainer"]
+layout_mode = 2
+
+[node name="Boss" type="Button" parent="BoxContainer/MainButton"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
 text = "Boss"
 
-[node name="wave" type="Button" parent="."]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 117.0
-offset_right = 201.0
-offset_bottom = 177.0
+[node name="wave" type="Button" parent="BoxContainer/MainButton"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
 text = "Wave"
 
-[node name="exit" type="Button" parent="."]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 199.0
-offset_right = 202.0
-offset_bottom = 257.0
+[node name="Settings" type="Button" parent="BoxContainer/MainButton"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Settings"
+
+[node name="exit" type="Button" parent="BoxContainer/MainButton"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
 text = "Exit"
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(98, 150)
-zoom = Vector2(1.5, 1.5)
-
-[node name="supah_secret" type="Label" parent="."]
-layout_mode = 0
-offset_left = 42.0
-offset_top = 3.0
-offset_right = 143.0
-offset_bottom = 26.0
-text = "Supah Secret Game"
-
-[node name="input_mode" type="CheckButton" parent="."]
-layout_mode = 0
-offset_left = 201.0
-offset_right = 342.0
-offset_bottom = 31.0
+[node name="input_mode" type="CheckButton" parent="BoxContainer/MainButton"]
+layout_mode = 2
 text = "controller/mix?"
 
-[connection signal="pressed" from="boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="wave" to="." method="_on_wave_pressed"]
-[connection signal="toggled" from="wave" to="." method="_on_wave_toggled"]
-[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
-[connection signal="toggled" from="input_mode" to="." method="_on_input_mode_toggled"]
+[node name="Info" type="VBoxContainer" parent="BoxContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_ij7vn")
+alignment = 2
+
+[node name="Label" type="RichTextLabel" parent="BoxContainer/Info"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 62
+theme_override_font_sizes/bold_font_size = 75
+theme_override_font_sizes/bold_italics_font_size = 75
+theme_override_font_sizes/italics_font_size = 75
+theme_override_font_sizes/mono_font_size = 75
+bbcode_enabled = true
+text = "From a fellow comrade, with love, to [color=#5e011c]Lensu[/color] and [color=#ff5403]Zac[/color]"
+fit_content = true
+autowrap_mode = 2
+
+[node name="settings" type="VBoxContainer" parent="BoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="fullscreen" type="CheckBox" parent="BoxContainer/settings"]
+layout_mode = 2
+text = "Fullscreen"
+
+[node name="vol_slider_main" type="HSlider" parent="BoxContainer/settings"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Label" type="Label" parent="BoxContainer/settings/vol_slider_main"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_top = -25.0
+offset_right = 400.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 32
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="vol_slider_sfx" type="HSlider" parent="BoxContainer/settings"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Label" type="Label" parent="BoxContainer/settings/vol_slider_sfx"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_top = -25.0
+offset_right = 400.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 32
+text = "Sfx Volume"
+horizontal_alignment = 1
+
+[node name="vol_slider_music" type="HSlider" parent="BoxContainer/settings"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+
+[node name="Label" type="Label" parent="BoxContainer/settings/vol_slider_music"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 0
+offset_top = -25.0
+offset_right = 400.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 32
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="settings_back" type="Button" parent="BoxContainer/settings"]
+custom_minimum_size = Vector2(353, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 75
+text = "Back"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 500.0
+theme = ExtResource("2_ij7vn")
+text = "Square V Un-Squared"
+label_settings = SubResource("LabelSettings_8gy84")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(972, 550)
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(940, 320)
+points = PackedVector2Array(-558, 5, 8, 5, 606, 5)
+width = 5.0
+default_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
+
+[connection signal="pressed" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="BoxContainer/MainButton/wave" to="." method="_on_wave_pressed"]
+[connection signal="toggled" from="BoxContainer/MainButton/wave" to="." method="_on_wave_toggled"]
+[connection signal="pressed" from="BoxContainer/MainButton/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="BoxContainer/MainButton/exit" to="." method="_on_exit_pressed"]
+[connection signal="toggled" from="BoxContainer/settings/fullscreen" to="." method="_on_check_box_toggled"]
+[connection signal="value_changed" from="BoxContainer/settings/vol_slider_main" to="." method="_on_vol_slider_value_changed"]
+[connection signal="value_changed" from="BoxContainer/settings/vol_slider_sfx" to="." method="_on_vol_slider_sfx_value_changed"]
+[connection signal="value_changed" from="BoxContainer/settings/vol_slider_music" to="." method="_on_vol_slider_music_value_changed"]
+[connection signal="pressed" from="BoxContainer/settings/settings_back" to="." method="_on_settings_back_pressed"]

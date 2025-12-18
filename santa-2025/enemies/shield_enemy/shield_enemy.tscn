@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bxqgt6syiwfi5"]
+[gd_scene load_steps=22 format=3 uid="uid://bxqgt6syiwfi5"]
 
 [ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="8_xclfr"]
 [ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="10_kt4ho"]
 [ext_resource type="PackedScene" uid="uid://brvcncdhx4gpu" path="res://components/entity_spawner.tscn" id="10_ojfjr"]
+[ext_resource type="AudioStream" uid="uid://dk2xuo4srf7av" path="res://assets/sounds/shield_hit/shield_hit.wav" id="13_t60sb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t60sb"]
 shader = ExtResource("2_y4ggc")
@@ -20,8 +21,8 @@ shader_parameter/active = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0g610"]
 size = Vector2(67, 68)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kt4ho"]
-radius = 24.020824
+[sub_resource type="CircleShape2D" id="CircleShape2D_t60sb"]
+radius = 33.24154
 
 [sub_resource type="Animation" id="Animation_xclfr"]
 length = 0.001
@@ -46,7 +47,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [true]
 }
 tracks/2/type = "value"
@@ -112,19 +113,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("CollisionShape2D:process_mode")
+tracks/7/path = NodePath("boss_defence:process_mode")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("boss_defence:process_mode")
+tracks/8/path = NodePath("CollisionShape2D:process_mode")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -149,6 +150,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boss_defence/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_kt4ho"]
@@ -238,7 +251,7 @@ tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [4]
 }
 tracks/7/type = "value"
@@ -262,11 +275,11 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xclfr"]
-radius = 37.054016
+radius = 42.047592
 
 [node name="shield_enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 8
 script = ExtResource("1_gjbi7")
 regular_speed = 50
 defence_speed = 25
@@ -285,9 +298,9 @@ collision_layer = 256
 max_hp = 4
 owner_node = NodePath("..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(6, 0)
-shape = SubResource("CircleShape2D_kt4ho")
+[node name="CollisionShape2D" parent="hurtbox" index="0"]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_t60sb")
 
 [node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_icwi8")
@@ -347,9 +360,18 @@ wait_time = 1.5
 
 [node name="defence_timer" type="Timer" parent="."]
 
+[node name="audio" type="Node2D" parent="."]
+
+[node name="hit_shield" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("13_t60sb")
+bus = &"enemy_sounds"
+
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
 [connection signal="timer_finished" from="entity_spawner" to="state_machine/shieldDefence" method="_on_entity_spawner_timer_finished"]
+[connection signal="hit" from="boss_defence" to="state_machine/shieldDefence" method="_on_boss_defence_hit"]
 [connection signal="timeout" from="move_timer" to="state_machine/shieldMove" method="_on_move_timer_timeout"]
 [connection signal="timeout" from="idle_timer" to="state_machine/shieldIdle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="defence_timer" to="state_machine/shieldDefence" method="_on_defence_timer_timeout"]
+
+[editable path="hurtbox"]

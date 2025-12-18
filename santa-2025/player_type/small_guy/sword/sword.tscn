@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bcwvt7odc8aw7"]
+[gd_scene load_steps=14 format=3 uid="uid://bcwvt7odc8aw7"]
 
 [ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
 [ext_resource type="Texture2D" uid="uid://ccw3uwldacflm" path="res://assets/katana/katana-sheet.png" id="2_lcld2"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="4_lcld2"]
+[ext_resource type="AudioStream" uid="uid://dk2xuo4srf7av" path="res://assets/sounds/shield_hit/shield_hit.wav" id="5_71o5a"]
 
 [sub_resource type="Animation" id="Animation_h07ds"]
 length = 0.001
@@ -66,6 +67,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pivot/Sprite2D:skew")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("audio/hit_shield:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_uschr"]
@@ -133,10 +158,63 @@ tracks/4/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_71o5a"]
+resource_name = "hit_defence"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pivot/Sprite2D:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.8726646259971649, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pivot/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.17453292519943295, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("audio/hit_shield:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pivot/Sprite2D/melee:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h07ds"]
 _data = {
 &"RESET": SubResource("Animation_h07ds"),
-&"attack": SubResource("Animation_uschr")
+&"attack": SubResource("Animation_uschr"),
+&"hit_defence": SubResource("Animation_71o5a")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_h07ds"]
@@ -164,10 +242,11 @@ anim_speed_max = 4.52
 anim_offset_max = 0.1471
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
-size = Vector2(8.666665, 37.333355)
+size = Vector2(12.666664, 45.333336)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lcld2"]
-radius = 25.079872
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_71o5a"]
+radius = 15.000001
+height = 68.0
 
 [node name="sword" type="Node2D"]
 script = ExtResource("1_uschr")
@@ -184,7 +263,6 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_lcld2")
 offset = Vector2(20, 0)
 hframes = 4
-frame = 3
 
 [node name="melee" type="GPUParticles2D" parent="pivot/Sprite2D"]
 material = SubResource("CanvasItemMaterial_h07ds")
@@ -197,15 +275,15 @@ explosiveness = 0.1
 process_material = SubResource("ParticleProcessMaterial_lcld2")
 
 [node name="hitbox" parent="." instance=ExtResource("3_h07ds")]
-position = Vector2(65, -13)
+position = Vector2(82, -14)
 scale = Vector2(1.5, 1.5)
-collision_mask = 4
+collision_mask = 132
 damage = 1
 knockback_strength = 900
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
-position = Vector2(-26.000017, 10.333335)
+position = Vector2(-29.999998, 10.333335)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_h07ds")
 disabled = true
@@ -217,10 +295,16 @@ collision_mask = 0
 collision_ = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player_defence"]
-position = Vector2(43, 1)
+position = Vector2(56, 1)
 rotation = 1.5707964
-shape = SubResource("CircleShape2D_lcld2")
+shape = SubResource("CapsuleShape2D_71o5a")
 disabled = true
+
+[node name="audio" type="Node2D" parent="."]
+
+[node name="hit_shield" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("5_71o5a")
+bus = &"enemy_sounds"
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
