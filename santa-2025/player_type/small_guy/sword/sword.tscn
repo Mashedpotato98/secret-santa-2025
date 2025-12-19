@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcwvt7odc8aw7"]
+[gd_scene load_steps=15 format=3 uid="uid://bcwvt7odc8aw7"]
 
 [ext_resource type="Script" uid="uid://csjg3yr3rw3k2" path="res://player_type/small_guy/sword/sword.gd" id="1_uschr"]
 [ext_resource type="Texture2D" uid="uid://ccw3uwldacflm" path="res://assets/katana/katana-sheet.png" id="2_lcld2"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_h07ds"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="4_lcld2"]
 [ext_resource type="AudioStream" uid="uid://dk2xuo4srf7av" path="res://assets/sounds/shield_hit/shield_hit.wav" id="5_71o5a"]
+[ext_resource type="AudioStream" uid="uid://cc0onk3u752my" path="res://assets/sounds/bullet_broken/bullet_broken.wav" id="6_28238"]
 
 [sub_resource type="Animation" id="Animation_h07ds"]
 length = 0.001
@@ -242,7 +243,7 @@ anim_speed_max = 4.52
 anim_offset_max = 0.1471
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h07ds"]
-size = Vector2(12.666664, 45.333336)
+size = Vector2(22.000004, 45.333336)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_71o5a"]
 radius = 15.000001
@@ -283,7 +284,7 @@ knockback_strength = 900
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
-position = Vector2(-29.999998, 10.333335)
+position = Vector2(-29.999998, 9.666671)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_h07ds")
 disabled = true
@@ -306,7 +307,14 @@ disabled = true
 stream = ExtResource("5_71o5a")
 bus = &"enemy_sounds"
 
+[node name="broken_sound" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("6_28238")
+volume_db = -5.0
+pitch_scale = 0.5
+bus = &"enemy_sounds"
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="hit" from="player_defence" to="." method="_on_player_defence_hit"]
 
 [editable path="hitbox"]

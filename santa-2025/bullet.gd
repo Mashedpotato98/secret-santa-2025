@@ -7,16 +7,17 @@ class_name Bullet extends CharacterBody2D
 var direction:Vector2
 
 func _physics_process(delta: float) -> void:
-	velocity = direction * speed
-	
-	
-	move_and_slide()
-
+    velocity = direction * speed
+    
+    
+    move_and_slide()
 
 func hit(area:Area2D):
-	if area is hurtBox:
-		area.damage(hitbox)	
-	elif area is bossDefence:
-		area.hit.emit()
-		call_deferred('queue_free')
-		 
+    if area is hurtBox:
+        area.damage(hitbox)	
+    elif area is bossDefence:
+        area.hit.emit()
+        _die()
+         
+func _die():
+    call_deferred('queue_free')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxqgt6syiwfi5"]
+[gd_scene load_steps=29 format=3 uid="uid://bxqgt6syiwfi5"]
 
 [ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
@@ -13,8 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="10_kt4ho"]
 [ext_resource type="PackedScene" uid="uid://brvcncdhx4gpu" path="res://components/entity_spawner.tscn" id="10_ojfjr"]
 [ext_resource type="AudioStream" uid="uid://dk2xuo4srf7av" path="res://assets/sounds/shield_hit/shield_hit.wav" id="13_t60sb"]
+[ext_resource type="AudioStream" uid="uid://dpvlrgtt5ppkl" path="res://assets/sounds/shield_hurt/deep_hit.wav" id="14_1n3dr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t60sb"]
+resource_local_to_scene = true
 shader = ExtResource("2_y4ggc")
 shader_parameter/active = false
 
@@ -134,6 +136,66 @@ tracks/8/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("particles/shoot_charge:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Sprite2D:scale")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("audio/hit_hurtbox:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("audio/died_hurtbox:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("audio/hit_shield:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_keev8"]
 resource_name = "defence"
@@ -162,6 +224,47 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_1n3dr"]
+resource_name = "hit"
+length = 0.15
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.7, 0.7), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("audio/hit_hurtbox:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_kt4ho"]
@@ -266,16 +369,109 @@ tracks/7/keys = {
 "update": 1,
 "values": [4]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("audio/died_hurtbox:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.049999997),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ipgq7"]
+resource_name = "shield_hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.3, 1.3), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("audio/hit_shield:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_t60sb"]
+resource_name = "shoot"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("particles/shoot_charge:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xclfr"]
 _data = {
 &"RESET": SubResource("Animation_xclfr"),
 &"defence": SubResource("Animation_keev8"),
-&"killed": SubResource("Animation_kt4ho")
+&"hit": SubResource("Animation_1n3dr"),
+&"killed": SubResource("Animation_kt4ho"),
+&"shield_hit": SubResource("Animation_ipgq7"),
+&"shoot": SubResource("Animation_t60sb")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xclfr"]
 radius = 42.047592
+
+[sub_resource type="Gradient" id="Gradient_aqxx0"]
+offsets = PackedFloat32Array(0, 0.40828404)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_owanv"]
+gradient = SubResource("Gradient_aqxx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t60sb"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+spread = 90.0
+initial_velocity_min = 30.039999
+initial_velocity_max = 30.039999
+angular_velocity_min = -648.92
+angular_velocity_max = -648.92
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 27.039997
+linear_accel_max = 99.99999
+radial_accel_min = 24.029997
+radial_accel_max = 64.369995
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.0
+scale_max = 10.0
+scale_over_velocity_min = 691.0
+scale_over_velocity_max = 1000.0
+color = Color(0.72375035, 0.87316495, 0.8792535, 1)
+color_ramp = SubResource("GradientTexture1D_owanv")
 
 [node name="shield_enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -337,11 +533,8 @@ libraries = {
 [node name="knockback_receiver" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_thty8")]
 body = NodePath("..")
 
-[node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("10_ojfjr")]
-load_bullet = ExtResource("10_kt4ho")
-father = NodePath("../Sprite2D")
-
 [node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("8_xclfr")]
+visible = false
 collision_layer = 128
 collision_mask = 0
 collision_ = NodePath("CollisionShape2D")
@@ -366,12 +559,33 @@ wait_time = 1.5
 stream = ExtResource("13_t60sb")
 bus = &"enemy_sounds"
 
+[node name="hit_hurtbox" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_1n3dr")
+bus = &"enemy_sounds"
+
+[node name="died_hurtbox" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_1n3dr")
+pitch_scale = 1.5
+bus = &"enemy_sounds"
+
+[node name="particles" type="Node2D" parent="."]
+
+[node name="shoot_charge" type="GPUParticles2D" parent="particles"]
+position = Vector2(22, 2)
+emitting = false
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_t60sb")
+
+[node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("10_ojfjr")]
+load_bullet = ExtResource("10_kt4ho")
+father = NodePath("../Sprite2D")
+
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]
-[connection signal="timer_finished" from="entity_spawner" to="state_machine/shieldDefence" method="_on_entity_spawner_timer_finished"]
 [connection signal="hit" from="boss_defence" to="state_machine/shieldDefence" method="_on_boss_defence_hit"]
 [connection signal="timeout" from="move_timer" to="state_machine/shieldMove" method="_on_move_timer_timeout"]
 [connection signal="timeout" from="idle_timer" to="state_machine/shieldIdle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="defence_timer" to="state_machine/shieldDefence" method="_on_defence_timer_timeout"]
+[connection signal="timer_finished" from="entity_spawner" to="state_machine/shieldDefence" method="_on_entity_spawner_timer_finished"]
 
 [editable path="hurtbox"]

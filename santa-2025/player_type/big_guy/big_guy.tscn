@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://kxmwduvgdusb"]
+[gd_scene load_steps=16 format=3 uid="uid://kxmwduvgdusb"]
 
 [ext_resource type="Script" uid="uid://ctqxqg3psi2jb" path="res://player_type/big_guy/big_guy.gd" id="1_buqfc"]
 [ext_resource type="Texture2D" uid="uid://canfkibwbioyh" path="res://assets/big_guy/big_guy.png" id="2_ngess"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dupdohro8bqh5" path="res://assets/ui/health_bar/over.png" id="5_obsep"]
 [ext_resource type="Texture2D" uid="uid://nu6i7ckhkjvu" path="res://assets/ui/health_bar/2nd/under.png" id="5_ucvqr"]
 [ext_resource type="Texture2D" uid="uid://cjpykjsjf1e6q" path="res://assets/ui/health_bar/2nd/progress2.png" id="6_ucvqr"]
+[ext_resource type="AudioStream" uid="uid://dugfl5fyolqb4" path="res://assets/sounds/big_guy_hit/hit_player_mouth.wav" id="9_alecs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jn63w"]
 size = Vector2(32, 32)
@@ -105,6 +106,10 @@ body = NodePath("..")
 libraries = {
 &"": SubResource("AnimationLibrary_obsep")
 }
+
+[node name="hit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_alecs")
+bus = &"player_sounds"
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]

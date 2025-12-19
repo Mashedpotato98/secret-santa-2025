@@ -42,6 +42,7 @@ func _on_hurtbox_got_hit(hp:int) -> void:
 	#health_bar.visible = true
 	health_bar.value = hp
 	hud_animation_player.play('show_health')
+	$hit_sound.play()
 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:

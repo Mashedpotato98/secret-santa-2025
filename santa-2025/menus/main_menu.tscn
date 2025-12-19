@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dxqfibndu4g6o"]
+[gd_scene load_steps=20 format=3 uid="uid://dxqfibndu4g6o"]
 
 [ext_resource type="Script" uid="uid://dp3tdxnuaajsg" path="res://menus/main_menu.gd" id="1_8gy84"]
 [ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="2_ij7vn"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://c1myxwdiiufcy" path="res://assets/background/good_guys.png" id="4_oblsv"]
 [ext_resource type="Texture2D" uid="uid://bneb7l6ilfcfr" path="res://assets/ui/font/V.png" id="5_a63lr"]
 [ext_resource type="Texture2D" uid="uid://c67vhyohp4kah" path="res://assets/ui/icons/katana_big_icon.png" id="8_hswy5"]
+[ext_resource type="AudioStream" uid="uid://bbop07d7gdxm4" path="res://assets/sounds/menu/menu_sound1.wav" id="9_vmd75"]
+[ext_resource type="AudioStream" uid="uid://bgfy6winp3a0" path="res://assets/sounds/menu/menu_sounds2.wav" id="10_caclp"]
+[ext_resource type="AudioStream" uid="uid://lr6sp6dcn3pf" path="res://assets/sounds/menu/menu_sounds3.wav" id="11_nc6jr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8gy84"]
 font_size = 100
@@ -59,6 +62,13 @@ CheckButton/icons/checked = null
 CheckButton/icons/checked_disabled = null
 CheckButton/styles/focus = SubResource("StyleBoxFlat_kk4mm")
 Label/colors/font_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_caclp"]
+playback_mode = 2
+streams_count = 3
+stream_0/stream = ExtResource("9_vmd75")
+stream_1/stream = ExtResource("10_caclp")
+stream_2/stream = ExtResource("11_nc6jr")
 
 [node name="Main_menu" type="Control"]
 process_mode = 3
@@ -302,6 +312,15 @@ autowrap_mode = 2
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(972, 550)
 
+[node name="menu_sounds" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_caclp")
+volume_db = 10.0
+bus = &"SFX"
+
+[connection signal="focus_entered" from="BoxContainer" to="." method="_on_box_container_focus_entered"]
+[connection signal="focus_exited" from="BoxContainer" to="." method="_on_box_container_focus_exited"]
+[connection signal="gui_input" from="BoxContainer" to="." method="_on_box_container_gui_input"]
+[connection signal="focus_entered" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_focus_entered"]
 [connection signal="pressed" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="BoxContainer/MainButton/wave" to="." method="_on_wave_pressed"]
 [connection signal="toggled" from="BoxContainer/MainButton/wave" to="." method="_on_wave_toggled"]

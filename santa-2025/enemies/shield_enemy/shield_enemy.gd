@@ -60,12 +60,12 @@ func move_to_player():
 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
+    #animation_player.play('hit')
     knockback = knockback_receiver.apply_knockback(direction, knockback_strength)
 
 func _on_hurtbox_killed() -> void:
     animation_player.play('killed')
 
-
 func _on_boss_defence_hit() -> void:
     print('defence hit')
-    shield_hit_audio.play()
+    animation_player.play('shield_hit')

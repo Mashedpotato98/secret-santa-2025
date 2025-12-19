@@ -5,6 +5,8 @@ enum input_mode {
     KEYBOARD
 }
 
+var wave_score:int = 0
+
 var current_input:input_mode = input_mode.CONTROLLER_MIX
 
 func _ready() -> void:

@@ -18,3 +18,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
     melee_finished.emit()
+
+
+func _on_player_defence_hit() -> void:
+    $audio/broken_sound.play() 

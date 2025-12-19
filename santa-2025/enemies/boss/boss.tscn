@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dhh663hd246p3"]
+[gd_scene load_steps=36 format=3 uid="uid://dhh663hd246p3"]
 
 [ext_resource type="Script" uid="uid://ckqgteahex3nn" path="res://enemies/Boss.gd" id="1_n18ml"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_ubujh"]
@@ -11,16 +11,23 @@
 [ext_resource type="Texture2D" uid="uid://b0k8hbdb5jtra" path="res://assets/boss/boss.png" id="5_2tiri"]
 [ext_resource type="PackedScene" uid="uid://dnecco0xl2u5t" path="res://enemies/boss/defense/defence_breaker.tscn" id="5_b5n78"]
 [ext_resource type="PackedScene" uid="uid://4uclpbd0a7l1" path="res://enemies/enemy_bullet.tscn" id="8_2tiri"]
+[ext_resource type="Texture2D" uid="uid://d0vqxrnjmmtso" path="res://assets/boss/health_stuff/over.png" id="8_thi7d"]
+[ext_resource type="Texture2D" uid="uid://dji64kb50x060" path="res://assets/boss/health_stuff/under.png" id="9_2onrd"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="9_2tiri"]
+[ext_resource type="Texture2D" uid="uid://do1lgr8yj85q2" path="res://assets/boss/health_stuff/progress.png" id="10_1bvvi"]
+[ext_resource type="AudioStream" uid="uid://5v70vnebmxlk" path="res://assets/sounds/small_guy_hit/big_hit_edit.wav" id="10_p1sap"]
 [ext_resource type="PackedScene" uid="uid://dnomsvvnuwjes" path="res://components/flash.tscn" id="13_02fuc"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="14_02fuc"]
 [ext_resource type="Shader" uid="uid://bys66bmvlt136" path="res://shaders/flash.gdshader" id="14_m37od"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02fuc"]
+size = Vector2(100, 100)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_02fuc"]
-radius = 100.0
+radius = 128.19127
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m37od"]
-radius = 75.32596
+radius = 86.37129
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_thi7d"]
 resource_local_to_scene = true
@@ -28,10 +35,7 @@ shader = ExtResource("4_m37od")
 shader_parameter/active = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2tiri"]
-size = Vector2(51, 50)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_02fuc"]
-size = Vector2(51, 49)
+size = Vector2(63.5, 65.5)
 
 [sub_resource type="Animation" id="Animation_1s7ui"]
 length = 0.001
@@ -45,7 +49,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(2, 2)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -105,7 +109,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 2)]
+"values": [Vector2(3, 3)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -142,6 +146,18 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_m37od"]
@@ -182,7 +198,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(2, 2)]
+"values": [Vector2(3, 3)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -195,6 +211,30 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_o8os0"]
@@ -223,7 +263,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(2, 2), Vector2(2.5, 2.5), Vector2(2, 2)]
+"values": [Vector2(3, 3), Vector2(3.5, 3.5), Vector2(3, 3)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -264,7 +304,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(2, 2), Vector2(1, 1), Vector2(0.5, 0.5)]
+"values": [Vector2(3, 3), Vector2(1.5, 1.5), Vector2(0.5, 0.5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -293,7 +333,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(1, 1), Vector2(2, 2)]
+"values": [Vector2(0.5, 0.5), Vector2(1.5, 1.5), Vector2(3, 3)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -306,6 +346,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss_defence/Sprite2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_thi7d"]
@@ -394,7 +458,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 0.8), Vector2(1, 1)]
+"values": [Vector2(2, 2), Vector2(1.8, 1.8), Vector2(2, 2)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -471,7 +535,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.6, 0.6), Vector2(1, 1)]
+"values": [Vector2(2, 2), Vector2(1.6, 1.6), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
@@ -493,7 +557,13 @@ shader_parameter/flash_color = Color(0.36862746, 0.003921569, 0.10980392, 1)
 shader_parameter/flash_amount = 0.0
 
 [node name="Boss" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_n18ml")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_02fuc")
 
 [node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("14_02fuc")]
 collision_mask = 0
@@ -504,7 +574,8 @@ shape = SubResource("CircleShape2D_02fuc")
 
 [node name="Sprite2D" type="Sprite2D" parent="boss_defence"]
 visible = false
-scale = Vector2(2, 2)
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(3, 3)
 texture = ExtResource("3_m37od")
 hframes = 5
 frame = 1
@@ -512,39 +583,40 @@ frame = 1
 [node name="hitbox" parent="." instance=ExtResource("4_02fuc")]
 position = Vector2(0, -1)
 collision_mask = 1
-damage = 5
 knockback_strength = 500
 
 [node name="CollisionShape2D" parent="hitbox" index="0"]
-visible = false
 shape = SubResource("CircleShape2D_m37od")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_thi7d")
+scale = Vector2(2, 2)
 texture = ExtResource("5_2tiri")
 
 [node name="hurtbox" parent="Sprite2D" node_paths=PackedStringArray("owner_node") instance=ExtResource("9_2tiri")]
-visible = false
 collision_layer = 4
 max_hp = 25
 owner_node = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/hurtbox"]
-position = Vector2(-0.5, 0)
+position = Vector2(0.25, -1.25)
 shape = SubResource("RectangleShape2D_2tiri")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-0.5, -0.5)
-shape = SubResource("RectangleShape2D_02fuc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="health_bar" type="ProgressBar" parent="CanvasLayer"]
-offset_right = 474.0
-offset_bottom = 27.0
+[node name="health_bar" type="TextureProgressBar" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 315.0
+offset_top = 8.0
+offset_right = 955.0
+offset_bottom = 88.0
+grow_horizontal = 2
 max_value = 25.0
-show_percentage = false
+texture_under = ExtResource("9_2onrd")
+texture_over = ExtResource("8_thi7d")
+texture_progress = ExtResource("10_1bvvi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -567,6 +639,9 @@ color = Color(1, 1, 1, 0.4745098)
 [node name="audio" type="Node2D" parent="."]
 
 [node name="hit" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("10_p1sap")
+volume_db = 2.0
+pitch_scale = 0.8
 
 [node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("3_r4ron")]
 load_bullet = ExtResource("8_2tiri")

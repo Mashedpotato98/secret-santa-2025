@@ -6,7 +6,8 @@ class_name shieldDefence extends State
 @export var bullet_spawn_cooldown:int
 
 func Enter():
-	bullet_spawner._start(bullet_spawn_cooldown)
+	if bullet_spawner:
+		bullet_spawner._start(bullet_spawn_cooldown)
 	defence_timer.start()
 	
 	animation_player.play('defence')
@@ -23,6 +24,9 @@ func _on_defence_timer_timeout() -> void:
 func _on_entity_spawner_timer_finished() -> void:
 	var closer_player = owner_node._closer_player()
 	if closer_player:
+		animation_player.play('shoot')
+		await animation_player.animation_finished
+		
 		var direction_to:Vector2 = owner_node._get_direction_to(closer_player)
 		bullet_spawner.spawn_bullet(direction_to.angle())
 

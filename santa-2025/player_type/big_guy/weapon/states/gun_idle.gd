@@ -2,6 +2,7 @@ class_name gunIdle extends State
 
 @export var cooldown_timer:Timer 
 @export var shoot_icon:AnimationPlayer  
+@export var direction_visual:Line2D  
 
 var can_shoot:bool = false
 
@@ -17,6 +18,9 @@ func Enter():
 
 
 func update(_delta: float):
+	print(direction_visual.points[0])
+	direction_visual.points[1] = owner_node.to_local(Vector2.from_angle(-owner_node.rotation))
+
 	if Input.is_action_pressed('shoot') and can_shoot == true:
 		shoot_icon.play('hide_shoot_icon')
 		Transitioned.emit(self, "gunCharge")

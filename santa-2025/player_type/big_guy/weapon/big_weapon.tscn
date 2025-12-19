@@ -1,15 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://bm4pld2vgml0m"]
+[gd_scene load_steps=23 format=3 uid="uid://bm4pld2vgml0m"]
 
 [ext_resource type="Script" uid="uid://6fuxhnkje467" path="res://player_type/big_guy/weapon/big_weapon.gd" id="1_u6ppl"]
 [ext_resource type="Texture2D" uid="uid://c02gvc8gu04fy" path="res://assets/gun/gun_sheet.png" id="2_e3to4"]
 [ext_resource type="PackedScene" uid="uid://back10pj52eey" path="res://player_type/big_guy/weapon/player_bullet.tscn" id="2_ptjjb"]
-[ext_resource type="Material" uid="uid://dbokhmfq31ic4" path="res://particles/fast_burst.tres" id="3_ptjjb"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="4_ytwl6"]
 [ext_resource type="Script" uid="uid://cea0glv6eps37" path="res://player_type/big_guy/weapon/states/gun_idle.gd" id="5_ipw6a"]
 [ext_resource type="Script" uid="uid://b24ijo6lbnqg5" path="res://player_type/big_guy/weapon/states/gun_charge.gd" id="6_itcdc"]
 [ext_resource type="Script" uid="uid://dqtbkjhdr4322" path="res://player_type/big_guy/weapon/states/gunShoot.gd" id="7_itcdc"]
-[ext_resource type="AudioStream" uid="uid://ch3la67que773" path="res://assets/sounds/charge/charge_edit.mp3" id="8_8ktog"]
+[ext_resource type="AudioStream" uid="uid://5yhun6yujabm" path="res://assets/sounds/shot/sfx-futuristic-pulse-weapon-shot-type-sound-effect-320315.wav" id="9_ioffh"]
 [ext_resource type="Texture2D" uid="uid://ctw28mkubau2j" path="res://assets/ui/shoot/shoot_icon.png" id="10_e3to4"]
+[ext_resource type="AudioStream" uid="uid://dovva6q0c8sre" path="res://assets/sounds/charge/charge_edit.wav" id="10_ioffh"]
 
 [sub_resource type="Gradient" id="Gradient_ipw6a"]
 offsets = PackedFloat32Array(0, 0.40828404)
@@ -42,6 +42,76 @@ scale_over_velocity_min = 691.0
 scale_over_velocity_max = 1000.0
 color = Color(0.900271, 0.5115525, 0.5956293, 1)
 color_ramp = SubResource("GradientTexture1D_itcdc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e3to4"]
+particle_flag_disable_z = true
+spread = 75.0
+initial_velocity_min = 240.26
+initial_velocity_max = 260.25998
+angular_velocity_min = 61.799984
+angular_velocity_max = 61.799984
+orbit_velocity_min = -0.49799994
+orbit_velocity_max = -0.49799994
+scale_min = 0.55
+scale_max = 10.0
+scale_over_velocity_max = 1000.0
+color = Color(0.9019608, 0.50980395, 0.59607846, 1)
+
+[sub_resource type="Animation" id="Animation_ioffh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wqe3s"]
+resource_name = "hide_shoot_icon"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.49411765), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e3to4"]
+resource_name = "show_shoot_icon"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.49019608), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ioffh"]
+_data = {
+&"RESET": SubResource("Animation_ioffh"),
+&"hide_shoot_icon": SubResource("Animation_wqe3s"),
+&"show_shoot_icon": SubResource("Animation_e3to4")
+}
 
 [sub_resource type="Animation" id="Animation_m7uff"]
 length = 0.001
@@ -140,6 +210,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("shoot:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_u6ppl"]
 resource_name = "charge"
@@ -206,27 +288,27 @@ tracks/4/keys = {
 }
 tracks/5/type = "value"
 tracks/5/imported = false
-tracks/5/enabled = false
-tracks/5/path = NodePath("charging:playing")
+tracks/5/enabled = true
+tracks/5/path = NodePath("Sprite2D:frame")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [0, 1]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Sprite2D:frame")
+tracks/6/path = NodePath("charging:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_ytwl6"]
@@ -303,6 +385,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(),
 "values": []
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = false
+tracks/6/path = NodePath("shoot:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m7uff"]
 _data = {
@@ -311,67 +405,12 @@ _data = {
 &"shoot": SubResource("Animation_ytwl6")
 }
 
-[sub_resource type="Animation" id="Animation_e3to4"]
-resource_name = "show_shoot_icon"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.49019608), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ioffh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_wqe3s"]
-resource_name = "hide_shoot_icon"
-length = 0.2
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/shoot_icon:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.49411765), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ioffh"]
-_data = {
-&"RESET": SubResource("Animation_ioffh"),
-&"hide_shoot_icon": SubResource("Animation_wqe3s"),
-&"show_shoot_icon": SubResource("Animation_e3to4")
-}
-
 [node name="Big_weapon" type="Node2D"]
 script = ExtResource("1_u6ppl")
 canShoot = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_e3to4")
 offset = Vector2(25, 0)
 hframes = 3
@@ -386,33 +425,30 @@ process_material = SubResource("ParticleProcessMaterial_8ktog")
 [node name="shoot_particle" type="GPUParticles2D" parent="Sprite2D"]
 position = Vector2(45, 3)
 emitting = false
-amount = 5
+amount = 20
 lifetime = 0.1
 explosiveness = 1.0
-process_material = ExtResource("3_ptjjb")
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_e3to4")
+
+[node name="Marker2D" type="Marker2D" parent="Sprite2D"]
+position = Vector2(47.333336, 0.6666665)
+scale = Vector2(0.66666675, 0.66666675)
 
 [node name="cooldownTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_m7uff")
-}
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(46.476784, 0.953496)
-scale = Vector2(1.0000001, 1.0000001)
 
 [node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("4_ytwl6")
 initial_state = NodePath("gunIdle")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
-[node name="gunIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("cooldown_timer", "shoot_icon", "owner_node", "animation_player")]
+[node name="gunIdle" type="Node" parent="state_machine" node_paths=PackedStringArray("cooldown_timer", "shoot_icon", "direction_visual", "owner_node", "animation_player")]
 script = ExtResource("5_ipw6a")
 cooldown_timer = NodePath("../../cooldownTimer")
 shoot_icon = NodePath("../../shoot_icon_animation")
+direction_visual = NodePath("../../aim_direction")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://cea0glv6eps37"
@@ -425,19 +461,29 @@ metadata/_custom_type_script = "uid://b24ijo6lbnqg5"
 
 [node name="gunShoot" type="Node" parent="state_machine" node_paths=PackedStringArray("muzzle", "owner_node", "animation_player")]
 script = ExtResource("7_itcdc")
-muzzle = NodePath("../../Marker2D")
+muzzle = NodePath("../../Sprite2D/Marker2D")
 bullet_load = ExtResource("2_ptjjb")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 
-[node name="charging" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("8_8ktog")
-
 [node name="shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_ioffh")
+pitch_scale = 0.5
+bus = &"player_sounds"
+
+[node name="charging" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ioffh")
+volume_db = 10.0
+bus = &"player_sounds"
 
 [node name="shoot_icon_animation" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ioffh")
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m7uff")
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -452,6 +498,11 @@ offset_right = 64.0
 offset_bottom = 64.03998
 grow_vertical = 2
 texture = ExtResource("10_e3to4")
+
+[node name="aim_direction" type="Line2D" parent="."]
+points = PackedVector2Array(74, 2, 74, 1)
+closed = true
+default_color = Color(0.9019608, 0.50980395, 0.59607846, 0.4745098)
 
 [connection signal="timeout" from="cooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="cooldownTimer" to="state_machine/gunIdle" method="_on_cooldown_timer_timeout"]

@@ -18,7 +18,6 @@ func pause():
 	animation_player.play("blur")
 	resume_button.grab_focus()
 
-
 func testEsc(event:InputEvent):
 	if event.is_action_pressed('ui_cancel') and !get_tree().paused:
 		pause()
@@ -27,8 +26,6 @@ func testEsc(event:InputEvent):
 		
 func _input(event: InputEvent) -> void:
 	testEsc(event)
-
-
 
 func _on_resume_pressed() -> void:
 	resume()

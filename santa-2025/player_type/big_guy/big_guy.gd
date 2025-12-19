@@ -48,6 +48,7 @@ func _input(event: InputEvent) -> void:
 func _on_hurtbox_got_hit(health:int)-> void:
 	health_bar.value = health
 	health_animation.play('show_health') 
+	$hit.play()
 	#health_ui.text = str(health) 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:

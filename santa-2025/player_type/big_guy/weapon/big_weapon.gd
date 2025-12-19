@@ -2,7 +2,7 @@ extends Node2D
 
 
 @onready var cooldownTimer:Timer = $cooldownTimer
-@onready var muzzle:Marker2D = $Marker2D
+@onready var muzzle:Marker2D = $Sprite2D/Marker2D
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 
 @export var big_guy:CharacterBody2D 
@@ -11,6 +11,8 @@ extends Node2D
 
 func _process(delta: float) -> void:
 	pass    
+
+        
 
 func slow_down_player():
 	big_guy.speed = big_guy.shoot_speed

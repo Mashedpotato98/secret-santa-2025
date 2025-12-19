@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=11 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
@@ -7,9 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="6_gu74f"]
 [ext_resource type="PackedScene" uid="uid://bxqgt6syiwfi5" path="res://enemies/shield_enemy/shield_enemy.tscn" id="6_i1eo7"]
 [ext_resource type="PackedScene" uid="uid://tookb8w7ubpg" path="res://menus/pause_menu/pause_menu.tscn" id="7_gu74f"]
+[ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="8_04q08"]
+[ext_resource type="AudioStream" uid="uid://6yecn64gq5hf" path="res://assets/prototype_assets/muzic/16_bit_space.ogg" id="9_vrojb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmo1i"]
-size = Vector2(63.0063, 1708.9128)
+size = Vector2(63.0063, 1876)
 
 [node name="main" type="Node2D"]
 process_mode = 1
@@ -18,11 +20,12 @@ process_mode = 1
 
 [node name="Big_guy" parent="." instance=ExtResource("6_gu74f")]
 
-[node name="spawner" type="Node2D" parent="."]
+[node name="spawner" type="Node2D" parent="." node_paths=PackedStringArray("score_label")]
 process_mode = 4
 position = Vector2(-1, -4)
 script = ExtResource("4_spvjk")
 enemies = Array[PackedScene]([ExtResource("4_cmo1i")])
+score_label = NodePath("../CanvasLayer/score")
 
 [node name="Timer" type="Timer" parent="spawner"]
 wait_time = 5.0
@@ -31,34 +34,27 @@ autostart = true
 [node name="tank_melee" parent="." instance=ExtResource("4_cmo1i")]
 position = Vector2(-83, 257)
 
-[node name="tank_melee2" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
-position = Vector2(-38, 259)
-
-[node name="tank_melee3" parent="." instance=ExtResource("4_cmo1i")]
-process_mode = 4
-position = Vector2(-130, 259)
-
 [node name="boundary" type="StaticBody2D" parent="."]
-position = Vector2(-872, 131)
+visible = false
+position = Vector2(-883, 131)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boundary"]
-position = Vector2(-27, -97)
+position = Vector2(-116, -97)
 shape = SubResource("RectangleShape2D_cmo1i")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="boundary"]
-position = Vector2(885.5436, 378.25775)
+position = Vector2(862, 441.25775)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_cmo1i")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="boundary"]
-position = Vector2(868, -640)
+position = Vector2(868, -656)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_cmo1i")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="boundary"]
-position = Vector2(1762.5, -475.06784)
+position = Vector2(1837.5, -475.0678)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_cmo1i")
 
@@ -69,5 +65,23 @@ position = Vector2(443, 301)
 position = Vector2(-20, 18)
 
 [node name="pause_menu" parent="." instance=ExtResource("7_gu74f")]
+z_index = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="score" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_right = 112.0
+offset_bottom = 98.0
+grow_horizontal = 2
+theme = ExtResource("8_04q08")
+theme_override_font_sizes/font_size = 40
+
+[node name="main_muzi" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_vrojb")
+autoplay = true
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

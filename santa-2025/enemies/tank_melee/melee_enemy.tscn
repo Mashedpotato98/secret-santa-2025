@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://7apob1ku4abi"]
+[gd_scene load_steps=36 format=3 uid="uid://7apob1ku4abi"]
 
 [ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/melee_enemy.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
@@ -206,6 +206,30 @@ tracks/14/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("audio/die_audio:playing")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("ram_line:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_eu7ly"]
 resource_name = "attack"
@@ -360,6 +384,18 @@ tracks/5/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ram_line:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_1e2hb"]
 resource_name = "hit"
@@ -473,6 +509,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ram_line:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_aoyox"]
 resource_name = "killed"
@@ -575,6 +623,30 @@ tracks/7/keys = {
 "transitions": PackedFloat32Array(),
 "update": 1,
 "values": []
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("audio/die_audio:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("ram_line:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_e2e8j"]
@@ -730,6 +802,10 @@ size = Vector2(21, 26)
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqfe0"]
 radius = 23.021729
 
+[sub_resource type="Gradient" id="Gradient_aoyox"]
+offsets = PackedFloat32Array(0.55390334, 1)
+colors = PackedColorArray(0.7176471, 0.6156863, 1, 1, 0.7792914, 0.7792914, 0.7792913, 1)
+
 [node name="melee_enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
@@ -789,9 +865,10 @@ owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://x76i2at6bc6l"
 
-[node name="meleeCharge" type="Node" parent="state_machine" node_paths=PackedStringArray("charge_timer", "owner_node", "animation_player")]
+[node name="meleeCharge" type="Node" parent="state_machine" node_paths=PackedStringArray("charge_timer", "ram_line", "owner_node", "animation_player")]
 script = ExtResource("10_aoyox")
 charge_timer = NodePath("../../charge_time")
+ram_line = NodePath("../../ram_line")
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://hcmvr6td4adi"
@@ -813,7 +890,6 @@ animation_player = NodePath("../../AnimationPlayer")
 [node name="areas" type="Node2D" parent="."]
 
 [node name="attack_area" type="Area2D" parent="areas"]
-visible = false
 collision_layer = 0
 monitorable = false
 
@@ -857,11 +933,24 @@ shape = SubResource("CircleShape2D_iqfe0")
 stream = ExtResource("14_laaba")
 bus = &"enemy_sounds"
 
+[node name="die_audio" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_laaba")
+volume_db = 1.0
+pitch_scale = 0.5
+bus = &"enemy_sounds"
+
 [node name="state" type="Label" parent="."]
 offset_left = -22.0
 offset_top = -38.0
 offset_right = 18.0
 offset_bottom = -15.0
+
+[node name="ram_line" type="Line2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.49019608)
+width = 30.0
+default_color = Color(0.7176471, 0.6156863, 1, 1)
+gradient = SubResource("Gradient_aoyox")
 
 [connection signal="timeout" from="idle_timer" to="state_machine/meleeIdle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="charge_time" to="state_machine/meleeCharge" method="_on_charge_time_timeout"]
