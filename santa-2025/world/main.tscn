@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=9 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="5_cmo1i"]
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="6_gu74f"]
 [ext_resource type="PackedScene" uid="uid://bxqgt6syiwfi5" path="res://enemies/shield_enemy/shield_enemy.tscn" id="6_i1eo7"]
+[ext_resource type="PackedScene" uid="uid://tookb8w7ubpg" path="res://menus/pause_menu/pause_menu.tscn" id="7_gu74f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmo1i"]
 size = Vector2(63.0063, 1708.9128)
 
 [node name="main" type="Node2D"]
+process_mode = 1
 
 [node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
 
@@ -65,5 +67,7 @@ position = Vector2(443, 301)
 
 [node name="camera" parent="." instance=ExtResource("5_cmo1i")]
 position = Vector2(-20, 18)
+
+[node name="pause_menu" parent="." instance=ExtResource("7_gu74f")]
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

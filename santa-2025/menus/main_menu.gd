@@ -24,7 +24,10 @@ var volume_groups = {
 }
 
 func _ready():
+    if get_tree().paused == true:
+        get_tree().paused = false
     _disable_settings()
+
 
     #checks input mode and adjusts accordingly
     if Global.current_input == Global.input_mode.CONTROLLER_MIX:

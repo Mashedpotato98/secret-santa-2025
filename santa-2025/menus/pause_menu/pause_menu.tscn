@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://tookb8w7ubpg"]
+
+[ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="1_5ndmu"]
+[ext_resource type="Script" uid="uid://dbfsujuji4066" path="res://menus/pause_menu/pause_menu.gd" id="1_qd56w"]
+[ext_resource type="Shader" uid="uid://t81qk36ec2kq" path="res://shaders/background_blur.gdshader" id="2_jwttc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qd56w"]
+shader = ExtResource("2_jwttc")
+shader_parameter/lod = 0.400000019
+
+[sub_resource type="Animation" id="Animation_5ndmu"]
+resource_name = "blur"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background_blur:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.400000019, 0.800000038]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.40000004),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jwttc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("background_blur:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.400000019]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BoxContainer/VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jwttc"]
+_data = {
+&"RESET": SubResource("Animation_jwttc"),
+&"blur": SubResource("Animation_5ndmu")
+}
+
+[node name="pause_menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qd56w")
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = -49.0
+offset_right = 87.5
+offset_bottom = 49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_5ndmu")
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_5ndmu")
+theme_override_font_sizes/font_size = 75
+text = "Resume "
+
+[node name="Restart" type="Button" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_5ndmu")
+theme_override_font_sizes/font_size = 75
+text = "Restart"
+
+[node name="Main_menu" type="Button" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_5ndmu")
+theme_override_font_sizes/font_size = 75
+text = "Main menu"
+
+[node name="Exit_game" type="Button" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_5ndmu")
+theme_override_font_sizes/font_size = 75
+text = "Exit Game"
+
+[node name="background_blur" type="TextureRect" parent="."]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_qd56w")
+layout_mode = 0
+offset_right = 1926.0
+offset_bottom = 1084.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jwttc")
+}
+
+[connection signal="pressed" from="BoxContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="BoxContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="BoxContainer/VBoxContainer/Main_menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="BoxContainer/VBoxContainer/Exit_game" to="." method="_on_exit_game_pressed"]
