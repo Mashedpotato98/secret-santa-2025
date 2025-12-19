@@ -12,7 +12,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area is hurtBox:  
 		area.damage(hitbox)
 	elif area is bossDefence:
-		animation_player.play('hit_defence')
+		animation_player.call_deferred('play', 'hit_defence')
 		area.hit.emit()
 		print("betha bro")
 

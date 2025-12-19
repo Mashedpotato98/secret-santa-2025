@@ -1,10 +1,64 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxqfibndu4g6o"]
+[gd_scene load_steps=16 format=3 uid="uid://dxqfibndu4g6o"]
 
 [ext_resource type="Script" uid="uid://dp3tdxnuaajsg" path="res://menus/main_menu.gd" id="1_8gy84"]
 [ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="2_ij7vn"]
+[ext_resource type="Texture2D" uid="uid://bvw4aen2lnpfl" path="res://assets/background/background_.png" id="2_yjgyn"]
+[ext_resource type="FontFile" uid="uid://cdjxvhe7tsnqd" path="res://assets/ui/font/Nexa-Heavy.ttf" id="3_pwbes"]
+[ext_resource type="Texture2D" uid="uid://rpdtld7jbic5" path="res://assets/background/bad_guys.png" id="3_rqbgu"]
+[ext_resource type="Texture2D" uid="uid://c1myxwdiiufcy" path="res://assets/background/good_guys.png" id="4_oblsv"]
+[ext_resource type="Texture2D" uid="uid://bneb7l6ilfcfr" path="res://assets/ui/font/V.png" id="5_a63lr"]
+[ext_resource type="Texture2D" uid="uid://c67vhyohp4kah" path="res://assets/ui/icons/katana_big_icon.png" id="8_hswy5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8gy84"]
 font_size = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hswy5"]
+draw_center = false
+border_color = Color(0.42745098, 0.5058824, 0.5882353, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 12.0
+expand_margin_top = 12.0
+expand_margin_right = 12.0
+expand_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmd75"]
+draw_center = false
+border_color = Color(0.86036915, 0.8603692, 0.8603691, 1)
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_caclp"]
+bg_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nc6jr"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk4mm"]
+draw_center = false
+
+[sub_resource type="Theme" id="Theme_rx1ud"]
+default_font = ExtResource("3_pwbes")
+default_font_size = 75
+Button/colors/font_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+Button/colors/font_disabled_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
+Button/colors/font_focus_color = Color(0.5810325, 0.58103305, 0.58103263, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/font_sizes/font_size = 16
+Button/styles/focus = SubResource("StyleBoxFlat_hswy5")
+Button/styles/hover = SubResource("StyleBoxFlat_vmd75")
+Button/styles/normal = SubResource("StyleBoxFlat_caclp")
+CheckBox/styles/focus = SubResource("StyleBoxFlat_nc6jr")
+CheckButton/icons/checked = null
+CheckButton/icons/checked_disabled = null
+CheckButton/styles/focus = SubResource("StyleBoxFlat_kk4mm")
+Label/colors/font_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
 
 [node name="Main_menu" type="Control"]
 layout_mode = 3
@@ -15,6 +69,35 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8gy84")
 
+[node name="Name2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 500.0
+theme = ExtResource("2_ij7vn")
+bbcode_enabled = true
+text = "Square [color=ff5400]V[/color][color=5e011c]S[/color] Un-Squared"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+process_mode = 4
+visible = false
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 500.0
+theme = ExtResource("2_ij7vn")
+text = "Square V Un-Squared"
+label_settings = SubResource("LabelSettings_8gy84")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(940, 300)
+points = PackedVector2Array(-590, 2, 8, 5, 635, 5)
+width = 5.0
+default_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
+
 [node name="BoxContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -22,88 +105,82 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -240.0
-offset_right = 960.0
-offset_bottom = 540.0
+offset_left = -980.0
+offset_top = -311.0
+offset_right = 940.0
+offset_bottom = 469.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ij7vn")
 
 [node name="MainButton" type="VBoxContainer" parent="BoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Boss" type="Button" parent="BoxContainer/MainButton"]
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
 text = "Boss"
 
 [node name="wave" type="Button" parent="BoxContainer/MainButton"]
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
 text = "Wave"
 
 [node name="Settings" type="Button" parent="BoxContainer/MainButton"]
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
 text = "Settings"
 
 [node name="exit" type="Button" parent="BoxContainer/MainButton"]
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
 text = "Exit"
 
 [node name="input_mode" type="CheckButton" parent="BoxContainer/MainButton"]
 layout_mode = 2
+theme = SubResource("Theme_rx1ud")
 text = "controller/mix?"
 
-[node name="Info" type="VBoxContainer" parent="BoxContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_ij7vn")
-alignment = 2
-
-[node name="Label" type="RichTextLabel" parent="BoxContainer/Info"]
-visible = false
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-theme_override_font_sizes/normal_font_size = 62
-theme_override_font_sizes/bold_font_size = 75
-theme_override_font_sizes/bold_italics_font_size = 75
-theme_override_font_sizes/italics_font_size = 75
-theme_override_font_sizes/mono_font_size = 75
-bbcode_enabled = true
-text = "From a fellow comrade, with love, to [color=#5e011c]Lensu[/color] and [color=#ff5403]Zac[/color]"
-fit_content = true
-autowrap_mode = 2
-
 [node name="settings" type="VBoxContainer" parent="BoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="fullscreen" type="CheckBox" parent="BoxContainer/settings"]
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
+theme_override_colors/font_focus_color = Color(0.53303635, 0.5330368, 0.5330365, 1)
+theme_override_colors/font_pressed_color = Color(0.7121294, 0.7121294, 0.71212924, 1)
+theme_override_colors/font_disabled_color = Color(0.13319641, 0.13319641, 0.13319638, 1)
+theme_override_colors/icon_focus_color = Color(0.585062, 0.585062, 0.5850621, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0.23392546, 0.23392546, 0.23392543, 1)
 text = "Fullscreen"
 
 [node name="vol_slider_main" type="HSlider" parent="BoxContainer/settings"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 max_value = 1.0
 step = 0.001
 
 [node name="Label" type="Label" parent="BoxContainer/settings/vol_slider_main"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 0
-offset_top = -25.0
+offset_top = -9.0
 offset_right = 400.0
-offset_bottom = 78.0
+offset_bottom = 94.0
 theme_override_font_sizes/font_size = 32
 text = "Master Volume"
 horizontal_alignment = 1
 
 [node name="vol_slider_sfx" type="HSlider" parent="BoxContainer/settings"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 max_value = 1.0
 step = 0.001
 
@@ -118,8 +195,9 @@ text = "Sfx Volume"
 horizontal_alignment = 1
 
 [node name="vol_slider_music" type="HSlider" parent="BoxContainer/settings"]
-custom_minimum_size = Vector2(0, 80)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme = ExtResource("2_ij7vn")
 max_value = 1.0
 step = 0.001
 
@@ -137,33 +215,98 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(353, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
 text = "Back"
 
-[node name="Name" type="Label" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 500.0
+[node name="rects" type="Node" parent="."]
+
+[node name="background" type="TextureRect" parent="rects"]
+z_index = -4096
+offset_right = 1935.0
+offset_bottom = 1096.0
+texture = ExtResource("2_yjgyn")
+
+[node name="bad_guys" type="TextureRect" parent="rects"]
+z_index = -4096
+offset_left = 1354.0
+offset_top = 100.0
+offset_right = 1629.0
+offset_bottom = 299.0
+texture = ExtResource("3_rqbgu")
+
+[node name="good_guys" type="TextureRect" parent="rects"]
+z_index = -4096
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -660.0
+offset_top = 100.0
+offset_right = -385.0
+offset_bottom = 299.0
+grow_horizontal = 2
+texture = ExtResource("4_oblsv")
+
+[node name="V" type="TextureRect" parent="rects"]
+process_mode = 4
+visible = false
+z_index = -4096
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -215.0
+offset_top = 209.0
+offset_right = -43.0
+offset_bottom = 309.0
+grow_horizontal = 2
+texture = ExtResource("5_a63lr")
+
+[node name="katana_title" type="TextureRect" parent="rects"]
+z_index = -4096
+offset_left = 916.99994
+offset_top = 119.999985
+offset_right = 959.99994
+offset_bottom = 320.0
+rotation = 0.5235988
+texture = ExtResource("8_hswy5")
+
+[node name="Info" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -287.0
+offset_top = -567.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("2_ij7vn")
-text = "Square V Un-Squared"
-label_settings = SubResource("LabelSettings_8gy84")
-horizontal_alignment = 1
-vertical_alignment = 1
+alignment = 2
+
+[node name="Label" type="RichTextLabel" parent="Info"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 62
+theme_override_font_sizes/bold_font_size = 75
+theme_override_font_sizes/bold_italics_font_size = 75
+theme_override_font_sizes/italics_font_size = 75
+theme_override_font_sizes/mono_font_size = 75
+bbcode_enabled = true
+text = "From a fellow comrade, with love, to [color=#5e011c]Lensu[/color] and [color=#ff5403]Zac[/color]"
+fit_content = true
+autowrap_mode = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(972, 550)
-
-[node name="Line2D" type="Line2D" parent="."]
-position = Vector2(940, 320)
-points = PackedVector2Array(-558, 5, 8, 5, 606, 5)
-width = 5.0
-default_color = Color(0.8509804, 0.8509804, 0.8509804, 1)
 
 [connection signal="pressed" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="BoxContainer/MainButton/wave" to="." method="_on_wave_pressed"]
 [connection signal="toggled" from="BoxContainer/MainButton/wave" to="." method="_on_wave_toggled"]
 [connection signal="pressed" from="BoxContainer/MainButton/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="BoxContainer/MainButton/exit" to="." method="_on_exit_pressed"]
+[connection signal="toggled" from="BoxContainer/MainButton/input_mode" to="." method="_on_input_mode_toggled"]
 [connection signal="toggled" from="BoxContainer/settings/fullscreen" to="." method="_on_check_box_toggled"]
 [connection signal="value_changed" from="BoxContainer/settings/vol_slider_main" to="." method="_on_vol_slider_value_changed"]
 [connection signal="value_changed" from="BoxContainer/settings/vol_slider_sfx" to="." method="_on_vol_slider_sfx_value_changed"]

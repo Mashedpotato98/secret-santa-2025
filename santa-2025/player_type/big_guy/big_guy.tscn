@@ -1,16 +1,59 @@
-[gd_scene load_steps=8 format=3 uid="uid://kxmwduvgdusb"]
+[gd_scene load_steps=14 format=3 uid="uid://kxmwduvgdusb"]
 
 [ext_resource type="Script" uid="uid://ctqxqg3psi2jb" path="res://player_type/big_guy/big_guy.gd" id="1_buqfc"]
 [ext_resource type="Texture2D" uid="uid://canfkibwbioyh" path="res://assets/big_guy/big_guy.png" id="2_ngess"]
 [ext_resource type="PackedScene" uid="uid://bm4pld2vgml0m" path="res://player_type/big_guy/weapon/big_weapon.tscn" id="3_ilc6v"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="4_m8ldj"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_ngess"]
+[ext_resource type="Texture2D" uid="uid://cftxyjodt7ejd" path="res://assets/ui/health_bar/2nd/over2.png" id="6_obsep"]
+[ext_resource type="Texture2D" uid="uid://cjpykjsjf1e6q" path="res://assets/ui/health_bar/2nd/progress2.png" id="6_ucvqr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jn63w"]
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8ldj"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_ucvqr"]
+resource_name = "hit"
+
+[sub_resource type="Animation" id="Animation_obsep"]
+resource_name = "show_health"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/health_bar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001, 0.20000002, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.4862745), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_alecs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/health_bar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_obsep"]
+_data = {
+&"RESET": SubResource("Animation_alecs"),
+&"hit": SubResource("Animation_ucvqr"),
+&"show_health": SubResource("Animation_obsep")
+}
 
 [node name="Big_guy" type="CharacterBody2D" groups=["big_guy"]]
 collision_mask = 8
@@ -39,12 +82,27 @@ shape = SubResource("RectangleShape2D_m8ldj")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="health_bar" type="TextureProgressBar" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+offset_top = 50.0
+offset_right = 128.0
+offset_bottom = 82.0
+max_value = 10.0
+texture_under = ExtResource("6_obsep")
+texture_progress = ExtResource("6_ucvqr")
 
 [node name="knockback_receiver" parent="." node_paths=PackedStringArray("body") instance=ExtResource("5_ngess")]
 visible = false
 body = NodePath("..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_obsep")
+}
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]

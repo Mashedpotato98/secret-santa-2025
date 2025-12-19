@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var knockback_receiver:Node2D = $knockback_receiver
 @onready var hurtbox:hurtBox = $hurtbox
 @onready var weapon:Node2D = $Big_weapon
+@onready var animation_player:AnimationPlayer = $AnimationPlayer
+@onready var health_bar:TextureProgressBar = $CanvasLayer/health_bar
 
 @export var regular_speed:int = 100
 @export var shoot_speed:int = 5
@@ -17,7 +19,9 @@ var direction:Vector2
 var rotational_direction:Vector2
 
 func _ready() -> void:
-	health_ui.text = str(hurtbox.max_hp)
+	health_bar.value = hurtbox.max_hp
+	animation_player.play('show_health') 
+	#health_ui.text = str(hurtbox.max_hp)
 
 func _physics_process(delta: float) -> void:
 	#direction = Input.get_vector('1_left' % player_index, '1_right' % player_index, '1_up' % player_index, '1_down' % player_index)
@@ -42,7 +46,9 @@ func _input(event: InputEvent) -> void:
 	
 
 func _on_hurtbox_got_hit(health:int)-> void:
-	health_ui.text = str(health) 
+	health_bar.value = health
+	animation_player.play('show_health') 
+	#health_ui.text = str(health) 
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
 	knockback = knockback_receiver.apply_knockback(direction, knockback_strength)    

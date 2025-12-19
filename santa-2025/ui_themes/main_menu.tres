@@ -1,8 +1,12 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bvgdtf2w5y0km"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bvgdtf2w5y0km"]
 
 [ext_resource type="StyleBox" uid="uid://di5ridxn68pg" path="res://ui_themes/button_style/button_style_hover_focus.tres" id="1_be61o"]
 [ext_resource type="StyleBox" uid="uid://ci8tn5ag8rrkr" path="res://ui_themes/button_style/button_style.tres" id="1_k5hcy"]
 [ext_resource type="FontFile" uid="uid://cdjxvhe7tsnqd" path="res://assets/ui/font/Nexa-Heavy.ttf" id="3_ev4v8"]
+[ext_resource type="Texture2D" uid="uid://b1xqmasvdxlee" path="res://assets/ui/icons/check_box3.png" id="3_fvhlb"]
+[ext_resource type="Texture2D" uid="uid://ujhfnjt3fr08" path="res://assets/ui/icons/check_box1.png" id="3_vq6w5"]
+[ext_resource type="Texture2D" uid="uid://m7u6l2kldilt" path="res://assets/ui/icons/check_buttton2.png" id="5_vrhtk"]
+[ext_resource type="Texture2D" uid="uid://cojaav8k8v1md" path="res://assets/ui/icons/check_buttton1.png" id="6_1fv07"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_be61o"]
 draw_center = false
@@ -17,6 +21,21 @@ expand_margin_top = 12.0
 expand_margin_right = 12.0
 expand_margin_bottom = 12.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq6w5"]
+draw_center = false
+border_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fvhlb"]
+draw_center = false
+border_color = Color(0.21176471, 0.21176471, 0.21176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ev4v8"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vrhtk"]
+bg_color = Color(0.11858138, 0.11858139, 0.11858132, 1)
+draw_center = false
+
 [resource]
 default_font = ExtResource("3_ev4v8")
 default_font_size = 75
@@ -28,6 +47,23 @@ Button/font_sizes/font_size = 16
 Button/styles/focus = SubResource("StyleBoxFlat_be61o")
 Button/styles/hover = ExtResource("1_be61o")
 Button/styles/normal = ExtResource("1_k5hcy")
-CheckButton/icons/checked = null
-CheckButton/icons/checked_disabled = null
+CheckBox/colors/checkbox_checked_color = Color(0.6789437, 0.6789437, 0.6789437, 1)
+CheckBox/colors/checkbox_unchecked_color = Color(0.47397572, 0.47397572, 0.47397572, 1)
+CheckBox/colors/font_pressed_color = Color(0.6784314, 0.6784314, 0.6784314, 1)
+CheckBox/icons/checked = ExtResource("3_fvhlb")
+CheckBox/icons/radio_unchecked = ExtResource("3_vq6w5")
+CheckBox/styles/focus = SubResource("StyleBoxFlat_vq6w5")
+CheckBox/styles/hover = ExtResource("1_be61o")
+CheckBox/styles/hover_pressed = ExtResource("1_be61o")
+CheckBox/styles/pressed = SubResource("StyleBoxFlat_fvhlb")
+CheckButton/colors/button_checked_color = Color(0.6542321, 0.6542321, 0.654232, 1)
+CheckButton/colors/button_unchecked_color = Color(0.46229059, 0.46229059, 0.46229059, 1)
+CheckButton/colors/font_hover_color = Color(0.683077, 0.68307734, 0.68307805, 1)
+CheckButton/colors/font_hover_pressed_color = Color(0.68235296, 0.68235296, 0.68235296, 1)
+CheckButton/icons/checked = ExtResource("5_vrhtk")
+CheckButton/icons/checked_disabled = ExtResource("5_vrhtk")
+CheckButton/icons/icon = null
+CheckButton/icons/unchecked = ExtResource("6_1fv07")
+CheckButton/styles/focus = SubResource("StyleBoxFlat_ev4v8")
+CheckButton/styles/pressed = SubResource("StyleBoxFlat_vrhtk")
 Label/colors/font_color = Color(0.2901961, 0.2901961, 0.2901961, 1)
