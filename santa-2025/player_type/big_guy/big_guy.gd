@@ -36,6 +36,7 @@ func _physics_process(delta: float) -> void:
 	if aim_direction != Vector2.ZERO:
 		rotational_direction = aim_direction
 
+	weapon._visual_aim(weapon.visual_aim, direction * 200)
 	weapon.rotation = rotational_direction.angle()
 
 	move_and_slide()

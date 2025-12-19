@@ -19,7 +19,6 @@ func Enter():
 
 func update(_delta: float):
 	print(direction_visual.points[0])
-	direction_visual.points[1] = owner_node.to_local(Vector2.from_angle(-owner_node.rotation))
 
 	if Input.is_action_pressed('shoot') and can_shoot == true:
 		shoot_icon.play('hide_shoot_icon')
