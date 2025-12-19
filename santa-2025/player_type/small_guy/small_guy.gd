@@ -10,7 +10,8 @@ extends CharacterBody2D
 @onready var hurtbox:hurtBox = $hurtbox
 @onready var knockback_receiver:Node2D = $knockback_receiver
 @onready var health_bar:TextureProgressBar = $CanvasLayer/health_bar
-@onready var hud_animation_player:AnimationPlayer = $hud_animation
+@onready var hud_animation_player:AnimationPlayer = $health_animation
+@onready var dash_animation:AnimationPlayer = $dash_animation
 
 
 var knockback:Vector2
@@ -21,6 +22,7 @@ func _ready() -> void:
 	#health_bar.visible = false
 	health_bar.value = hurtbox.max_hp
 	hud_animation_player.play('show_health')
+	dash_animation.play('show_dash_icon')
 
 func _physics_process(delta: float) -> void:
 	

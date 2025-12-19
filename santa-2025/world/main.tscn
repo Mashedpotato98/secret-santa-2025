@@ -64,6 +64,6 @@ shape = SubResource("RectangleShape2D_cmo1i")
 position = Vector2(443, 301)
 
 [node name="camera" parent="." instance=ExtResource("5_cmo1i")]
-position = Vector2(858, 321)
+position = Vector2(-20, 18)
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

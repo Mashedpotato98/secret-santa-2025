@@ -91,8 +91,6 @@ func _on_state_machine_changed(state, new_state) -> void:
     #$state.text = str(new_state)
     pass
 
-#func _on_hurtbox_killed() -> void:
-    #animation_player.play('RESET')
-    #animation_player.play("killed")
-    #queue_free()
-    pass
+func _on_hurtbox_killed() -> void:
+    animation_player.play('RESET')
+    animation_player.play("killed")
