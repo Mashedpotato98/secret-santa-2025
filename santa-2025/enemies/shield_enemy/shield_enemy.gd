@@ -68,9 +68,6 @@ func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -
 func _on_hurtbox_killed() -> void:
 	died.emit(self)
 	if not is_dead: 
-		if owner is root_node:
-			print('1')
-		owner._freeze_frame(0.1, 1.0)
 		is_dead = true
 		animation_player.play('killed')
 

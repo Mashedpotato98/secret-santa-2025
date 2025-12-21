@@ -474,13 +474,13 @@ color = Color(0.72375035, 0.87316495, 0.8792535, 1)
 color_ramp = SubResource("GradientTexture1D_owanv")
 
 [sub_resource type="Gradient" id="Gradient_5jt8b"]
-offsets = PackedFloat32Array(0.112676054, 0.8685446)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+offsets = PackedFloat32Array(0.59624416, 0.86619717)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.35686275)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1n3dr"]
 gradient = SubResource("Gradient_5jt8b")
 fill = 1
-fill_from = Vector2(0.525641, 0.54273504)
+fill_from = Vector2(0.5555556, 0.50427353)
 
 [node name="shield_enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -595,7 +595,7 @@ father = NodePath("../Sprite2D")
 position = Vector2(6.0312653, 0)
 rotation = -0.008510501
 scale = Vector2(10.615232, 12.34375)
-energy = 0.7
+energy = 0.4
 blend_mode = 2
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_1n3dr")
