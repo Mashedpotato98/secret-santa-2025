@@ -15,7 +15,6 @@
 size = Vector2(63.0063, 1876)
 
 [sub_resource type="Environment" id="Environment_vrojb"]
-background_mode = 3
 tonemap_mode = 2
 glow_enabled = true
 glow_intensity = 1.0
@@ -23,9 +22,10 @@ glow_strength = 0.5
 glow_bloom = 0.3
 glow_hdr_scale = 1.0
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" node_paths=PackedStringArray("camera")]
 process_mode = 1
 script = ExtResource("1_qnd6n")
+camera = NodePath("camera")
 
 [node name="SmallGuy" parent="." groups=["player"] instance=ExtResource("1_gjxf3")]
 position = Vector2(1049, 773)
@@ -98,9 +98,6 @@ position = Vector2(1837.5, -475.0678)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_cmo1i")
 
-[node name="camera" parent="." instance=ExtResource("5_cmo1i")]
-position = Vector2(970, 546)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="score" type="Label" parent="CanvasLayer"]
@@ -132,6 +129,11 @@ environment = SubResource("Environment_vrojb")
 
 [node name="melee_enemy" parent="." instance=ExtResource("4_cmo1i")]
 position = Vector2(652, 519)
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="camera" parent="." instance=ExtResource("5_cmo1i")]
+position = Vector2(982, 568)
 
 [connection signal="killed" from="SmallGuy" to="." method="_on_small_guy_killed"]
 [connection signal="killed" from="Big_guy" to="." method="_on_big_guy_killed"]

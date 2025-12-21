@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnecco0xl2u5t"]
+[gd_scene load_steps=5 format=3 uid="uid://dnecco0xl2u5t"]
 
 [ext_resource type="Texture2D" uid="uid://cer543qqpl03m" path="res://assets/defence_breaker/defence_breaker.png" id="1_5ngis"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_c30li"]
 radius = 17.262676
+
+[sub_resource type="Gradient" id="Gradient_5ngis"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n2gkv"]
+gradient = SubResource("Gradient_5ngis")
+fill = 1
+fill_from = Vector2(0.491453, 0.5470086)
+fill_to = Vector2(0.8888889, 0.21794872)
 
 [node name="defence_breaker" type="Area2D"]
 collision_layer = 0
@@ -14,3 +23,8 @@ texture = ExtResource("1_5ngis")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_c30li")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+energy = 3.0
+blend_mode = 2
+texture = SubResource("GradientTexture2D_n2gkv")

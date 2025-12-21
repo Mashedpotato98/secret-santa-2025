@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwqsv20aek1lk"]
+
+[ext_resource type="Texture2D" uid="uid://bcdmn1t24pclk" path="res://particles/charge_icon.png" id="1_qukkl"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ioffh"]
+light_mode = 1
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_ioffh"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wqe3s"]
+gradient = SubResource("Gradient_ioffh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ioffh"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_max = 31.4
+gravity = Vector3(0, 90, 0)
+scale_min = 0.0
+scale_max = 24.81
+scale_over_velocity_max = 1000.0
+color_ramp = SubResource("GradientTexture1D_wqe3s")
+anim_speed_max = 1.3299999
+
+[node name="charge_icon_particle" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_ioffh")
+emitting = false
+amount = 2
+texture = ExtResource("1_qukkl")
+lifetime = 0.5
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ioffh")

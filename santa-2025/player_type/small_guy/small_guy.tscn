@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://ccwoxfnq1xscr"]
+[gd_scene load_steps=34 format=3 uid="uid://ccwoxfnq1xscr"]
 
 [ext_resource type="Script" uid="uid://c6c4mxyhhv1pd" path="res://player_type/small_guy/small_guy.gd" id="1_o2pp6"]
 [ext_resource type="Texture2D" uid="uid://cx53nud73mbpd" path="res://assets/small_guy/small_guy.png" id="2_1og6c"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="3_wr3ml"]
 [ext_resource type="PackedScene" uid="uid://bcwvt7odc8aw7" path="res://player_type/small_guy/sword/sword.tscn" id="4_ikgte"]
+[ext_resource type="Material" uid="uid://buwhsbxaiqmiv" path="res://shaders/no_shading.tres" id="5_1ckmj"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_1og6c"]
 [ext_resource type="Texture2D" uid="uid://by2yshrwq837g" path="res://assets/ui/health_bar/under.png" id="5_7jdh5"]
 [ext_resource type="Texture2D" uid="uid://dupdohro8bqh5" path="res://assets/ui/health_bar/over.png" id="6_dfyk6"]
@@ -311,6 +312,18 @@ _data = {
 &"show_dash_icon": SubResource("Animation_cjipc")
 }
 
+[sub_resource type="Gradient" id="Gradient_l47us"]
+offsets = PackedFloat32Array(0.4201878, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1ckmj"]
+gradient = SubResource("Gradient_l47us")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.46153846, 0.46153846)
+fill_to = Vector2(0.021367522, 0.008547009)
+
 [node name="SmallGuy" type="CharacterBody2D" groups=["small_guy"]]
 collision_mask = 8
 script = ExtResource("1_o2pp6")
@@ -339,6 +352,7 @@ position = Vector2(1, 0)
 
 [node name="health" type="Label" parent="CanvasLayer"]
 visible = false
+material = ExtResource("5_1ckmj")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -350,6 +364,7 @@ theme_override_font_sizes/font_size = 75
 
 [node name="health_bar" type="TextureProgressBar" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
+material = ExtResource("5_1ckmj")
 offset_left = 1.0
 offset_top = 3.0
 offset_right = 129.0
@@ -361,6 +376,7 @@ texture_progress = ExtResource("7_km5qs")
 
 [node name="dash_icon" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0.4862745)
+material = ExtResource("5_1ckmj")
 anchors_preset = -1
 anchor_left = -0.001
 anchor_top = 0.17300001
@@ -424,13 +440,22 @@ libraries = {
 
 [node name="dash_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_m0vra")
-volume_db = 5.0
+volume_db = 15.0
 pitch_scale = 2.0
 bus = &"player_sounds"
 
 [node name="hit_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("14_l47us")
+volume_db = 20.0
 bus = &"player_sounds"
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(5.850002, -0.49999762)
+scale = Vector2(1.0960938, 1)
+blend_mode = 2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_1ckmj")
 
 [connection signal="got_hit" from="hurtbox" to="." method="_on_hurtbox_got_hit"]
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]

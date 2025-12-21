@@ -22,47 +22,48 @@ var direction:Vector2
 var rotational_direction:Vector2
 
 func _ready() -> void:
-	health_bar.value = hurtbox.max_hp
-	health_animation.play('show_health') 
-	#health_ui.text = str(hurtbox.max_hp)
+    health_bar.value = hurtbox.max_hp
+    health_animation.play('show_health') 
+    #health_ui.text = str(hurtbox.max_hp)
 
 func _physics_process(delta: float) -> void:
-	#direction = Input.get_vector('1_left' % player_index, '1_right' % player_index, '1_up' % player_index, '1_down' % player_index)
-	direction = Input.get_vector('1_left', '1_right', '1_up', '1_down')
-	velocity = direction * speed + knockback
-	knockback = lerp(knockback, Vector2.ZERO, 0.1)
+    #direction = Input.get_vector('1_left' % player_index, '1_right' % player_index, '1_up' % player_index, '1_down' % player_index)
+    direction = Input.get_vector('1_left', '1_right', '1_up', '1_down')
+    velocity = direction * speed + knockback
+    knockback = lerp(knockback, Vector2.ZERO, 0.1)
 
-	if direction != Vector2.ZERO:
-		weapon.global_position = global_position
+    if direction != Vector2.ZERO:
+        weapon.global_position = global_position
 
-	var aim_direction:Vector2  = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
-	if aim_direction != Vector2.ZERO:
-		rotational_direction = aim_direction
+    var aim_direction:Vector2  = Input.get_vector('aim_left', 'aim_right', 'aim_up', 'aim_down')
+    if aim_direction != Vector2.ZERO:
+        rotational_direction = aim_direction
 
-	
-	weapon.rotation = rotational_direction.angle()
+    
+    var rotation_ = lerp_angle(rotation, global_position.direction_to(rotational_direction).angle(), 0.1)
+    weapon.rotation = lerp_angle(weapon.rotation, rotational_direction.angle(), 1)
 
-	move_and_slide()
+    move_and_slide()
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		rotational_direction = global_position.direction_to(get_global_mouse_position())
-	if event.is_action_pressed('fullscreen'):
-		if get_window().mode == Window.MODE_WINDOWED:
-			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
-		elif get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
-			get_window().mode = Window.MODE_MAXIMIZED
-	
+    if event is InputEventMouseMotion:
+        rotational_direction = global_position.direction_to(get_global_mouse_position())
+    if event.is_action_pressed('fullscreen'):
+        if get_window().mode == Window.MODE_WINDOWED:
+            get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+        elif get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+            get_window().mode = Window.MODE_MAXIMIZED
+    
 
 func _on_hurtbox_got_hit(health:int)-> void:
-	health_bar.value = health
-	health_animation.play('show_health') 
-	$hit.play()
+    health_bar.value = health
+    health_animation.play('show_health') 
+    $hit.play()
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
-	knockback = knockback_receiver.apply_knockback(direction, knockback_strength)    
+    knockback = knockback_receiver.apply_knockback(direction, knockback_strength)    
 
 
 func _on_hurtbox_killed() -> void:
-	killed.emit()
-	queue_free()
+    killed.emit()
+    queue_free()

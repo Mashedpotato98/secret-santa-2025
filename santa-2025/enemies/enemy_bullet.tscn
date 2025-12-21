@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://4uclpbd0a7l1"]
+[gd_scene load_steps=11 format=3 uid="uid://4uclpbd0a7l1"]
 
 [ext_resource type="PackedScene" uid="uid://cisu123oaaq3q" path="res://player_type/big_guy/weapon/bullet.tscn" id="1_sowjn"]
 [ext_resource type="Script" uid="uid://co3uhoy257p6x" path="res://enemies/enemy_bullet.gd" id="2_qadii"]
 [ext_resource type="PackedScene" uid="uid://vfox1tr302a" path="res://components/hitbox.tscn" id="3_45xi0"]
 [ext_resource type="Texture2D" uid="uid://cjj4kfgu1v36t" path="res://assets/bullet/enemy_bullet.png" id="3_xnav5"]
+[ext_resource type="Texture2D" uid="uid://c5iks7i617oxt" path="res://assets/light_.png" id="5_4oknx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xnav5"]
 radius = 16.03122
@@ -150,6 +151,14 @@ emitting = false
 lifetime = 0.2
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_4oknx")
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="5"]
+position = Vector2(0.853508, -0.5)
+scale = Vector2(0.3535156, 0.23632813)
+enabled = false
+energy = 0.5
+texture = ExtResource("5_4oknx")
+offset = Vector2(-1, 0)
 
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

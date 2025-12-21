@@ -1,4 +1,4 @@
-extends Camera2D
+class_name cam extends Camera2D
 
 #Based of the 3.x KidsCanCode implementation -> https://kidscancode.org/godot_recipes/3.x/2d/screen_shake/index.html
 

@@ -1,13 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://drm4m0advbis2"]
+[gd_scene load_steps=15 format=3 uid="uid://drm4m0advbis2"]
 
+[ext_resource type="Script" uid="uid://df2eps7jx0l0l" path="res://world/boss_room.gd" id="1_31lqc"]
 [ext_resource type="PackedScene" uid="uid://dhh663hd246p3" path="res://enemies/boss/boss.tscn" id="1_ag8ou"]
 [ext_resource type="Shader" uid="uid://cpod5ov3gp61k" path="res://shaders/hit.gdshader" id="2_hbpix"]
 [ext_resource type="PackedScene" uid="uid://kxmwduvgdusb" path="res://player_type/big_guy/big_guy.tscn" id="2_himuu"]
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="3_himuu"]
 [ext_resource type="PackedScene" uid="uid://tookb8w7ubpg" path="res://menus/pause_menu/pause_menu.tscn" id="4_il0dw"]
 [ext_resource type="AudioStream" uid="uid://6yecn64gq5hf" path="res://assets/prototype_assets/muzic/16_bit_space.ogg" id="5_0cum3"]
+[ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="8_2ocg1"]
+[ext_resource type="PackedScene" uid="uid://bxqgt6syiwfi5" path="res://enemies/shield_enemy/shield_enemy.tscn" id="9_oxm3p"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_31lqc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hbpix"]
 resource_local_to_scene = true
 shader = ExtResource("2_hbpix")
 shader_parameter/active = false
@@ -15,42 +18,46 @@ shader_parameter/active = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_himuu"]
 size = Vector2(63.0063, 1882)
 
-[sub_resource type="Environment" id="Environment_0cum3"]
-background_mode = 3
-tonemap_mode = 2
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-glow_enabled = true
-glow_intensity = 1.0
-glow_strength = 0.5
-glow_bloom = 0.3
-glow_hdr_scale = 1.0
-fog_enabled = true
-
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hbpix"]
 polygon = PackedVector2Array(-9, -6, 973, 0, 1924, 0, 1923, -30, -8, -42)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_31lqc"]
 polygon = PackedVector2Array(0, 0, 3, 1097, -50, 1098, -50, 0)
 
-[node name="boss_room" type="Node2D"]
+[sub_resource type="Environment" id="Environment_hbpix"]
+background_mode = 3
+ambient_light_source = 1
+reflected_light_source = 1
+tonemap_mode = 3
+tonemap_exposure = 2.0
+tonemap_white = 1.5
+glow_enabled = true
+glow_intensity = 1.5
+
+[node name="boss_room" type="Node2D" node_paths=PackedStringArray("camera")]
 process_mode = 1
+script = ExtResource("1_31lqc")
+camera = NodePath("camera")
 
-[node name="Boss" parent="." instance=ExtResource("1_ag8ou")]
-position = Vector2(958, 522)
+[node name="Boss" parent="." node_paths=PackedStringArray("root_node") instance=ExtResource("1_ag8ou")]
+position = Vector2(954, 533)
+root_node = NodePath("..")
+metadata/_edit_group_ = true
 
-[node name="Sprite2D" parent="Boss" index="3"]
-material = SubResource("ShaderMaterial_31lqc")
+[node name="PointLight2D" parent="Boss" index="0"]
+position = Vector2(-2, -2)
+
+[node name="Sprite2D" parent="Boss/boss_defence" index="1"]
+position = Vector2(955.00006, 533)
+
+[node name="Sprite2D" parent="Boss" index="4"]
+material = SubResource("ShaderMaterial_hbpix")
 
 [node name="Big_guy" parent="." instance=ExtResource("2_himuu")]
-position = Vector2(467, 356)
+position = Vector2(90, 474)
 
 [node name="SmallGuy" parent="." instance=ExtResource("3_himuu")]
-position = Vector2(436, 596)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(962, 533)
+position = Vector2(59, 715)
 
 [node name="boundary" type="StaticBody2D" parent="."]
 position = Vector2(79, 664)
@@ -82,9 +89,6 @@ autoplay = true
 bus = &"music"
 parameters/looping = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0cum3")
-
 [node name="occluder1" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_hbpix")
 
@@ -108,6 +112,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+position = Vector2(976, 576)
+enabled = false
+color = Color(0.047058824, 0, 0.09019608, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hbpix")
+
+[node name="camera" parent="." instance=ExtResource("8_2ocg1")]
+position = Vector2(955, 552)
+
+[node name="shield_enemy" parent="." instance=ExtResource("9_oxm3p")]
 
 [editable path="Boss"]
 [editable path="Boss/hitbox"]

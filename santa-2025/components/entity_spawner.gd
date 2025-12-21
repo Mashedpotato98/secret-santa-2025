@@ -27,7 +27,7 @@ func spawn_bullet(angle:float):
 func spawn_minion(minion:CharacterBody2D,angle:float):
 
 	minion.look_at(_get_vector(angle))  
-	var force:int = randi_range(200,1100)
+	var force:int = randi_range(500,1100)
 
 	get_tree().root.call_deferred('add_child', minion)
 
@@ -37,7 +37,6 @@ func spawn_minion(minion:CharacterBody2D,angle:float):
 func _get_vector(angle):
 	theta = angle + alpha
 	return Vector2(cos(theta), sin(theta))
-
 
 func _on_timer_timeout() -> void:
 	timer_finished.emit()

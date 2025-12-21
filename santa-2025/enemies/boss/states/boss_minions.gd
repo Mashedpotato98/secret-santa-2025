@@ -24,7 +24,7 @@ func Exit():
 	defence.disable()
 
 func spawn_defence_breaker(): 
-	print('spawning defence breaker')
+	#print('spawning defence breaker')
 	var random_position:Vector2 = Vector2(randi_range(10, 1142), randi_range(10, 638))
 	defence_breaker = defence_breaker_load.instantiate() 
 
@@ -35,14 +35,14 @@ func spawn_defence_breaker():
 	#defence_breakers_list.append(defence_breaker)
 
 func _defence_on():
-	print('defence on')
+	#print('defence on')
 	defence.enable()
 	breaker_spawn_cooldown.start()
 	minion_spawner._start(minion_spawn_cooldown)
 	animation_player.play('defence_on')
 
 func _defence_off():
-	print('defence off')
+	#print('defence off')
 	defence.disable()
 	defence_cooldown.start()
 	minion_spawner.cooldown.stop()
@@ -50,7 +50,7 @@ func _defence_off():
 
 #defence broken by capturing defennce breaker node
 func _on_defence_broken(body:CharacterBody2D):
-	print('defence_broken')
+	#print('defence_broken')
 	if !animation_player.is_playing():
 		animation_player.play('defence_off')
 	defence_breaker.queue_free()
@@ -79,12 +79,12 @@ func _on_bullet_spawner_timer_finished() -> void:
 
 #breaker spawn cooldown. Defence ON -> here
 func _on_breaker_spawn_cooldown_timeout() -> void:
-	print('breaker spawn cooldown.')
+	#print('breaker spawn cooldown.')
 	spawn_defence_breaker()
 
 #defence cooldown finished. Defence OFF -> here
 func _on_defence_cooldown_timeout() -> void:
-	print('defence cooldown finished.')
+	#print('defence cooldown finished.')
 	_defence_on()
 
 func _on_boss_defence_hit() -> void:
