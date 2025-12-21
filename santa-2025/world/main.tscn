@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=12 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
@@ -13,30 +13,73 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmo1i"]
 size = Vector2(63.0063, 1876)
 
+[sub_resource type="Environment" id="Environment_vrojb"]
+background_mode = 3
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.5
+glow_bloom = 0.3
+glow_hdr_scale = 1.0
+fog_enabled = true
+
 [node name="main" type="Node2D"]
 process_mode = 1
+position = Vector2(-4, -25)
 
 [node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
+position = Vector2(1049, 773)
+regular_speed = 200
 
 [node name="Big_guy" parent="." instance=ExtResource("6_gu74f")]
+position = Vector2(1049, 773)
+shoot_speed = 1000
 
 [node name="spawner" type="Node2D" parent="." node_paths=PackedStringArray("score_label")]
-process_mode = 4
-position = Vector2(-1, -4)
+position = Vector2(6, 3)
 script = ExtResource("4_spvjk")
-enemies = Array[PackedScene]([ExtResource("4_cmo1i")])
+enemy_list_0 = Array[PackedScene]([ExtResource("4_cmo1i"), ExtResource("6_i1eo7")])
+enemy_list_1 = Array[PackedScene]([ExtResource("6_i1eo7"), ExtResource("6_i1eo7"), ExtResource("4_cmo1i")])
+enemy_list_2 = Array[PackedScene]([ExtResource("6_i1eo7"), ExtResource("4_cmo1i"), ExtResource("4_cmo1i")])
+enemy_list_3 = Array[PackedScene]([ExtResource("4_cmo1i"), ExtResource("4_cmo1i"), ExtResource("4_cmo1i"), ExtResource("4_cmo1i"), ExtResource("4_cmo1i")])
+enemy_list_4 = Array[PackedScene]([ExtResource("6_i1eo7"), ExtResource("6_i1eo7"), ExtResource("6_i1eo7"), ExtResource("6_i1eo7"), ExtResource("4_cmo1i")])
+enemy_list_5 = Array[PackedScene]([ExtResource("4_cmo1i"), ExtResource("6_i1eo7"), ExtResource("4_cmo1i"), ExtResource("6_i1eo7"), ExtResource("4_cmo1i"), ExtResource("6_i1eo7")])
 score_label = NodePath("../CanvasLayer/score")
 
 [node name="Timer" type="Timer" parent="spawner"]
-wait_time = 5.0
-autostart = true
+wait_time = 3.0
+one_shot = true
 
-[node name="tank_melee" parent="." instance=ExtResource("4_cmo1i")]
-position = Vector2(-83, 257)
+[node name="Marker2D" type="Marker2D" parent="spawner"]
+position = Vector2(125, 580)
+
+[node name="Marker2D2" type="Marker2D" parent="spawner"]
+position = Vector2(953, 61)
+
+[node name="Marker2D3" type="Marker2D" parent="spawner"]
+position = Vector2(1802, 493)
+
+[node name="Marker2D4" type="Marker2D" parent="spawner"]
+position = Vector2(1014, 1009)
+
+[node name="Marker2D5" type="Marker2D" parent="spawner"]
+position = Vector2(1793, 964)
+
+[node name="Marker2D6" type="Marker2D" parent="spawner"]
+position = Vector2(113, 1007)
+
+[node name="Marker2D7" type="Marker2D" parent="spawner"]
+position = Vector2(79, 80)
+
+[node name="Marker2D8" type="Marker2D" parent="spawner"]
+position = Vector2(1858, 75)
 
 [node name="boundary" type="StaticBody2D" parent="."]
 visible = false
-position = Vector2(-883, 131)
+position = Vector2(70, 627)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boundary"]
@@ -58,14 +101,8 @@ position = Vector2(1837.5, -475.0678)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_cmo1i")
 
-[node name="shield_enemy" parent="." instance=ExtResource("6_i1eo7")]
-position = Vector2(443, 301)
-
 [node name="camera" parent="." instance=ExtResource("5_cmo1i")]
-position = Vector2(-20, 18)
-
-[node name="pause_menu" parent="." instance=ExtResource("7_gu74f")]
-z_index = 1
+position = Vector2(970, 546)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -80,8 +117,23 @@ grow_horizontal = 2
 theme = ExtResource("8_04q08")
 theme_override_font_sizes/font_size = 40
 
+[node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_gu74f")]
+z_index = 1
+offset_left = -4.0
+offset_top = -25.0
+offset_right = -4.0
+offset_bottom = -25.0
+
 [node name="main_muzi" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_vrojb")
 autoplay = true
+bus = &"music"
+parameters/looping = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vrojb")
+
+[node name="melee_enemy" parent="." instance=ExtResource("4_cmo1i")]
+position = Vector2(652, 519)
 
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]

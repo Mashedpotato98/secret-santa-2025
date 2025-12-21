@@ -2,12 +2,13 @@ extends Control
 
 @onready var wave_mode:String = ("res://world/main.tscn")
 @onready var boss_mode:String = ("res://world/boss_room.tscn")
+@onready var tutorial:String = ("res://world/controls_menu.tscn")
 
 @onready var input_mode:CheckButton = $BoxContainer/MainButton/input_mode
 @onready var settings_menu:VBoxContainer = $BoxContainer/settings
 @onready var main_menu:VBoxContainer = $BoxContainer/MainButton
 @onready var fullscreen_toggle:CheckBox = $BoxContainer/settings/fullscreen
-@onready var boss_button:Button = $BoxContainer/MainButton/Boss #only being used to grab focus
+@onready var tutorial_button:Button = $BoxContainer/MainButton/Tutorial #only being used to grab focus
 @onready var main_volume_slider:HSlider = $BoxContainer/settings/vol_slider_main
 @onready var sfx_volume_slider:HSlider = $BoxContainer/settings/vol_slider_sfx
 @onready var music_volume_slider:HSlider = $BoxContainer/settings/vol_slider_music
@@ -27,7 +28,7 @@ func _ready():
 	if get_tree().paused == true:
 		get_tree().paused = false
 	
-	_disable_settings()
+	_disable_settngs()
 	get_viewport().gui_focus_changed.connect(gui_focus_changed) 
 
 
@@ -55,8 +56,8 @@ func _enable_settings():
 	main_menu.visible = false
 	settings_menu.visible = true
 
-func _disable_settings():
-	boss_button.grab_focus()
+func _disable_settngs():
+	tutorial_button.grab_focus()
 	settings_menu.visible = false
 	main_menu.visible = true
 
@@ -91,8 +92,7 @@ func _on_settings_pressed() -> void:
 	_enable_settings() 
 
 func _on_settings_back_pressed() -> void:
-	_disable_settings()
-
+	_disable_settngs()
 
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
@@ -110,26 +110,12 @@ func _on_vol_slider_sfx_value_changed(value: float) -> void:
 func _on_vol_slider_music_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_linear(AudioServer.get_bus_index('music'), value)
 
-
-func _on_box_container_gui_input(event: InputEvent) -> void:
-	pass
-	#$menu_sounds.play()
-
-func _on_box_container_focus_entered() -> void:
-	#$menu_sounds.play()
-	pass # Replace with function body.
-
-
-func _on_box_container_focus_exited() -> void:
-	#$menu_sounds.play()
-	pass # Replace with function body.
-
-
-func _on_boss_focus_entered() -> void:
-	pass
-	#$menu_sounds.play()
-
 func gui_focus_changed(Node:Control):
-	pass
-	$menu_sounds.play()
+	if $menu_sounds.playing == false:
+		$menu_sounds.play()
+	else :
+		await $menu_sounds.finished
+		$menu_sounds.play()
 	
+func _on_tutorial_pressed() -> void:
+	get_tree().change_scene_to_file(tutorial)

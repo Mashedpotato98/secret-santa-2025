@@ -4,15 +4,18 @@ class_name bossBulletWave extends State
 @export var bullet_spawner:Node2D
 @export var hurtbox:hurtBox
 @export var spawn_cooldown:float = 1.0
+@export var shoot_sound:AudioStreamPlayer2D 
 
-@onready var health_change_state:int = 10
+@export var health_change_state:int = 10
 
 var active:bool = false
 
 func Enter():
+	await get_tree().create_timer(1.0).timeout
 	active = true
 	bullet_spawner._start(spawn_cooldown)
-	animation_player.play('spawn_bullet')
+	if !animation_player.is_playing():
+		animation_player.play('spawn_bullet')
 
 func Exit():
 	active = false
@@ -20,6 +23,9 @@ func Exit():
 
 func _on_bullet_spawner_timer_finished() -> void:
 	if active == true:
+		if !shoot_sound.playing:
+			shoot_sound.play() 
+
 		bullet_spawner.spawn_bullet(bullet_spawner.theta)
 
 

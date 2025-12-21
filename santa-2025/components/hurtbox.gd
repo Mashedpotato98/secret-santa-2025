@@ -13,8 +13,8 @@ func damage(hitbox:hitBox):
 	if (hp <= 0):
 		killed.emit()
 	var direction:Vector2 = global_position.direction_to(hitbox.get_parent().global_position)
-	got_hit.emit(hp)
 	knockback_values.emit(direction, hitbox.knockback_strength)
-	
+	got_hit.emit(hp)
+		
 		
 	

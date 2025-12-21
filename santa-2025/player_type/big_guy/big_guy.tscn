@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://kxmwduvgdusb"]
+[gd_scene load_steps=17 format=3 uid="uid://kxmwduvgdusb"]
 
 [ext_resource type="Script" uid="uid://ctqxqg3psi2jb" path="res://player_type/big_guy/big_guy.gd" id="1_buqfc"]
 [ext_resource type="Texture2D" uid="uid://canfkibwbioyh" path="res://assets/big_guy/big_guy.png" id="2_ngess"]
 [ext_resource type="PackedScene" uid="uid://bm4pld2vgml0m" path="res://player_type/big_guy/weapon/big_weapon.tscn" id="3_ilc6v"]
 [ext_resource type="PackedScene" uid="uid://cw6vrpa8b0u16" path="res://components/hurtbox.tscn" id="4_m8ldj"]
+[ext_resource type="Texture2D" uid="uid://c52k1xbaarrpx" path="res://assets/effects/light_.png" id="4_tx5gx"]
 [ext_resource type="PackedScene" uid="uid://bwsmr01fo5ush" path="res://components/knockback_receiver.tscn" id="5_ngess"]
 [ext_resource type="Texture2D" uid="uid://dupdohro8bqh5" path="res://assets/ui/health_bar/over.png" id="5_obsep"]
 [ext_resource type="Texture2D" uid="uid://nu6i7ckhkjvu" path="res://assets/ui/health_bar/2nd/under.png" id="5_ucvqr"]
@@ -15,6 +16,21 @@ size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8ldj"]
 size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_alecs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/health_bar:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ucvqr"]
 resource_name = "hit"
@@ -35,21 +51,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.4862745), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_alecs"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/health_bar:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_obsep"]
 _data = {
 &"RESET": SubResource("Animation_alecs"),
@@ -63,6 +64,7 @@ script = ExtResource("1_buqfc")
 shoot_speed = 30
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, 0)
 texture = ExtResource("2_ngess")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -71,6 +73,20 @@ shape = SubResource("RectangleShape2D_jn63w")
 [node name="Big_weapon" parent="." node_paths=PackedStringArray("big_guy") instance=ExtResource("3_ilc6v")]
 position = Vector2(21, -1)
 big_guy = NodePath("..")
+
+[node name="Line2D" type="Line2D" parent="Big_weapon"]
+position = Vector2(74, 2)
+points = PackedVector2Array(2500, 0, 0, 0)
+width = 20.0
+default_color = Color(0.36862746, 0.003921569, 0.10980392, 0.07450981)
+
+[node name="PointLight2D" type="PointLight2D" parent="Big_weapon"]
+top_level = true
+position = Vector2(2094.25, 2.500001)
+scale = Vector2(31.128906, 0.734375)
+color = Color(0.36862746, 0.003921569, 0.10980392, 1)
+shadow_enabled = true
+texture = ExtResource("4_tx5gx")
 
 [node name="hurtbox" parent="." node_paths=PackedStringArray("owner_node") instance=ExtResource("4_m8ldj")]
 visible = false

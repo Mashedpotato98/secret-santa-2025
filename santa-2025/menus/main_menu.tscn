@@ -117,18 +117,23 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -980.0
-offset_top = -311.0
+offset_top = -282.0
 offset_right = 940.0
-offset_bottom = 469.0
+offset_bottom = 498.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_ij7vn")
 
 [node name="MainButton" type="VBoxContainer" parent="BoxContainer"]
-visible = false
 layout_mode = 2
 
-[node name="Boss" type="Button" parent="BoxContainer/MainButton"]
+[node name="Tutorial" type="Button" parent="BoxContainer/MainButton"]
+layout_mode = 2
+theme = ExtResource("2_ij7vn")
+theme_override_font_sizes/font_size = 75
+text = "Tutorial"
+
+[node name="Boss2" type="Button" parent="BoxContainer/MainButton"]
 layout_mode = 2
 theme = ExtResource("2_ij7vn")
 theme_override_font_sizes/font_size = 75
@@ -158,6 +163,7 @@ theme = SubResource("Theme_rx1ud")
 text = "controller/mix?"
 
 [node name="settings" type="VBoxContainer" parent="BoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="fullscreen" type="CheckBox" parent="BoxContainer/settings"]
@@ -282,7 +288,6 @@ rotation = 0.5235988
 texture = ExtResource("8_hswy5")
 
 [node name="Info" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -320,8 +325,10 @@ bus = &"SFX"
 [connection signal="focus_entered" from="BoxContainer" to="." method="_on_box_container_focus_entered"]
 [connection signal="focus_exited" from="BoxContainer" to="." method="_on_box_container_focus_exited"]
 [connection signal="gui_input" from="BoxContainer" to="." method="_on_box_container_gui_input"]
-[connection signal="focus_entered" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_focus_entered"]
-[connection signal="pressed" from="BoxContainer/MainButton/Boss" to="." method="_on_boss_pressed"]
+[connection signal="focus_entered" from="BoxContainer/MainButton/Tutorial" to="." method="_on_boss_focus_entered"]
+[connection signal="pressed" from="BoxContainer/MainButton/Tutorial" to="." method="_on_tutorial_pressed"]
+[connection signal="focus_entered" from="BoxContainer/MainButton/Boss2" to="." method="_on_boss_focus_entered"]
+[connection signal="pressed" from="BoxContainer/MainButton/Boss2" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="BoxContainer/MainButton/wave" to="." method="_on_wave_pressed"]
 [connection signal="toggled" from="BoxContainer/MainButton/wave" to="." method="_on_wave_toggled"]
 [connection signal="pressed" from="BoxContainer/MainButton/Settings" to="." method="_on_settings_pressed"]

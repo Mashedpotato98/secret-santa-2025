@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://c65uf16e6i2o4" path="res://bullet.gd" id="1_1k472"]
 [ext_resource type="Texture2D" uid="uid://dfjytk3v5veer" path="res://icon.svg" id="2_3g18n"]
 
-[node name="bullet" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+[node name="bullet" type="CharacterBody2D"]
+modulate = Color(1, 1, 1, 0.72156864)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_1k472")
-hitbox = NodePath("")
 speed = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

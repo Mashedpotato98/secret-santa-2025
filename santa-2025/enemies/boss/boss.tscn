@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dhh663hd246p3"]
+[gd_scene load_steps=42 format=3 uid="uid://dhh663hd246p3"]
 
 [ext_resource type="Script" uid="uid://ckqgteahex3nn" path="res://enemies/Boss.gd" id="1_n18ml"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_ubujh"]
@@ -17,8 +17,12 @@
 [ext_resource type="Texture2D" uid="uid://do1lgr8yj85q2" path="res://assets/boss/health_stuff/progress.png" id="10_1bvvi"]
 [ext_resource type="AudioStream" uid="uid://5v70vnebmxlk" path="res://assets/sounds/small_guy_hit/big_hit_edit.wav" id="10_p1sap"]
 [ext_resource type="PackedScene" uid="uid://dnomsvvnuwjes" path="res://components/flash.tscn" id="13_02fuc"]
+[ext_resource type="AudioStream" uid="uid://imychyet4bsh" path="res://assets/sounds/boss/shoot_sound.wav" id="14_1bvvi"]
 [ext_resource type="PackedScene" uid="uid://duvyp3fetud8o" path="res://enemies/boss/defense/boss_defence.tscn" id="14_02fuc"]
 [ext_resource type="Shader" uid="uid://bys66bmvlt136" path="res://shaders/flash.gdshader" id="14_m37od"]
+[ext_resource type="AudioStream" uid="uid://bolp8fbo2o33w" path="res://assets/sounds/boss/defence_broken.wav" id="15_wuvvm"]
+[ext_resource type="AudioStream" uid="uid://3qo7jw5g0nlh" path="res://assets/sounds/boss/defence_on.wav" id="16_o1no1"]
+[ext_resource type="AudioStream" uid="uid://b7lvju08lbycn" path="res://assets/sounds/boss/spawn.wav" id="17_u7h5g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02fuc"]
 size = Vector2(100, 100)
@@ -133,7 +137,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -158,6 +162,78 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("hit_particle:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("audio/hit:playing")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("audio/defence_broken:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("audio/defence_on:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("audio/spawn_melee:playing")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("audio/spawn_shield:playing")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_m37od"]
@@ -222,7 +298,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0.49803922)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -318,6 +394,30 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/defence_broken:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("boss_defence/Sprite2D:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.49411765), Color(1, 1, 1, 0.48235294), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_02fuc"]
 resource_name = "defence_on"
@@ -367,9 +467,86 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.15),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(1, 1.1095695),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.49019608)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("audio/defence_on:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("boss_defence/Sprite2D:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_wuvvm"]
+resource_name = "hurtbox_hit"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("hit_particle:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("audio/hit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:material:shader_parameter/active")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(1.5, 1.5), Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_thi7d"]
@@ -443,11 +620,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("boss_defence/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_2tiri"]
 resource_name = "spawn_melee"
 length = 0.5
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -496,11 +685,23 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("audio/spawn_melee:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_p1sap"]
 resource_name = "spawn_shield"
 length = 0.5
-step = 0.1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -537,6 +738,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(2, 2), Vector2(1.6, 1.6), Vector2(2, 2)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/spawn_shield:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1s7ui"]
 _data = {
@@ -545,6 +758,7 @@ _data = {
 &"defence_hit": SubResource("Animation_o8os0"),
 &"defence_off": SubResource("Animation_b0wi3"),
 &"defence_on": SubResource("Animation_02fuc"),
+&"hurtbox_hit": SubResource("Animation_wuvvm"),
 &"killed": SubResource("Animation_thi7d"),
 &"spawn_bullet": SubResource("Animation_b5n78"),
 &"spawn_melee": SubResource("Animation_2tiri"),
@@ -556,12 +770,31 @@ shader = ExtResource("14_m37od")
 shader_parameter/flash_color = Color(0.36862746, 0.003921569, 0.10980392, 1)
 shader_parameter/flash_amount = 0.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wuvvm"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 240.26
+initial_velocity_max = 260.25998
+angular_velocity_min = 61.799984
+angular_velocity_max = 61.799984
+orbit_velocity_min = -0.49799994
+orbit_velocity_max = -0.49799994
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 99.99999
+linear_accel_max = 99.99999
+scale_min = 0.55
+scale_max = 7.24
+scale_over_velocity_min = 49.329998
+scale_over_velocity_max = 493.28
+color = Color(0.9019608, 0.50980395, 0.59607846, 1)
+
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_n18ml")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_02fuc")
 
@@ -571,16 +804,20 @@ collision_ = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="boss_defence"]
 shape = SubResource("CircleShape2D_02fuc")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="boss_defence"]
 visible = false
 modulate = Color(1, 1, 1, 0)
+show_behind_parent = true
+top_level = true
 scale = Vector2(3, 3)
 texture = ExtResource("3_m37od")
 hframes = 5
 frame = 1
 
 [node name="hitbox" parent="." instance=ExtResource("4_02fuc")]
+visible = false
 position = Vector2(0, -1)
 collision_mask = 1
 knockback_strength = 500
@@ -594,8 +831,9 @@ scale = Vector2(2, 2)
 texture = ExtResource("5_2tiri")
 
 [node name="hurtbox" parent="Sprite2D" node_paths=PackedStringArray("owner_node") instance=ExtResource("9_2tiri")]
+visible = false
 collision_layer = 4
-max_hp = 25
+max_hp = 35
 owner_node = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sprite2D/hurtbox"]
@@ -642,6 +880,36 @@ color = Color(1, 1, 1, 0.4745098)
 stream = ExtResource("10_p1sap")
 volume_db = 2.0
 pitch_scale = 0.8
+bus = &"enemy_sounds"
+
+[node name="shoot" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("14_1bvvi")
+pitch_scale = 2.5
+bus = &"enemy_sounds"
+
+[node name="defence_broken" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("15_wuvvm")
+volume_db = 10.0
+pitch_scale = 0.8
+bus = &"enemy_sounds"
+
+[node name="defence_on" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("16_o1no1")
+volume_db = 5.0
+pitch_scale = 0.89
+bus = &"enemy_sounds"
+
+[node name="spawn_melee" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("17_u7h5g")
+volume_db = 2.0
+pitch_scale = 0.6
+bus = &"enemy_sounds"
+
+[node name="spawn_shield" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("17_u7h5g")
+volume_db = 3.0
+pitch_scale = 0.4
+bus = &"enemy_sounds"
 
 [node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("3_r4ron")]
 load_bullet = ExtResource("8_2tiri")
@@ -650,14 +918,16 @@ father = NodePath("../Sprite2D")
 
 [node name="state_machine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("1_ubujh")
-initial_state = NodePath("bossMinion")
+initial_state = NodePath("bossBulletWave")
 metadata/_custom_type_script = "uid://dyhp2nkv0oyxm"
 
-[node name="bossBulletWave" type="Node" parent="state_machine" node_paths=PackedStringArray("bullet_spawner", "hurtbox", "owner_node", "animation_player")]
+[node name="bossBulletWave" type="Node" parent="state_machine" node_paths=PackedStringArray("bullet_spawner", "hurtbox", "shoot_sound", "owner_node", "animation_player")]
 script = ExtResource("4_8d0e3")
 bullet_spawner = NodePath("../../entity_spawner")
 hurtbox = NodePath("../../Sprite2D/hurtbox")
-spawn_cooldown = 0.04
+spawn_cooldown = 0.03
+shoot_sound = NodePath("../../audio/shoot")
+health_change_state = 20
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://ciyvb0x1ucnxy"
@@ -669,10 +939,17 @@ defence_breaker_load = ExtResource("5_b5n78")
 defence = NodePath("../../boss_defence")
 breaker_spawn_cooldown = NodePath("../../breaker_spawn_cooldown")
 defence_cooldown = NodePath("../../defence_cooldown")
-minion_spawn_cooldown = 7
+minion_spawn_cooldown = 4
 owner_node = NodePath("../..")
 animation_player = NodePath("../../AnimationPlayer")
 metadata/_custom_type_script = "uid://c62d321qpdq1l"
+
+[node name="hit_particle" type="GPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_wuvvm")
 
 [connection signal="hit" from="boss_defence" to="state_machine/bossMinion" method="_on_boss_defence_hit"]
 [connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]

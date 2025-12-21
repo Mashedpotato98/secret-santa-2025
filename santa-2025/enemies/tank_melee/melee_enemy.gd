@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name meleeEnemy extends CharacterBody2D
 
 signal died
 
@@ -22,9 +22,8 @@ signal died
 var direction:Vector2
 var knockback:Vector2
 
-var active:bool = false
+var is_dead:bool = false
 var closer_player_position:Vector2
-
 
 
 func _physics_process(delta: float) -> void:
@@ -37,6 +36,9 @@ func _physics_process(delta: float) -> void:
  
 	move_and_slide()
 	
+	
+func _look_at(pos:Vector2):
+	rotation = lerp_angle(rotation, global_position.direction_to(pos).angle(), 0.1)
 
 func _closer_player() -> CharacterBody2D:
 	if players.is_empty(): 
@@ -72,27 +74,17 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -> void:
 	_apply_knockback(direction, knockback_strength)
-	if hurtbox.hp > 0:
-		state.current_state.Transitioned.emit(state.current_state, 'meleeStun')
-		animation_player.play('hit')
-	else :
-		animation_player.play('killed')
-
-func _on_hurtbox_got_hit(health: int) -> void:
-	print(health)
-
-func _on_soft_collision_area_entered(area: Area2D) -> void:
-	var dir:Vector2 = (global_position.direction_to(area.global_position))
-	_apply_knockback(dir, soft_collision_strength) 
-	
-	#for soft_collider in soft_collision.get_overlapping_bodies():
-		#print(soft_collider)
 
 func _on_state_machine_changed(state, new_state) -> void:
 	#$state.text = str(new_state)
 	pass
 
 func _on_hurtbox_killed() -> void:
-	died.emit() 
-	animation_player.play('RESET')
-	animation_player.play("killed")
+	if not is_dead:
+		is_dead = true
+		died.emit(self)            
+		animation_player.play('killed')
+
+func _on_hurtbox_got_hit(health: int) -> void:
+	if is_dead == false:
+		animation_player.play('hit')

@@ -500,6 +500,7 @@ grow_vertical = 2
 texture = ExtResource("10_e3to4")
 
 [node name="aim_direction" type="Line2D" parent="."]
+visible = false
 points = PackedVector2Array(74, 2, 74, 1)
 closed = true
 default_color = Color(0.9019608, 0.50980395, 0.59607846, 0.4745098)

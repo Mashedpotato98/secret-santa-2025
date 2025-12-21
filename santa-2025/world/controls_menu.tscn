@@ -1,0 +1,107 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx33b055lgaxy"]
+
+[ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="1_d6kty"]
+[ext_resource type="Script" uid="uid://vcdprdesog6c" path="res://world/controls_menu.gd" id="1_hoau6"]
+
+[node name="Controls_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hoau6")
+
+[node name="Oveview" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -430.0
+offset_top = 29.0
+offset_right = 347.0
+offset_bottom = 249.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "YOU TWO have been selected for the highly secretive mission, 'squaring'. To defeat the powerful rebels, you two have been given special weapons designed purely for [color=red]EXTERMINATION[/color].  Below is some info that is gonna be useful for your training
+"
+autowrap_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -554.0
+offset_top = -274.0
+offset_right = 375.0
+offset_bottom = 586.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_d6kty")
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="BoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Controls for - >[color=black]REDACTED[/color]  the 'big guy' : 
+[color=5e011c]>[/color]arrow keys/left stick to move around
+[color=5e011c]>[/color]right stick/mouse to look around
+[color=5e011c]>[/color]rmb to charge(and release to shoot)
+
+[color=black]REDACTED[/color]  the 'small guy' :
+[color=ff540]>[/color] wasd/left stick to move around
+[color=ff540]>[/color] space/Triangle/Y to dash
+[color=ff540]>[/color] F/square/X/RT to do melee attack
+[color=ff540]>[/color]right/wasd to look around
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(1154, 230)
+points = PackedVector2Array(-590, 5, 8, 5)
+width = 5.0
+default_color = Color(0.84705883, 0.827451, 1, 1)
+
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2(1158, 677)
+points = PackedVector2Array(-590, 5, 8, 5)
+width = 5.0
+default_color = Color(0.84867585, 0.8275344, 1, 1)
+
+[node name="Label2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 563.0
+offset_top = 732.0
+offset_right = 1429.0
+offset_bottom = 888.0
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "How to detect [color=653d8f]non square spies[/color] : 
+[color=ff5403] ->[/color] they shoot at you
+[color=ff5403] ->[/color] they arent square
+[color=ff5403] ->[/color] they are evil"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 548.0
+offset_top = 952.0
+offset_right = 1141.0
+offset_bottom = 1050.0
+theme = ExtResource("1_d6kty")
+theme_override_font_sizes/font_size = 75
+text = "Resume"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

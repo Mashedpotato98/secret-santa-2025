@@ -51,20 +51,25 @@ func _defence_off():
 #defence broken by capturing defennce breaker node
 func _on_defence_broken(body:CharacterBody2D):
 	print('defence_broken')
-	animation_player.play('defence_broken')
+	if !animation_player.is_playing():
+		animation_player.play('defence_off')
 	defence_breaker.queue_free()
 	_defence_off()
 
 func _spawn_minion():
 	if melees_spawned < melee_spawn_threshold: 
+		print("not reached:" + str(melees_spawned))
 		var melee_enemy:CharacterBody2D = minion_spawner.melee_enemy_load.instantiate()
-		animation_player.play('spawn_melee')
+		if !animation_player.is_playing():
+			animation_player.play('spawn_melee')
 		minion_spawner.spawn_minion(melee_enemy, minion_spawner.theta)
 		melees_spawned += 1
 	else :
+		print("reached:" + str(melees_spawned))
 		melees_spawned = 0
 		var shield_enemy:CharacterBody2D = minion_spawner.shield_enemy_load.instantiate()
-		animation_player.play('spawn_shield')
+		if !animation_player.is_playing():
+			animation_player.play('spawn_shield')
 		minion_spawner.spawn_minion(shield_enemy, minion_spawner.theta)
 
 func _on_bullet_spawner_timer_finished() -> void:
@@ -83,4 +88,5 @@ func _on_defence_cooldown_timeout() -> void:
 	_defence_on()
 
 func _on_boss_defence_hit() -> void:
-	animation_player.play('defence_hit')
+	if !animation_player.is_playing():
+		animation_player.play('defence_hit')

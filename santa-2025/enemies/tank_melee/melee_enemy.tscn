@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://7apob1ku4abi"]
+[gd_scene load_steps=40 format=3 uid="uid://7apob1ku4abi"]
 
 [ext_resource type="Script" uid="uid://ct3ddqmajxc4a" path="res://enemies/tank_melee/melee_enemy.gd" id="1_2el2d"]
 [ext_resource type="Texture2D" uid="uid://vnpprg6155pk" path="res://assets/melee_tank/melee_tank.png" id="2_e2e8j"]
@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://dq3ui2y2y18ur" path="res://enemies/tank_melee/states/melee_stun.gd" id="11_2myxq"]
 [ext_resource type="PackedScene" uid="uid://co2toqo8681jp" path="res://components/soft_collision.tscn" id="13_iqfe0"]
 [ext_resource type="AudioStream" uid="uid://brar3finjpvpr" path="res://assets/sounds/slap_hit/clean_wall_slap.wav" id="14_laaba"]
+[ext_resource type="AudioStream" uid="uid://wxi4wk1ccj35" path="res://assets/sounds/melee_charge/melee_charge.wav" id="16_gx3dk"]
+[ext_resource type="Texture2D" uid="uid://csrnk5jxggywm" path="res://assets/effects/light_2.png" id="17_5jt8b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7ly"]
 resource_local_to_scene = true
@@ -230,11 +232,71 @@ tracks/16/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("audio/ram_sound:playing")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/18/type = "value"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("die_particles:emitting")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/19/type = "value"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("light/base_light:enabled")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("Sprite2D:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("light/base_light:visible")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_eu7ly"]
 resource_name = "attack"
-length = 0.2
-step = 0.1
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -306,6 +368,30 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("audio/ram_sound:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 1), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_iqfe0"]
@@ -605,7 +691,7 @@ tracks/6/path = NodePath(".")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0.25),
+"times": PackedFloat32Array(0.3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -614,7 +700,7 @@ tracks/6/keys = {
 }
 tracks/7/type = "value"
 tracks/7/imported = false
-tracks/7/enabled = true
+tracks/7/enabled = false
 tracks/7/path = NodePath("state_machine:process_mode")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
@@ -647,6 +733,54 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("die_particles:emitting")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("light/base_light:enabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Sprite2D:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("light/base_light:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_e2e8j"]
@@ -790,6 +924,16 @@ scale_over_velocity_max = 1000.0
 color = Color(0.900271, 0.5115525, 0.5956293, 1)
 color_ramp = SubResource("GradientTexture1D_5jt8b")
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gx3dk"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_max = 188.51
+gravity = Vector3(0, 40, 0)
+scale_min = 0.55
+scale_max = 6.0
+scale_over_velocity_max = 226.45999
+color = Color(0.39607844, 0.23921569, 0.56078434, 1)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_e2e8j"]
 radius = 45.01111
 
@@ -806,6 +950,9 @@ radius = 23.021729
 offsets = PackedFloat32Array(0.55390334, 1)
 colors = PackedColorArray(0.7176471, 0.6156863, 1, 1, 0.7792914, 0.7792914, 0.7792913, 1)
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gx3dk"]
+polygon = PackedVector2Array(-15, 15, 6, 15, 20, 1, 9, -15, -15, -15)
+
 [node name="melee_enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 0
@@ -814,6 +961,7 @@ soft_collision_strength = 60
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_eu7ly")
+position = Vector2(1, 0)
 texture = ExtResource("2_e2e8j")
 vframes = 5
 
@@ -836,6 +984,14 @@ process_material = SubResource("ParticleProcessMaterial_aoyox")
 position = Vector2(-16, 1)
 texture = null
 process_material = SubResource("ParticleProcessMaterial_2myxq")
+
+[node name="die_particles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.3
+speed_scale = 1.2
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_gx3dk")
 
 [node name="idle_timer" type="Timer" parent="."]
 one_shot = true
@@ -890,6 +1046,7 @@ animation_player = NodePath("../../AnimationPlayer")
 [node name="areas" type="Node2D" parent="."]
 
 [node name="attack_area" type="Area2D" parent="areas"]
+visible = false
 collision_layer = 0
 monitorable = false
 
@@ -921,9 +1078,11 @@ disabled = true
 body = NodePath("../..")
 
 [node name="soft_collision" parent="areas" instance=ExtResource("13_iqfe0")]
+visible = false
 monitorable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="areas/soft_collision"]
+visible = false
 position = Vector2(-3, 0)
 shape = SubResource("CircleShape2D_iqfe0")
 
@@ -931,12 +1090,19 @@ shape = SubResource("CircleShape2D_iqfe0")
 
 [node name="hit_audio" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_laaba")
+volume_db = 15.0
 bus = &"enemy_sounds"
 
 [node name="die_audio" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_laaba")
-volume_db = 1.0
+volume_db = 16.0
 pitch_scale = 0.5
+bus = &"enemy_sounds"
+
+[node name="ram_sound" type="AudioStreamPlayer2D" parent="audio"]
+stream = ExtResource("16_gx3dk")
+volume_db = 15.0
+pitch_scale = 0.7
 bus = &"enemy_sounds"
 
 [node name="state" type="Label" parent="."]
@@ -951,6 +1117,22 @@ modulate = Color(1, 1, 1, 0.49019608)
 width = 30.0
 default_color = Color(0.7176471, 0.6156863, 1, 1)
 gradient = SubResource("Gradient_aoyox")
+
+[node name="light" type="Node2D" parent="."]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="light"]
+top_level = true
+occluder = SubResource("OccluderPolygon2D_gx3dk")
+
+[node name="base_light" type="PointLight2D" parent="light"]
+visible = false
+position = Vector2(4.9999995, -1.1920929e-07)
+scale = Vector2(2.953125, 2.5468748)
+enabled = false
+color = Color(0.79592043, 0.6996927, 0.925246, 0.5764706)
+energy = 5.0
+shadow_enabled = true
+texture = ExtResource("17_5jt8b")
 
 [connection signal="timeout" from="idle_timer" to="state_machine/meleeIdle" method="_on_idle_timer_timeout"]
 [connection signal="timeout" from="charge_time" to="state_machine/meleeCharge" method="_on_charge_time_timeout"]

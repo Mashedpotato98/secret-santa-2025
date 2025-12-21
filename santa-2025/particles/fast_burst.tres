@@ -2,13 +2,14 @@
 
 [resource]
 particle_flag_disable_z = true
-spread = 75.0
+spread = 180.0
 initial_velocity_min = 240.26
 initial_velocity_max = 260.25998
 angular_velocity_min = 61.799984
 angular_velocity_max = 61.799984
 orbit_velocity_min = -0.49799994
 orbit_velocity_max = -0.49799994
+gravity = Vector3(0, 0, 0)
 scale_min = 0.55
 scale_max = 3.0
 color = Color(0.9019608, 0.50980395, 0.59607846, 1)

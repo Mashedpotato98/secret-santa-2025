@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bxqgt6syiwfi5"]
+[gd_scene load_steps=30 format=3 uid="uid://bxqgt6syiwfi5"]
 
 [ext_resource type="Script" uid="uid://df2qe54raq1sc" path="res://enemies/shield_enemy/shield_enemy.gd" id="1_gjbi7"]
 [ext_resource type="Script" uid="uid://dyhp2nkv0oyxm" path="res://components/state_machine.gd" id="1_icwi8"]
@@ -323,7 +323,7 @@ tracks/3/keys = {
 }
 tracks/4/type = "value"
 tracks/4/imported = false
-tracks/4/enabled = true
+tracks/4/enabled = false
 tracks/4/path = NodePath("CollisionShape2D:process_mode")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
@@ -347,7 +347,7 @@ tracks/5/keys = {
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("boss_defence:process_mode")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
@@ -359,7 +359,7 @@ tracks/6/keys = {
 }
 tracks/7/type = "value"
 tracks/7/imported = false
-tracks/7/enabled = true
+tracks/7/enabled = false
 tracks/7/path = NodePath("state_machine:process_mode")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
@@ -439,7 +439,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xclfr"]
-radius = 42.047592
+radius = 33.13608
 
 [sub_resource type="Gradient" id="Gradient_aqxx0"]
 offsets = PackedFloat32Array(0, 0.40828404)
@@ -472,6 +472,9 @@ scale_over_velocity_min = 691.0
 scale_over_velocity_max = 1000.0
 color = Color(0.72375035, 0.87316495, 0.8792535, 1)
 color_ramp = SubResource("GradientTexture1D_owanv")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1n3dr"]
+polygon = PackedVector2Array(-15, -24, 23, -24, 22, 23, -13, 24)
 
 [node name="shield_enemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -534,7 +537,6 @@ libraries = {
 body = NodePath("..")
 
 [node name="boss_defence" parent="." node_paths=PackedStringArray("collision_") instance=ExtResource("8_xclfr")]
-visible = false
 collision_layer = 128
 collision_mask = 0
 collision_ = NodePath("CollisionShape2D")
@@ -557,14 +559,17 @@ wait_time = 1.5
 
 [node name="hit_shield" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("13_t60sb")
+volume_db = 1.0
 bus = &"enemy_sounds"
 
 [node name="hit_hurtbox" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_1n3dr")
+volume_db = 4.0
 bus = &"enemy_sounds"
 
 [node name="died_hurtbox" type="AudioStreamPlayer2D" parent="audio"]
 stream = ExtResource("14_1n3dr")
+volume_db = 4.0
 pitch_scale = 1.5
 bus = &"enemy_sounds"
 
@@ -579,6 +584,9 @@ process_material = SubResource("ParticleProcessMaterial_t60sb")
 [node name="entity_spawner" parent="." node_paths=PackedStringArray("father") instance=ExtResource("10_ojfjr")]
 load_bullet = ExtResource("10_kt4ho")
 father = NodePath("../Sprite2D")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_1n3dr")
 
 [connection signal="killed" from="hurtbox" to="." method="_on_hurtbox_killed"]
 [connection signal="knockback_values" from="hurtbox" to="." method="_on_hurtbox_knockback_values"]

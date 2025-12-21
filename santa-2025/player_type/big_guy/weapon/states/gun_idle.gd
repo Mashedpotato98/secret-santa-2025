@@ -18,8 +18,6 @@ func Enter():
 
 
 func update(_delta: float):
-	print(direction_visual.points[0])
-
 	if Input.is_action_pressed('shoot') and can_shoot == true:
 		shoot_icon.play('hide_shoot_icon')
 		Transitioned.emit(self, "gunCharge")

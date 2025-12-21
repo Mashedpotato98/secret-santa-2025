@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://brbdforyu31ck"]
+
+[ext_resource type="Theme" uid="uid://bvgdtf2w5y0km" path="res://ui_themes/main_menu.tres" id="1_1acs8"]
+[ext_resource type="Script" uid="uid://ra8tudf506co" path="res://world/thank_you.gd" id="2_4m57y"]
+
+[node name="Thank_you" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1acs8")
+script = ExtResource("2_4m57y")
+
+[node name="Label" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -432.5
+offset_top = -225.5
+offset_right = 432.5
+offset_bottom = 225.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "Thank you for playing, mr [color=5e011c] Lensu[/color] and [color=#ff5403]Zac[/color]. Hey man, I wanna join your brotherhood aswell. I support germany in football, so I'm basically german"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 890.0
+offset_right = 1448.0
+offset_bottom = 1073.0
+theme = ExtResource("1_1acs8")
+theme_override_font_sizes/font_size = 75
+text = "Main Menu"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
