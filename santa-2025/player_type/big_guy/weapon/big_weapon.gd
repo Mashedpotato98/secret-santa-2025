@@ -11,15 +11,15 @@ extends Node2D
 
 
 func _process(delta: float) -> void:
-    pass    
+	pass    
 
 func _visual_aim(line:Line2D, direction:Vector2):
-    line.points[1] = direction
+	line.points[1] = direction
 
 
-        
+		
 
 func slow_down_player():
-    big_guy.speed = big_guy.shoot_speed
+	big_guy.speed = big_guy.shoot_speed
 func revert_player_speed():
-    big_guy.speed = big_guy.regular_speed
+	big_guy.speed = big_guy.regular_speed

@@ -35,17 +35,14 @@ func _closer_player() -> CharacterBody2D:
 	var closest_player:CharacterBody2D = players[0]
 
 	for player:CharacterBody2D in players:
+		
 		if player:
-			var current_distance = global_position.distance_to(player.global_position)
+			var current_distance = global_position.distance_squared_to(player.global_position)
 			if  current_distance < smallest_distance:
 				smallest_distance = current_distance
 				closest_player = player
 	return closest_player
 
-
-func _push_forward(push_to:Vector2, push_force:int):
-	var dir:Vector2 = global_position.direction_to(push_to)
-	knockback = dir * push_force
 
 func _look_at_player(pos:Vector2):
 	rotation = lerp_angle(rotation, global_position.direction_to(pos).angle(), 0.1)

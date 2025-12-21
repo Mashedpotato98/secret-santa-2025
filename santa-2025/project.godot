@@ -38,6 +38,7 @@ enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 
 small_guy=""
 big_guy=""
+player=""
 
 [gui]
 

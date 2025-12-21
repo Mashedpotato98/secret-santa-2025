@@ -48,7 +48,7 @@ func _closer_player() -> CharacterBody2D:
 
 	for player:CharacterBody2D in players:
 		if player:
-			var current_distance = global_position.distance_to(player.global_position)
+			var current_distance = global_position.distance_squared_to(player.global_position)
 			if  current_distance < smallest_distance:
 				smallest_distance = current_distance
 				closest_player = player
@@ -88,3 +88,8 @@ func _on_hurtbox_killed() -> void:
 func _on_hurtbox_got_hit(health: int) -> void:
 	if is_dead == false:
 		animation_player.play('hit')
+		state.current_state.Transitioned.emit(state.current_state, "meleeStun")
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

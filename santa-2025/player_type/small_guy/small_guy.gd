@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal killed;
+
 @export var regular_speed:int = 10
 @export var dash_speed:int = 20
 @export var dash_time:float = 0.1
@@ -50,4 +52,5 @@ func _on_hurtbox_knockback_values(direction: Vector2, knockback_strength: int) -
 
 
 func _on_hurtbox_killed() -> void:
+	killed.emit()
 	queue_free()

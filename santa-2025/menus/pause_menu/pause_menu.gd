@@ -3,6 +3,7 @@ extends Control
 @onready var animation_player:AnimationPlayer = $AnimationPlayer
 @onready var main_menu:String = 'res://menus/main_menu.tscn'
 @onready var resume_button:Button = $BoxContainer/VBoxContainer/Resume
+@onready var player_continue:Label = $BoxContainer/VBoxContainer/player
 
 func _ready():
 	resume()

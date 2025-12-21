@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dri8ipi41832e"]
+[gd_scene load_steps=13 format=3 uid="uid://dri8ipi41832e"]
 
 [ext_resource type="PackedScene" uid="uid://ccwoxfnq1xscr" path="res://player_type/small_guy/small_guy.tscn" id="1_gjxf3"]
+[ext_resource type="Script" uid="uid://cacyu0e2n3wxk" path="res://world/main.gd" id="1_qnd6n"]
 [ext_resource type="PackedScene" uid="uid://7apob1ku4abi" path="res://enemies/tank_melee/melee_enemy.tscn" id="4_cmo1i"]
 [ext_resource type="Script" uid="uid://77yh22666j63" path="res://world/spawner.gd" id="4_spvjk"]
 [ext_resource type="PackedScene" uid="uid://ctdmoic685itw" path="res://components/camera.tscn" id="5_cmo1i"]
@@ -16,27 +17,23 @@ size = Vector2(63.0063, 1876)
 [sub_resource type="Environment" id="Environment_vrojb"]
 background_mode = 3
 tonemap_mode = 2
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
 glow_enabled = true
 glow_intensity = 1.0
 glow_strength = 0.5
 glow_bloom = 0.3
 glow_hdr_scale = 1.0
-fog_enabled = true
 
 [node name="main" type="Node2D"]
 process_mode = 1
-position = Vector2(-4, -25)
+script = ExtResource("1_qnd6n")
 
-[node name="SmallGuy" parent="." instance=ExtResource("1_gjxf3")]
+[node name="SmallGuy" parent="." groups=["player"] instance=ExtResource("1_gjxf3")]
 position = Vector2(1049, 773)
 regular_speed = 200
 
-[node name="Big_guy" parent="." instance=ExtResource("6_gu74f")]
+[node name="Big_guy" parent="." groups=["player"] instance=ExtResource("6_gu74f")]
 position = Vector2(1049, 773)
-shoot_speed = 1000
+shoot_speed = 20
 
 [node name="spawner" type="Node2D" parent="." node_paths=PackedStringArray("score_label")]
 position = Vector2(6, 3)
@@ -118,7 +115,7 @@ theme = ExtResource("8_04q08")
 theme_override_font_sizes/font_size = 40
 
 [node name="pause_menu" parent="CanvasLayer" instance=ExtResource("7_gu74f")]
-z_index = 1
+z_index = 4096
 offset_left = -4.0
 offset_top = -25.0
 offset_right = -4.0
@@ -136,4 +133,6 @@ environment = SubResource("Environment_vrojb")
 [node name="melee_enemy" parent="." instance=ExtResource("4_cmo1i")]
 position = Vector2(652, 519)
 
+[connection signal="killed" from="SmallGuy" to="." method="_on_small_guy_killed"]
+[connection signal="killed" from="Big_guy" to="." method="_on_big_guy_killed"]
 [connection signal="timeout" from="spawner/Timer" to="spawner" method="_on_timer_timeout"]
